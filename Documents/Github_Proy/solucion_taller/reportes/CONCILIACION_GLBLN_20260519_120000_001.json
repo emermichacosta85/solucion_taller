@@ -1,0 +1,858 @@
+{
+  "metadata": {
+    "versionEstructura": "1.0.0",
+    "sistemaOrigen": "IBS-IBM-i",
+    "proceso": "CONCILIACION_GLBLN",
+    "ambiente": "QA",
+    "charset": "UTF-8"
+  },
+  "ejecucion": {
+    "idEjecucion": "20260519_120000_001",
+    "fechaProceso": "2026-05-19",
+    "fechaHoraInicio": "2026-05-19T12:00:00",
+    "fechaHoraFin": "2026-05-19T12:03:42",
+    "usuario": "USRFIN01",
+    "programa": "GLRPT001",
+    "libreria": "TALLERLIB",
+    "estadoEjecucion": "PARCIAL"
+  },
+  "contexto": {
+    "banco": "01",
+    "sucursal": "001",
+    "moneda": "USD",
+    "periodo": {
+      "anio": 2026,
+      "mes": 5,
+      "fechaCorte": "2026-05-19"
+    },
+    "rangoCuentas": {
+      "desde": "11000000",
+      "hasta": "11999999"
+    }
+  },
+  "cuentas": [
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010101",
+        "descripcionCuenta": "CAJA GENERAL",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC001"
+      },
+      "saldos": {
+        "saldoInicial": 120000.00,
+        "debitosPeriodo": 40500.50,
+        "creditosPeriodo": 35500.00,
+        "saldoFinalCalculado": 125000.00,
+        "saldoFinalFuente": 125000.50,
+        "saldoFinalConciliado": 125000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 98,
+        "primerMovimiento": "2026-05-01T08:12:10",
+        "ultimoMovimiento": "2026-05-19T11:58:44"
+      },
+      "partidasConciliatorias": [
+        {
+          "idPartida": "PC-0001",
+          "tipo": "TRANSITO",
+          "subtipo": "DEPOSITO_NO_APLICADO",
+          "referencia": "DEP-884771",
+          "fechaPartida": "2026-05-19",
+          "monto": 500.50,
+          "signo": "DEBITO",
+          "estado": "PENDIENTE",
+          "origen": "TTRAN",
+          "observacion": "Deposito en efectivo pendiente de aplicacion en mayor contable. Recibido en caja general sucursal 001 a las 11:45. Referencia DEP-884771."
+        }
+      ],
+      "diferencias": {
+        "diferenciaNeta": 0.50,
+        "diferenciaAbsoluta": 0.50,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": "Partida en transito pendiente de aplicacion"
+      },
+      "estadoConciliacion": {
+        "codigo": "PARCIAL",
+        "descripcion": "Conciliada con partidas pendientes",
+        "severidad": "MEDIA",
+        "requiereRevision": true
+      },
+      "trazabilidad": {
+        "hashCuenta": "a734f9f5cbbf6b5d9f5d7a60b",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 7,
+          "trdsc": 2,
+          "ttran": 10
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010102",
+        "descripcionCuenta": "CAJA CHICA ADMINISTRATIVA",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC001"
+      },
+      "saldos": {
+        "saldoInicial": 5000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 5000.00,
+        "saldoFinalFuente": 5000.00,
+        "saldoFinalConciliado": 5000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "b812e3a7dc4f9120e6c8b45f1",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010103",
+        "descripcionCuenta": "CAJA SUCURSAL NORTE",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC001"
+      },
+      "saldos": {
+        "saldoInicial": 80000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 80000.00,
+        "saldoFinalFuente": 80000.00,
+        "saldoFinalConciliado": 80000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "c921d4b8ef5a0231f7d9c56g2",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010201",
+        "descripcionCuenta": "ENCAJE LEGAL BANCO CENTRAL",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 580000.00,
+        "debitosPeriodo": 25000.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 600000.00,
+        "saldoFinalFuente": 600005.00,
+        "saldoFinalConciliado": 600000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 2,
+        "primerMovimiento": "2026-05-02T08:00:00",
+        "ultimoMovimiento": "2026-05-19T23:55:00"
+      },
+      "partidasConciliatorias": [
+        {
+          "idPartida": "PC-0002",
+          "tipo": "AJUSTE",
+          "subtipo": "AJUSTE_REQUERIDO",
+          "referencia": "AJE-20260519",
+          "fechaPartida": "2026-05-19",
+          "monto": 5000.00,
+          "signo": "DEBITO",
+          "estado": "PENDIENTE",
+          "origen": "TTRAN",
+          "observacion": "Ajuste de encaje legal pendiente confirmacion Banco Central. Fecha valor diferida. Oficio BCH-2026-0519-AJE enviado para confirmacion. Plazo respuesta 48h."
+        }
+      ],
+      "diferencias": {
+        "diferenciaNeta": 5.00,
+        "diferenciaAbsoluta": 5.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": true,
+        "motivoPrincipal": "Diferencia pendiente por asiento de cierre - ajuste encaje no confirmado"
+      },
+      "estadoConciliacion": {
+        "codigo": "NO_CONCILIADA",
+        "descripcion": "No conciliada diferencia relevante",
+        "severidad": "ALTA",
+        "requiereRevision": true
+      },
+      "trazabilidad": {
+        "hashCuenta": "d034e5c9f06b1342a8e0d67h3",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 2,
+          "trdsc": 2,
+          "ttran": 1
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010202",
+        "descripcionCuenta": "DEPOSITO ORDINARIO BANCO CENTRAL",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 600000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 600000.00,
+        "saldoFinalFuente": 600000.00,
+        "saldoFinalConciliado": 600000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "e145f6d0a17c2453b9f1e78i4",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010301",
+        "descripcionCuenta": "DEPOSITO BANCO CORRESPONSAL LOCAL A",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 400000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 400000.00,
+        "saldoFinalFuente": 400000.00,
+        "saldoFinalConciliado": 400000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "f256a7e1b28d3564c0a2f89j5",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11010302",
+        "descripcionCuenta": "DEPOSITO BANCO CORRESPONSAL LOCAL B",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 391250.00,
+        "debitosPeriodo": 8750.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 400000.00,
+        "saldoFinalFuente": 400008.75,
+        "saldoFinalConciliado": 400000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 1,
+        "primerMovimiento": "2026-05-16T17:00:00",
+        "ultimoMovimiento": "2026-05-19T17:00:00"
+      },
+      "partidasConciliatorias": [
+        {
+          "idPartida": "PC-0003",
+          "tipo": "TRANSITO",
+          "subtipo": "TRANSITO_INTERBANCARIO",
+          "referencia": "SWT-884400",
+          "fechaPartida": "2026-05-19",
+          "monto": 8750.00,
+          "signo": "DEBITO",
+          "estado": "TRANSITO",
+          "origen": "TTRAN",
+          "observacion": "Transferencia SWIFT recibida con fecha valor 2026-05-19 pendiente de acreditacion."
+        }
+      ],
+      "diferencias": {
+        "diferenciaNeta": 8.75,
+        "diferenciaAbsoluta": 8.75,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": true,
+        "motivoPrincipal": "Transaccion en transito fin de mes - SWIFT pendiente acreditacion"
+      },
+      "estadoConciliacion": {
+        "codigo": "NO_CONCILIADA",
+        "descripcion": "No conciliada diferencia relevante",
+        "severidad": "ALTA",
+        "requiereRevision": true
+      },
+      "trazabilidad": {
+        "hashCuenta": "g367b8f2c39e4675d1b3a90k6",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 1,
+          "trdsc": 1,
+          "ttran": 1
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11020101",
+        "descripcionCuenta": "BONOS DEL TESORO NACIONAL",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 1000000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 1000000.00,
+        "saldoFinalFuente": 1000000.00,
+        "saldoFinalConciliado": 1000000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "h478c9a3d40f5786e2c4b01l7",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11020102",
+        "descripcionCuenta": "LETRAS DEL BANCO CENTRAL",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 1000000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 1000000.00,
+        "saldoFinalFuente": 1000000.00,
+        "saldoFinalConciliado": 1000000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "i589d0b4e51a6897f3d5c12m8",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11020201",
+        "descripcionCuenta": "ACCIONES SECTOR REAL",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 725000.00,
+        "debitosPeriodo": 25000.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 725000.00,
+        "saldoFinalFuente": 750025.00,
+        "saldoFinalConciliado": 725000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 1,
+        "primerMovimiento": "2026-05-19T22:00:00",
+        "ultimoMovimiento": "2026-05-19T22:00:00"
+      },
+      "partidasConciliatorias": [
+        {
+          "idPartida": "PC-0004",
+          "tipo": "VALORIZACION",
+          "subtipo": "VALORIZACION_PENDIENTE",
+          "referencia": "VAL-20260519",
+          "fechaPartida": "2026-05-19",
+          "monto": 25000.00,
+          "signo": "DEBITO",
+          "estado": "PENDIENTE",
+          "origen": "TTRAN",
+          "observacion": "Ajuste por valoracion a precios de mercado no registrado en mayor. Requiere aprobacion. Diferencia de 25.00 USD supera tolerancia maxima 1.00. Estado CRITICO asignado."
+        }
+      ],
+      "diferencias": {
+        "diferenciaNeta": 25.00,
+        "diferenciaAbsoluta": 25.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": true,
+        "motivoPrincipal": "Diferencia critica identificada por auditoria - valorizacion a precios de mercado pendiente"
+      },
+      "estadoConciliacion": {
+        "codigo": "NO_CONCILIADA",
+        "descripcion": "No conciliada diferencia relevante",
+        "severidad": "CRITICA",
+        "requiereRevision": true
+      },
+      "trazabilidad": {
+        "hashCuenta": "j690e1c5f62b7908a4e6d23n9",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 1,
+          "trdsc": 2,
+          "ttran": 1
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11020202",
+        "descripcionCuenta": "ACCIONES SECTOR FINANCIERO",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC002"
+      },
+      "saldos": {
+        "saldoInicial": 450000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 450000.00,
+        "saldoFinalFuente": 450000.00,
+        "saldoFinalConciliado": 450000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "k701f2d6a73c8019b5f7e34o0",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11030101",
+        "descripcionCuenta": "CREDITOS VIGENTES CONSUMO",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC001"
+      },
+      "saldos": {
+        "saldoInicial": 900000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 900000.00,
+        "saldoFinalFuente": 900000.00,
+        "saldoFinalConciliado": 900000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "l812a3e7b84d9120c6a8f45p1",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11030102",
+        "descripcionCuenta": "CREDITOS VIGENTES COMERCIALES",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC001"
+      },
+      "saldos": {
+        "saldoInicial": 900000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 900000.00,
+        "saldoFinalFuente": 900000.00,
+        "saldoFinalConciliado": 900000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "m923b4f8c95e0231d7b9a56q2",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11030201",
+        "descripcionCuenta": "CREDITOS EN MORA 30-60 DIAS",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC001"
+      },
+      "saldos": {
+        "saldoInicial": 325250.25,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 250.00,
+        "saldoFinalCalculado": 325000.25,
+        "saldoFinalFuente": 325000.25,
+        "saldoFinalConciliado": 325000.25
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 1,
+        "primerMovimiento": "2026-05-18T10:00:00",
+        "ultimoMovimiento": "2026-05-18T10:00:00"
+      },
+      "partidasConciliatorias": [
+        {
+          "idPartida": "PC-0005",
+          "tipo": "AJUSTE",
+          "subtipo": "PROVISION_PARCIAL",
+          "referencia": "PRV-20260518",
+          "fechaPartida": "2026-05-18",
+          "monto": 250.00,
+          "signo": "CREDITO",
+          "estado": "APLICADA",
+          "origen": "TRANS",
+          "observacion": "Provision de cartera mora aplicada parcialmente. Saldo pendiente menor a tolerancia."
+        }
+      ],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": "Provision parcialmente aplicada - saldo cuadra con fuente"
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "n034c5a9d06b1342e8f0d67r3",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 1,
+          "trdsc": 1,
+          "ttran": 0
+        }
+      }
+    },
+    {
+      "cuentaMayor": {
+        "codigoBanco": "01",
+        "codigoSucursal": "001",
+        "codigoMoneda": "USD",
+        "cuentaContable": "11030202",
+        "descripcionCuenta": "CREDITOS EN MORA MAS DE 60 DIAS",
+        "naturaleza": "DEUDORA",
+        "nivelCuenta": 4,
+        "centroCosto": "CC001"
+      },
+      "saldos": {
+        "saldoInicial": 330000.00,
+        "debitosPeriodo": 0.00,
+        "creditosPeriodo": 0.00,
+        "saldoFinalCalculado": 330000.00,
+        "saldoFinalFuente": 330000.00,
+        "saldoFinalConciliado": 330000.00
+      },
+      "resumenMovimientos": {
+        "cantidadMovimientos": 0,
+        "primerMovimiento": null,
+        "ultimoMovimiento": null
+      },
+      "partidasConciliatorias": [],
+      "diferencias": {
+        "diferenciaNeta": 0.00,
+        "diferenciaAbsoluta": 0.00,
+        "toleranciaPermitida": 1.00,
+        "excedeTolerancia": false,
+        "motivoPrincipal": null
+      },
+      "estadoConciliacion": {
+        "codigo": "CONCILIADA",
+        "descripcion": "Conciliada sin diferencias",
+        "severidad": "BAJA",
+        "requiereRevision": false
+      },
+      "trazabilidad": {
+        "hashCuenta": "o145d6b0e17c2453f9a1e78s4",
+        "registrosFuente": {
+          "glbln": 1,
+          "trans": 0,
+          "trdsc": 0,
+          "ttran": 0
+        }
+      }
+    }
+  ],
+  "controlTotales": {
+    "totalCuentasProcesadas": 15,
+    "totalCuentasConciliadas": 11,
+    "totalCuentasConDiferencia": 4,
+    "sumatoriaSaldoFinalFuente": 7865039.50,
+    "sumatoriaSaldoFinalConciliado": 7840000.25,
+    "sumatoriaDiferenciaNeta": 39.25
+  },
+  "incidentes": [
+    {
+      "codigo": "WARN-GL-001",
+      "tipo": "VALIDACION",
+      "cuentaContable": "11010101",
+      "mensaje": "Diferencia de 0.50 USD dentro de tolerancia. Partida en transito DEP-884771 pendiente de aplicacion en mayor contable.",
+      "severidad": "MEDIA"
+    },
+    {
+      "codigo": "WARN-GL-002",
+      "tipo": "DATOS",
+      "cuentaContable": "11010201",
+      "mensaje": "Diferencia de 5.00 USD supera tolerancia permitida de 1.00 USD. Ajuste de encaje legal pendiente confirmacion Banco Central. Referencia AJE-20260519.",
+      "severidad": "ALTA"
+    },
+    {
+      "codigo": "WARN-GL-003",
+      "tipo": "DATOS",
+      "cuentaContable": "11010302",
+      "mensaje": "Diferencia de 8.75 USD supera tolerancia permitida de 1.00 USD. Transferencia SWIFT SWT-884400 en transito interbancario sin acreditar.",
+      "severidad": "ALTA"
+    },
+    {
+      "codigo": "ERROR-GL-001",
+      "tipo": "VALIDACION",
+      "cuentaContable": "11020201",
+      "mensaje": "Diferencia critica de 25.00 USD supera tolerancia maxima 1.00 USD. Valorizacion a precios de mercado VAL-20260519 no registrada en mayor. Requiere aprobacion y escalamiento inmediato.",
+      "severidad": "CRITICA"
+    }
+  ]
+}
