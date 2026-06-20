@@ -17,7 +17,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/MICRF (
+CREATE OR REPLACE TABLE MICRF (
     tipo_formulario       FOR COLUMN TIPFORM  VARCHAR(50)    NOT NULL,
     nombre_reporte        FOR COLUMN NOMRPT   VARCHAR(50)    NOT NULL,
     secuencia             FOR COLUMN SECUENC  INTEGER        NOT NULL,
@@ -38,33 +38,33 @@ CREATE OR REPLACE TABLE HNEACOSTA1/MICRF (
 )
 RCDFMT MICRFR;
 
-RENAME TABLE HNEACOSTA1/MICRF
-    TO MICRF FOR SYSTEM NAME MICRF;
+RENAME TABLE MICRF
+    TO MICRF_TABLE FOR SYSTEM NAME MICRF;
 
-COMMENT ON TABLE HNEACOSTA1/MICRF IS
+COMMENT ON TABLE MICRF IS
     'Indice de Reportes Salvados en Microficha - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/MICRF IS
+LABEL ON TABLE MICRF IS
     'Reportes en Microficha';
 
-COMMENT ON COLUMN HNEACOSTA1/MICRF.tipo_formulario       IS 'Tipo o categoria del formulario archivado en microficha; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.nombre_reporte        IS 'Nombre del reporte o documento archivado en microficha; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.secuencia             IS 'Numero de secuencia del reporte dentro del tipo y nombre; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.descripcion           IS 'Descripcion del contenido del reporte archivado en microficha';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.valor_texto           IS 'Referencia de ubicacion fisica de la microficha';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.valor_numerico        IS 'Numero de rollo o posicion en el archivo de microficha';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.vigencia_desde        IS 'Fecha de inicio del periodo cubierto por el reporte';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.vigencia_hasta        IS 'Fecha de fin del periodo cubierto por el reporte';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.orden_visualizacion   IS 'Numero de orden para listado del indice de microficha';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.usuario_creacion      IS 'Usuario o proceso que registro el reporte en el indice';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.observaciones         IS 'Notas adicionales sobre el reporte archivado';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/MICRF.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN MICRF.tipo_formulario       IS 'Tipo o categoria del formulario archivado en microficha; parte de la PK';
+COMMENT ON COLUMN MICRF.nombre_reporte        IS 'Nombre del reporte o documento archivado en microficha; parte de la PK';
+COMMENT ON COLUMN MICRF.secuencia             IS 'Numero de secuencia del reporte dentro del tipo y nombre; parte de la PK';
+COMMENT ON COLUMN MICRF.descripcion           IS 'Descripcion del contenido del reporte archivado en microficha';
+COMMENT ON COLUMN MICRF.valor_texto           IS 'Referencia de ubicacion fisica de la microficha';
+COMMENT ON COLUMN MICRF.valor_numerico        IS 'Numero de rollo o posicion en el archivo de microficha';
+COMMENT ON COLUMN MICRF.vigencia_desde        IS 'Fecha de inicio del periodo cubierto por el reporte';
+COMMENT ON COLUMN MICRF.vigencia_hasta        IS 'Fecha de fin del periodo cubierto por el reporte';
+COMMENT ON COLUMN MICRF.orden_visualizacion   IS 'Numero de orden para listado del indice de microficha';
+COMMENT ON COLUMN MICRF.usuario_creacion      IS 'Usuario o proceso que registro el reporte en el indice';
+COMMENT ON COLUMN MICRF.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN MICRF.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN MICRF.observaciones         IS 'Notas adicionales sobre el reporte archivado';
+COMMENT ON COLUMN MICRF.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN MICRF.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN MICRF.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/MICRF (
+LABEL ON COLUMN MICRF (
     tipo_formulario       TEXT IS 'Tipo Formulario',
     nombre_reporte        TEXT IS 'Nombre Reporte',
     secuencia             TEXT IS 'Secuencia',
@@ -83,4 +83,4 @@ LABEL ON COLUMN HNEACOSTA1/MICRF (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_MICRF_C ON HNEACOSTA1/MICRF (created_at);
+CREATE INDEX IDX_MICRF_C ON MICRF (created_at);

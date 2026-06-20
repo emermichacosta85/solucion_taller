@@ -12,7 +12,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CIFXF (
+CREATE OR REPLACE TABLE CIFXF (
     id                        FOR COLUMN IDCIFX  BIGINT          GENERATED ALWAYS AS IDENTITY,
     descripcion               FOR COLUMN DESCRIP VARCHAR(120)    NOT NULL DEFAULT '',
     valor_texto               FOR COLUMN VALTXT  VARCHAR(50)     NOT NULL DEFAULT '',
@@ -23,7 +23,7 @@ CREATE OR REPLACE TABLE HNEACOSTA1/CIFXF (
     usuario_creacion          FOR COLUMN USRCREA VARCHAR(30)     NOT NULL DEFAULT '',
     usuario_actualizacion     FOR COLUMN USRACT  VARCHAR(30)     NOT NULL DEFAULT '',
     version_registro          FOR COLUMN VERSREG INTEGER         NOT NULL DEFAULT 1,
-    observaciones             FOR COLUMN OBSERVACVARCHAR(120)    NOT NULL DEFAULT '',
+    observaciones             FOR COLUMN OBSERVAC VARCHAR(120)    NOT NULL DEFAULT '',
     estado_registro           FOR COLUMN ESTREG  CHAR(1)         NOT NULL DEFAULT 'A',
     created_at                FOR COLUMN CRTDAT  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at                FOR COLUMN UPDDAT  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -31,31 +31,31 @@ CREATE OR REPLACE TABLE HNEACOSTA1/CIFXF (
 )
 RCDFMT CIFXFR;
 
-RENAME TABLE HNEACOSTA1/CIFXF
-    TO CIFXF FOR SYSTEM NAME CIFXF;
+RENAME TABLE CIFXF
+    TO CIFXF_TABLE FOR SYSTEM NAME CIFXF;
 
-COMMENT ON TABLE HNEACOSTA1/CIFXF IS
+COMMENT ON TABLE CIFXF IS
     'Relacion de Operaciones con Clientes - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/CIFXF IS
+LABEL ON TABLE CIFXF IS
     'Operaciones de Clientes';
 
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.id                        IS 'Identificador unico autogenerado del registro de relacion cliente-operacion';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.descripcion               IS 'Descripcion del elemento o relacion registrada';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.valor_texto               IS 'Valor de texto adicional asociado al registro';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.valor_numerico            IS 'Valor numerico adicional asociado al registro si aplica';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.vigencia_desde            IS 'Fecha desde la cual el registro es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.vigencia_hasta            IS 'Fecha hasta la cual el registro es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.orden_visualizacion       IS 'Numero de orden para presentacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.usuario_creacion          IS 'Usuario del sistema que creo el registro';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.usuario_actualizacion     IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.version_registro          IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.observaciones             IS 'Notas adicionales sobre el registro';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.estado_registro           IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.created_at                IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CIFXF.updated_at                IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN CIFXF.id                        IS 'Identificador unico autogenerado del registro de relacion cliente-operacion';
+COMMENT ON COLUMN CIFXF.descripcion               IS 'Descripcion del elemento o relacion registrada';
+COMMENT ON COLUMN CIFXF.valor_texto               IS 'Valor de texto adicional asociado al registro';
+COMMENT ON COLUMN CIFXF.valor_numerico            IS 'Valor numerico adicional asociado al registro si aplica';
+COMMENT ON COLUMN CIFXF.vigencia_desde            IS 'Fecha desde la cual el registro es vigente';
+COMMENT ON COLUMN CIFXF.vigencia_hasta            IS 'Fecha hasta la cual el registro es vigente';
+COMMENT ON COLUMN CIFXF.orden_visualizacion       IS 'Numero de orden para presentacion del registro';
+COMMENT ON COLUMN CIFXF.usuario_creacion          IS 'Usuario del sistema que creo el registro';
+COMMENT ON COLUMN CIFXF.usuario_actualizacion     IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN CIFXF.version_registro          IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN CIFXF.observaciones             IS 'Notas adicionales sobre el registro';
+COMMENT ON COLUMN CIFXF.estado_registro           IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN CIFXF.created_at                IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN CIFXF.updated_at                IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CIFXF (
+LABEL ON COLUMN CIFXF (
     id                        TEXT IS 'ID Relacion',
     descripcion               TEXT IS 'Descripcion',
     valor_texto               TEXT IS 'Valor Texto',
@@ -72,4 +72,4 @@ LABEL ON COLUMN HNEACOSTA1/CIFXF (
     updated_at                TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_CIFXF_C ON HNEACOSTA1/CIFXF (created_at);
+CREATE INDEX IDX_CIFXF_C ON CIFXF (created_at);

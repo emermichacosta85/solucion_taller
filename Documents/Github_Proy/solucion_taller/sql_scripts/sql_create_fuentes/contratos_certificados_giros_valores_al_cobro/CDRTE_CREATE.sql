@@ -20,128 +20,79 @@
 -- Proyecto            : Taller IBM i - Modulo 4 Contratos/Certificados/Giros
 -- =============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CDRTE (
-    numero_tabla            VARCHAR(30)     NOT NULL    FOR COLUMN CDRTETBL,
-    fecha                   DATE            NOT NULL    FOR COLUMN CDRTEFEC,
-    codigo_moneda           VARCHAR(20)     NOT NULL    FOR COLUMN CDRTEMONE,
-    descripcion_tabla       VARCHAR(80)                 FOR COLUMN CDRTEDSC,
-    tasa_nominal            DECIMAL(10,6)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTETNM,
-    tasa_efectiva           DECIMAL(10,6)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTETEM,
-    plazo_minimo_dias       INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTEPMN,
-    plazo_maximo_dias       INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTEPMX,
-    monto_minimo            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTEMMN,
-    monto_maximo            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTEMMX,
-    vigente_hasta           DATE                        FOR COLUMN CDRTEVIA,
-    fecha_desembolso        DATE                        FOR COLUMN CDRTEFDS,
-    fecha_vencimiento       DATE                        FOR COLUMN CDRTEFVE,
-    monto_original          DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTEMOR,
-    saldo_actual            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTESAL,
-    tasa_interes            DECIMAL(18,4)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTETSA,
-    plazo_meses             INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTEPLA,
-    dias_mora               INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN CDRTEDMR,
-    estado_operacion        VARCHAR(20)     NOT NULL    FOR COLUMN CDRTEEST,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN CDRTEUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN CDRTEUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CDRTEVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN CDRTEOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN CDRTEERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CDRTECAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CDRTEUAT,
-    CONSTRAINT PK_CDRTE PRIMARY KEY (numero_tabla, fecha, codigo_moneda)
+CREATE OR REPLACE TABLE CDRTE (
+    numero_tabla            FOR COLUMN CDRTETBL VARCHAR(30)     NOT NULL,
+    fecha                   FOR COLUMN CDRTEFEC DATE            NOT NULL,
+    codigo_moneda           FOR COLUMN CDRTEMONE VARCHAR(20)    NOT NULL,
+    fecha_desembolso        FOR COLUMN CDRTEFDS DATE,
+    fecha_vencimiento       FOR COLUMN CDRTEFVE DATE,
+    monto_original          FOR COLUMN CDRTEMOR DECIMAL(18,2)   NOT NULL DEFAULT 0,
+    saldo_actual            FOR COLUMN CDRTESAL DECIMAL(18,2)   NOT NULL DEFAULT 0,
+    tasa_interes            FOR COLUMN CDRTETSA DECIMAL(18,4)   NOT NULL DEFAULT 0,
+    plazo_meses             FOR COLUMN CDRTEPLA INT             NOT NULL DEFAULT 0,
+    dias_mora               FOR COLUMN CDRTEDMR INT             NOT NULL DEFAULT 0,
+    estado_operacion        FOR COLUMN CDRTEEST VARCHAR(20)     NOT NULL,
+    usuario_creacion        FOR COLUMN CDRTEUSC VARCHAR(30),
+    usuario_actualizacion   FOR COLUMN CDRTEUSA VARCHAR(30),
+    version_registro        FOR COLUMN CDRTEVRS INT             NOT NULL DEFAULT 1,
+    observaciones           FOR COLUMN CDRTEOBS VARCHAR(120),
+    estado_registro         FOR COLUMN CDRTEERG CHAR(1)         NOT NULL DEFAULT 'A',
+    created_at              FOR COLUMN CDRTECAT TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at              FOR COLUMN CDRTEUAT TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT PK_CDRTE PRIMARY KEY (numero_tabla,codigo_moneda)
 )
 RCDFMT CDRTER;
 
-RENAME TABLE HNEACOSTA1/CDRTE
-    TO CDRTE FOR SYSTEM NAME CDRTE;
+RENAME TABLE CDRTE
+    TO CDRTE_TABLE FOR SYSTEM NAME CDRTE;
 
-COMMENT ON TABLE HNEACOSTA1/CDRTE IS
+COMMENT ON TABLE CDRTE IS
     'Tabla de Tasas de Depositos - Modulo 4 Contratos/Certificados/Giros';
 
-LABEL ON TABLE HNEACOSTA1/CDRTE
+LABEL ON TABLE CDRTE
     IS 'Tasas Depositos';
 
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.numero_tabla IS
+COMMENT ON COLUMN CDRTE.numero_tabla IS
     'Numero identificador de la tabla de tasas definida por el banco';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.fecha IS
+COMMENT ON COLUMN CDRTE.fecha IS
     'Fecha desde la que rigen las tasas de esta tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.codigo_moneda IS
+COMMENT ON COLUMN CDRTE.codigo_moneda IS
     'Codigo ISO de la moneda para la que aplican estas tasas';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.descripcion_tabla IS
-    'Descripcion del producto o segmento al que aplica la tabla de tasas';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.tasa_nominal IS
-    'Tasa nominal anual del deposito expresada como porcentaje';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.tasa_efectiva IS
-    'Tasa efectiva anual equivalente considerando capitalizacion';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.plazo_minimo_dias IS
-    'Plazo minimo en dias para acceder a esta tasa';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.plazo_maximo_dias IS
-    'Plazo maximo en dias para acceder a esta tasa';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.monto_minimo IS
-    'Monto minimo del deposito para aplicar esta tasa';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.monto_maximo IS
-    'Monto maximo del deposito para aplicar esta tasa';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.vigente_hasta IS
-    'Fecha hasta la que esta vigente esta tabla de tasas';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.fecha_desembolso IS
+COMMENT ON COLUMN CDRTE.fecha_desembolso IS
     'Campo de referencia heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.fecha_vencimiento IS
+COMMENT ON COLUMN CDRTE.fecha_vencimiento IS
     'Campo de referencia heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.monto_original IS
+COMMENT ON COLUMN CDRTE.monto_original IS
     'Campo de referencia heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.saldo_actual IS
+COMMENT ON COLUMN CDRTE.saldo_actual IS
     'Campo de referencia heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.tasa_interes IS
+COMMENT ON COLUMN CDRTE.tasa_interes IS
     'Tasa de referencia operativa del catalogo';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.plazo_meses IS
+COMMENT ON COLUMN CDRTE.plazo_meses IS
     'Plazo de referencia operativa del catalogo en meses';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.dias_mora IS
+COMMENT ON COLUMN CDRTE.dias_mora IS
     'Campo de referencia heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.estado_operacion IS
+COMMENT ON COLUMN CDRTE.estado_operacion IS
     'Estado de la tabla de tasas: ACTIVA, VENCIDA, EN_REVISION';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.usuario_creacion IS
+COMMENT ON COLUMN CDRTE.usuario_creacion IS
     'Usuario administrador que registro la tabla de tasas';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.usuario_actualizacion IS
+COMMENT ON COLUMN CDRTE.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion de la tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.version_registro IS
+COMMENT ON COLUMN CDRTE.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.observaciones IS
+COMMENT ON COLUMN CDRTE.observaciones IS
     'Notas sobre la aplicacion o condiciones especiales de la tabla';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.estado_registro IS
+COMMENT ON COLUMN CDRTE.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.created_at IS
+COMMENT ON COLUMN CDRTE.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/CDRTE.updated_at IS
+COMMENT ON COLUMN CDRTE.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CDRTE (
+LABEL ON COLUMN CDRTE (
     numero_tabla             TEXT IS 'No. Tabla',
     fecha                    TEXT IS 'Fecha Vigencia',
     codigo_moneda            TEXT IS 'Moneda',
-    descripcion_tabla        TEXT IS 'Descripcion',
-    tasa_nominal             TEXT IS 'Tasa Nominal',
-    tasa_efectiva            TEXT IS 'Tasa Efectiva',
-    plazo_minimo_dias        TEXT IS 'Plazo Min Dias',
-    plazo_maximo_dias        TEXT IS 'Plazo Max Dias',
-    monto_minimo             TEXT IS 'Monto Min',
-    monto_maximo             TEXT IS 'Monto Max',
-    vigente_hasta            TEXT IS 'Vig Hasta',
     fecha_desembolso         TEXT IS 'Fec Desemb',
     fecha_vencimiento        TEXT IS 'Fec Vencim',
     monto_original           TEXT IS 'Monto Orig',
@@ -159,8 +110,8 @@ LABEL ON COLUMN HNEACOSTA1/CDRTE (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ICDRTEFEC ON HNEACOSTA1/CDRTE (fecha);
-CREATE INDEX HNEACOSTA1/ICDRTECAT ON HNEACOSTA1/CDRTE (created_at);
+CREATE INDEX ICDRTEFEC ON CDRTE (fecha);
+CREATE INDEX ICDRTECAT ON CDRTE (created_at);
 
 -- =============================================================================
 -- Fin de script: CDRTE_CREATE.sql

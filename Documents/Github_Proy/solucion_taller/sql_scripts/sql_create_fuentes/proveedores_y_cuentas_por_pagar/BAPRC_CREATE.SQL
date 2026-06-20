@@ -22,177 +22,156 @@
 -- Proyecto            : Taller IBM i - Modulo 11 Proveedores/CxP
 -- ================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/BAPRC (
-    codigo_banco             VARCHAR(20)    NOT NULL     FOR COLUMN BAPRCBNK,
-    codigo_sucursal          VARCHAR(20)    NOT NULL     FOR COLUMN BAPRCSUC,
-    origen_cuenta            VARCHAR(20)    NOT NULL     FOR COLUMN BAPRCORG,
-    tipo_cuenta              VARCHAR(20)    NOT NULL     FOR COLUMN BAPRCTCU,
-    id_cliente               VARCHAR(30)    NOT NULL     FOR COLUMN BAPRCCLI,
-    numero_referencia        VARCHAR(30)    NOT NULL     FOR COLUMN BAPRCREF,
-    tipo_registro            VARCHAR(20)    NOT NULL     FOR COLUMN BAPRCTGR,
-    numero_proveedor         VARCHAR(30)                 FOR COLUMN BAPRCPRO,
-    numero_identificacion    VARCHAR(30)                 FOR COLUMN BAPRCNID,
-    razon_social             VARCHAR(80)                 FOR COLUMN BAPRCRS,
-    email                    VARCHAR(80)                 FOR COLUMN BAPRCEM,
-    telefono                 VARCHAR(80)                 FOR COLUMN BAPRCTLF,
-    numero_factura           VARCHAR(50)                 FOR COLUMN BAPRCNFA,
-    fecha_factura            DATE                        FOR COLUMN BAPRCFFA,
-    concepto_pago            VARCHAR(120)                FOR COLUMN BAPRCCPG,
-    codigo_moneda            VARCHAR(20)                 FOR COLUMN BAPRCMON,
-    monto_original           DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN BAPRCMOR,
-    monto_retencion_iva      DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN BAPRCMIV,
-    monto_retencion_isr      DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN BAPRCMIS,
-    monto_descuento          DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN BAPRCDSC,
-    monto_neto               DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN BAPRCMNE,
-    saldo_pendiente          DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN BAPRCSPD,
-    fecha_emision            DATE                        FOR COLUMN BAPRCFE,
-    fecha_vencimiento        DATE                        FOR COLUMN BAPRCFV,
-    fecha_pago               DATE                        FOR COLUMN BAPRCFP,
-    estado_cxp               VARCHAR(20)    NOT NULL     FOR COLUMN BAPRCEST,
-    usuario_creacion         VARCHAR(30)                 FOR COLUMN BAPRCULC,
-    usuario_actualizacion    VARCHAR(30)                 FOR COLUMN BAPRCUSA,
-    version_registro         INT            NOT NULL
-                                            DEFAULT 1    FOR COLUMN BAPRCVRS,
-    observaciones            VARCHAR(120)                FOR COLUMN BAPRCOBS,
-    estado_registro          CHAR(1)        NOT NULL
-                                            DEFAULT 'A'  FOR COLUMN BAPRCERG,
-    created_at               TIMESTAMP      NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                         FOR COLUMN BAPRCCAT,
-    updated_at               TIMESTAMP      NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                         FOR COLUMN BAPRCUAT,
+CREATE OR REPLACE TABLE BAPRC (
+    codigo_banco             FOR COLUMN BAPRCBNK   VARCHAR(20)   NOT NULL,
+    codigo_sucursal          FOR COLUMN BAPRCSUC   VARCHAR(20)   NOT NULL,
+    origen_cuenta            FOR COLUMN BAPRCORG   VARCHAR(20)   NOT NULL,
+    tipo_cuenta              FOR COLUMN BAPRCTCU   VARCHAR(20)   NOT NULL,
+    id_cliente               FOR COLUMN BAPRCCLI   VARCHAR(30)   NOT NULL,
+    numero_referencia        FOR COLUMN BAPRCREF   VARCHAR(30)   NOT NULL,
+    tipo_registro            FOR COLUMN BAPRCTGR   VARCHAR(20)   NOT NULL,
+    numero_identificacion    FOR COLUMN BAPRCNID   VARCHAR(30),
+    razon_social             FOR COLUMN BAPRCRS    VARCHAR(80),
+    email                    FOR COLUMN BAPRCEM    VARCHAR(80),
+    telefono                 FOR COLUMN BAPRCTLF   VARCHAR(80),
+    monto_original           FOR COLUMN BAPRCMOR   DECIMAL(18,2) NOT NULL DEFAULT 0,
+    saldo_pendiente          FOR COLUMN BAPRCSPD   DECIMAL(18,2) NOT NULL DEFAULT 0,
+    fecha_emision            FOR COLUMN BAPRCFE    DATE,
+    fecha_vencimiento        FOR COLUMN BAPRCFV    DATE,
+    fecha_pago               FOR COLUMN BAPRCFP    DATE,
+    estado_cxp               FOR COLUMN BAPRCEST   VARCHAR(20)   NOT NULL,
+    usuario_creacion         FOR COLUMN BAPRCULC   VARCHAR(30),
+    usuario_actualizacion    FOR COLUMN BAPRCUSA   VARCHAR(30),
+    version_registro         FOR COLUMN BAPRCVRS   INT           NOT NULL DEFAULT 1,
+    observaciones            FOR COLUMN BAPRCOBS   VARCHAR(120),
+    estado_registro          FOR COLUMN BAPRCERG   CHAR(1)       NOT NULL DEFAULT 'A',
+    created_at               FOR COLUMN BAPRCCAT   TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at               FOR COLUMN BAPRCUAT   TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_BAPRC PRIMARY KEY (codigo_banco, codigo_sucursal,
                                      origen_cuenta, tipo_cuenta,
                                      id_cliente, numero_referencia,
-                                     tipo_registro),
-    CONSTRAINT FK_BAPRC_BAVEN FOREIGN KEY (numero_proveedor)
-        REFERENCES HNEACOSTA1/BAVEN (numero_proveedor),
-    CONSTRAINT FK_BAPRC_CUMST FOREIGN KEY (id_cliente)
-        REFERENCES HNEACOSTA1/CUMST (id_cliente)
+                                     tipo_registro)
+    --CONSTRAINT FK_BAPRC_BAVEN FOREIGN KEY (numero_proveedor)
+    --    REFERENCES BAVEN (numero_proveedor),
+    --CONSTRAINT FK_BAPRC_CUMST FOREIGN KEY (id_cliente)
+    --    REFERENCES CUMST (id_cliente)
 )
 RCDFMT BAPRCR;
 
-RENAME TABLE HNEACOSTA1/BAPRC
-    TO BAPRC FOR SYSTEM NAME BAPRC;
+RENAME TABLE BAPRC
+    TO BAPRC_TABLE FOR SYSTEM NAME BAPRC;
 
-COMMENT ON TABLE HNEACOSTA1/BAPRC IS
+COMMENT ON TABLE BAPRC IS
     'Maestro de Cuentas por Pagar - Modulo 11 Proveedores y CxP';
 
-LABEL ON TABLE HNEACOSTA1/BAPRC
+LABEL ON TABLE BAPRC
     IS 'Maestro Cuentas x Pagar';
 
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.codigo_banco IS
+COMMENT ON COLUMN BAPRC.codigo_banco IS
     'Codigo del banco que registra y administra la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.codigo_sucursal IS
+COMMENT ON COLUMN BAPRC.codigo_sucursal IS
     'Codigo de la sucursal responsable de la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.origen_cuenta IS
+COMMENT ON COLUMN BAPRC.origen_cuenta IS
     'Origen que genero la cuenta por pagar: FACTURA, CONTRATO, NOMINA, OTRO';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.tipo_cuenta IS
+COMMENT ON COLUMN BAPRC.tipo_cuenta IS
     'Clasificacion de la cuenta por pagar: PROVEEDOR, CLIENTE, INTERNO, FISCAL';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.id_cliente IS
+COMMENT ON COLUMN BAPRC.id_cliente IS
     'Identificador del cliente o contraparte de la obligacion (FK CUMST)';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.numero_referencia IS
+COMMENT ON COLUMN BAPRC.numero_referencia IS
     'Numero de referencia unico de la cuenta por pagar en el banco';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.tipo_registro IS
+COMMENT ON COLUMN BAPRC.tipo_registro IS
     'Tipo de registro dentro de la cuenta: CABECERA, DETALLE, AJUSTE';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.numero_proveedor IS
-    'Numero del proveedor al que corresponde la cuenta por pagar (FK BAVEN)';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.numero_identificacion IS
+COMMENT ON COLUMN BAPRC.numero_identificacion IS
     'Numero de identificacion fiscal del beneficiario del pago';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.razon_social IS
+COMMENT ON COLUMN BAPRC.razon_social IS
     'Nombre o razon social del beneficiario del pago';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.email IS
+COMMENT ON COLUMN BAPRC.email IS
     'Correo electronico del beneficiario para notificaciones de pago';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.telefono IS
+COMMENT ON COLUMN BAPRC.telefono IS
     'Telefono del beneficiario para contacto sobre la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.numero_factura IS
-    'Numero de factura o documento comercial que origina la obligacion';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.fecha_factura IS
-    'Fecha de emision de la factura o documento que origina la obligacion';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.concepto_pago IS
-    'Descripcion del concepto o servicio que origina la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.codigo_moneda IS
-    'Codigo ISO de la moneda en que esta expresada la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.monto_original IS
+COMMENT ON COLUMN BAPRC.monto_original IS
     'Monto bruto de la cuenta por pagar antes de retenciones y descuentos';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.monto_retencion_iva IS
-    'Monto de retencion de IVA aplicada sobre la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.monto_retencion_isr IS
-    'Monto de retencion de ISR o impuesto sobre la renta aplicada';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.monto_descuento IS
-    'Monto de descuento por pronto pago u otras condiciones pactadas';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.monto_neto IS
-    'Monto neto a pagar despues de retenciones y descuentos aplicados';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.saldo_pendiente IS
+COMMENT ON COLUMN BAPRC.saldo_pendiente IS
     'Saldo aun pendiente de pago de la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.fecha_emision IS
+COMMENT ON COLUMN BAPRC.fecha_emision IS
     'Fecha de registro o emision de la cuenta por pagar en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.fecha_vencimiento IS
+COMMENT ON COLUMN BAPRC.fecha_vencimiento IS
     'Fecha limite para el pago de la cuenta segun condiciones pactadas';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.fecha_pago IS
+COMMENT ON COLUMN BAPRC.fecha_pago IS
     'Fecha en que fue efectivamente pagada la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.estado_cxp IS
+COMMENT ON COLUMN BAPRC.estado_cxp IS
     'Estado de la cuenta: PENDIENTE, PARCIAL, PAGADA, VENCIDA, ANULADA';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.usuario_creacion IS
+COMMENT ON COLUMN BAPRC.usuario_creacion IS
     'Usuario del sistema que registro la cuenta por pagar';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.usuario_actualizacion IS
+COMMENT ON COLUMN BAPRC.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.version_registro IS
+COMMENT ON COLUMN BAPRC.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.observaciones IS
+COMMENT ON COLUMN BAPRC.observaciones IS
     'Notas sobre la cuenta, condiciones de pago o historial de gestion';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.estado_registro IS
+COMMENT ON COLUMN BAPRC.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.created_at IS
+COMMENT ON COLUMN BAPRC.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/BAPRC.updated_at IS
+COMMENT ON COLUMN BAPRC.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/BAPRC (
-    codigo_banco             TEXT IS 'Banco',
-    codigo_sucursal          TEXT IS 'Sucursal',
-    origen_cuenta            TEXT IS 'Origen',
-    tipo_cuenta              TEXT IS 'Tipo Cta',
-    id_cliente               TEXT IS 'ID Cliente',
-    numero_referencia        TEXT IS 'No. Referenc',
-    tipo_registro            TEXT IS 'Tipo Reg',
-    numero_proveedor         TEXT IS 'No. Proveedor',
-    numero_identificacion    TEXT IS 'No. Identif',
-    razon_social             TEXT IS 'Razon Social',
-    email                    TEXT IS 'Email',
-    telefono                 TEXT IS 'Telefono',
-    numero_factura           TEXT IS 'No. Factura',
-    fecha_factura            TEXT IS 'Fec Factura',
-    concepto_pago            TEXT IS 'Concepto',
-    codigo_moneda            TEXT IS 'Moneda',
-    monto_original           TEXT IS 'Monto Orig',
-    monto_retencion_iva      TEXT IS 'Ret IVA',
-    monto_retencion_isr      TEXT IS 'Ret ISR',
-    monto_descuento          TEXT IS 'Descuento',
-    monto_neto               TEXT IS 'Monto Neto',
-    saldo_pendiente          TEXT IS 'Saldo Pend',
-    fecha_emision            TEXT IS 'Fec Emision',
-    fecha_vencimiento        TEXT IS 'Fec Vencim',
-    fecha_pago               TEXT IS 'Fec Pago',
-    estado_cxp               TEXT IS 'Estado',
-    usuario_creacion         TEXT IS 'Usr Creacion',
-    usuario_actualizacion    TEXT IS 'Usr Actualiz',
-    version_registro         TEXT IS 'Version Reg',
-    observaciones            TEXT IS 'Observacion',
-    estado_registro          TEXT IS 'Estado Reg',
-    created_at               TEXT IS 'Fec Creacion',
-    updated_at               TEXT IS 'Fec Actualiz'
+LABEL ON COLUMN BAPRC (
+    codigo_banco           IS 'Banco',
+    codigo_sucursal        IS 'Sucursal',
+    origen_cuenta          IS 'Origen',
+    tipo_cuenta            IS 'Tipo Cta',
+    id_cliente             IS 'ID Cliente',
+    numero_referencia      IS 'No. Referenc',
+    tipo_registro          IS 'Tipo Reg',
+    numero_identificacion  IS 'No. Identif',
+    razon_social           IS 'Razon Social',
+    email                  IS 'Email',
+    telefono               IS 'Telefono',
+    monto_original         IS 'Monto Orig',
+    saldo_pendiente        IS 'Saldo Pend',
+    fecha_emision          IS 'Fec Emision',
+    fecha_vencimiento      IS 'Fec Vencim',
+    fecha_pago             IS 'Fec Pago',
+    estado_cxp             IS 'Estado',
+    usuario_creacion       IS 'Usr Creacion',
+    usuario_actualizacion  IS 'Usr Actualiz',
+    version_registro       IS 'Version Reg',
+    observaciones          IS 'Observacion',
+    estado_registro        IS 'Estado Reg',
+    created_at             IS 'Fec Creacion',
+    updated_at             IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/IBAPRCPRO ON HNEACOSTA1/BAPRC (numero_proveedor);
-CREATE INDEX HNEACOSTA1/IBAPRCCLI ON HNEACOSTA1/BAPRC (id_cliente);
-CREATE INDEX HNEACOSTA1/IBAPRCFV  ON HNEACOSTA1/BAPRC (fecha_vencimiento);
-CREATE INDEX HNEACOSTA1/IBAPRCEST ON HNEACOSTA1/BAPRC (estado_cxp);
-CREATE INDEX HNEACOSTA1/IBAPRCCAT ON HNEACOSTA1/BAPRC (created_at);
+-- ================================================================
+-- Etiquetas de descripcion larga por columna (TEXT)
+-- ================================================================
+LABEL ON COLUMN BAPRC (
+    codigo_banco           TEXT IS 'Codigo del banco que registra y administra la',
+    codigo_sucursal        TEXT IS 'Codigo de la sucursal responsable de la cuenta',
+    origen_cuenta          TEXT IS 'Origen que genero la cuenta por pagar: FACTURA,',
+    tipo_cuenta            TEXT IS 'Clasificacion de la cuenta por pagar: PROVEEDOR,',
+    id_cliente             TEXT IS 'Identificador del cliente o contraparte de la',
+    numero_referencia      TEXT IS 'Numero de referencia unico de la cuenta por pagar',
+    tipo_registro          TEXT IS 'Tipo de registro dentro de la cuenta: CABECERA,',
+    numero_identificacion  TEXT IS 'Numero de identificacion fiscal del beneficiario',
+    razon_social           TEXT IS 'Nombre o razon social del beneficiario del pago',
+    email                  TEXT IS 'Correo electronico del beneficiario para',
+    telefono               TEXT IS 'Telefono del beneficiario para contacto sobre la',
+    monto_original         TEXT IS 'Monto bruto de la cuenta por pagar antes de',
+    saldo_pendiente        TEXT IS 'Saldo aun pendiente de pago de la cuenta por pagar',
+    fecha_emision          TEXT IS 'Fecha de registro o emision de la cuenta por',
+    fecha_vencimiento      TEXT IS 'Fecha limite para el pago de la cuenta segun',
+    fecha_pago             TEXT IS 'Fecha en que fue efectivamente pagada la cuenta',
+    estado_cxp             TEXT IS 'Estado de la cuenta: PENDIENTE, PARCIAL, PAGADA,',
+    usuario_creacion       TEXT IS 'Usuario del sistema que registro la cuenta por',
+    usuario_actualizacion  TEXT IS 'Usuario que realizo la ultima modificacion del',
+    version_registro       TEXT IS 'Version del registro para control de concurrencia',
+    observaciones          TEXT IS 'Notas sobre la cuenta, condiciones de pago o',
+    estado_registro        TEXT IS 'Estado logico del registro: A=Activo, I=Inactivo,',
+    created_at             TEXT IS 'Marca de tiempo de creacion del registro en base',
+    updated_at             TEXT IS 'Marca de tiempo de la ultima actualizacion del'
+);
+
+CREATE INDEX IBAPRCCSU ON BAPRC (codigo_banco, codigo_sucursal);
+CREATE INDEX IBAPRCCAT ON BAPRC (created_at);

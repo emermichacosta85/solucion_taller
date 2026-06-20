@@ -20,9 +20,9 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CNOFT (
+CREATE OR REPLACE TABLE CNOFT (
     codigo_tabla          FOR COLUMN CODTBL   VARCHAR(20)    NOT NULL,
-    idioma                FOR COLUMN IDIOMA   VARCHAR(20)    NOT NULL,
+    idioma_tabla          FOR COLUMN IDIOMA   VARCHAR(20)    NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
     valor_texto           FOR COLUMN VALTXT   VARCHAR(50)    NOT NULL DEFAULT '',
     valor_numerico        FOR COLUMN VALNUM   DECIMAL(18, 2),
@@ -40,32 +40,32 @@ CREATE OR REPLACE TABLE HNEACOSTA1/CNOFT (
 )
 RCDFMT CNOFTR;
 
-RENAME TABLE HNEACOSTA1/CNOFT
-    TO CNOFT FOR SYSTEM NAME CNOFT;
+RENAME TABLE CNOFT
+    TO CNOFT_TABLE FOR SYSTEM NAME CNOFT;
 
-COMMENT ON TABLE HNEACOSTA1/CNOFT IS
+COMMENT ON TABLE CNOFT IS
     'Maestro de Tablas de Datos Comunes - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/CNOFT IS
+LABEL ON TABLE CNOFT IS
     'Maestro Tablas Datos Comunes';
 
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.codigo_tabla          IS 'Codigo identificador unico de la tabla de datos comunes; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.idioma                IS 'Idioma del registro de tabla (ES=Espanol, EN=Ingles); parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.descripcion           IS 'Descripcion funcional de la tabla de datos comunes';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.valor_texto           IS 'Valor de texto asociado a la definicion de la tabla';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.valor_numerico        IS 'Valor numerico asociado a la definicion de la tabla si aplica';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.vigencia_desde        IS 'Fecha desde la cual la tabla de datos comunes es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.vigencia_hasta        IS 'Fecha hasta la cual la tabla de datos comunes es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.orden_visualizacion   IS 'Numero de orden para presentacion en pantallas y reportes';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.usuario_creacion      IS 'Usuario del sistema que creo el registro';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.observaciones         IS 'Notas adicionales sobre la tabla de datos comunes';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CNOFT.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN CNOFT.codigo_tabla          IS 'Codigo identificador unico de la tabla de datos comunes; parte de la PK';
+COMMENT ON COLUMN CNOFT.idioma                IS 'Idioma del registro de tabla (ES=Espanol, EN=Ingles); parte de la PK';
+COMMENT ON COLUMN CNOFT.descripcion           IS 'Descripcion funcional de la tabla de datos comunes';
+COMMENT ON COLUMN CNOFT.valor_texto           IS 'Valor de texto asociado a la definicion de la tabla';
+COMMENT ON COLUMN CNOFT.valor_numerico        IS 'Valor numerico asociado a la definicion de la tabla si aplica';
+COMMENT ON COLUMN CNOFT.vigencia_desde        IS 'Fecha desde la cual la tabla de datos comunes es vigente';
+COMMENT ON COLUMN CNOFT.vigencia_hasta        IS 'Fecha hasta la cual la tabla de datos comunes es vigente';
+COMMENT ON COLUMN CNOFT.orden_visualizacion   IS 'Numero de orden para presentacion en pantallas y reportes';
+COMMENT ON COLUMN CNOFT.usuario_creacion      IS 'Usuario del sistema que creo el registro';
+COMMENT ON COLUMN CNOFT.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN CNOFT.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN CNOFT.observaciones         IS 'Notas adicionales sobre la tabla de datos comunes';
+COMMENT ON COLUMN CNOFT.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN CNOFT.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN CNOFT.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CNOFT (
+LABEL ON COLUMN CNOFT (
     codigo_tabla          TEXT IS 'Codigo de Tabla',
     idioma                TEXT IS 'Idioma',
     descripcion           TEXT IS 'Descripcion',
@@ -83,4 +83,4 @@ LABEL ON COLUMN HNEACOSTA1/CNOFT (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_CNOFT_C ON HNEACOSTA1/CNOFT (created_at);
+CREATE INDEX IDX_CNOFT_C ON CNOFT (created_at);

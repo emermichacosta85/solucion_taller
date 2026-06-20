@@ -15,63 +15,63 @@
 -- Proyecto:             Taller IBM i - Sistema Bancario IBS
 -- =============================================================================
  
-CREATE OR REPLACE TABLE HNEACOSTA1/CUMSD (
-    id_cliente           VARCHAR(30)   FOR COLUMN IDCLI     NOT NULL,
-    tipo_persona         VARCHAR(20)   FOR COLUMN TPPERS    NOT NULL DEFAULT '',
-    tipo_identificacion  VARCHAR(20)   FOR COLUMN TPIDEN    NOT NULL DEFAULT '',
-    numero_identificacion VARCHAR(30)  FOR COLUMN NRIDEN    NOT NULL DEFAULT '',
-    nombres              VARCHAR(80)   FOR COLUMN NMBRES    NOT NULL DEFAULT '',
-    apellidos            VARCHAR(80)   FOR COLUMN APLLDO    NOT NULL DEFAULT '',
-    razon_social         VARCHAR(80)   FOR COLUMN RZSOCL    NOT NULL DEFAULT '',
-    fecha_nacimiento     DATE          FOR COLUMN FCNACM             DEFAULT NULL,
-    direccion            VARCHAR(120)  FOR COLUMN DIRECN    NOT NULL DEFAULT '',
-    email                VARCHAR(80)   FOR COLUMN EMADDR    NOT NULL DEFAULT '',
-    telefono             VARCHAR(80)   FOR COLUMN TELFNO    NOT NULL DEFAULT '',
-    pais_residencia      VARCHAR(50)   FOR COLUMN PAISRS    NOT NULL DEFAULT '',
-    usuario_creacion     VARCHAR(30)   FOR COLUMN USRCRE    NOT NULL DEFAULT '',
-    usuario_actualizacion VARCHAR(30)  FOR COLUMN USRACT    NOT NULL DEFAULT '',
-    version_registro     INT           FOR COLUMN VRSNRG    NOT NULL DEFAULT 1,
-    observaciones        VARCHAR(120)  FOR COLUMN OBSERVA   NOT NULL DEFAULT '',
-    estado_registro      CHAR(1)       FOR COLUMN ESTADRG   NOT NULL DEFAULT 'A',
-    created_at           TIMESTAMP     FOR COLUMN CRTDAT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at           TIMESTAMP     FOR COLUMN UPDDAT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT CUMSD_PK PRIMARY KEY (id_cliente),
-    CONSTRAINT CUMSD_FK_CUMST FOREIGN KEY (id_cliente)
-        REFERENCES HNEACOSTA1/CUMST (id_cliente)
-        ON DELETE RESTRICT
-        ON UPDATE RESTRICT
+CREATE OR REPLACE TABLE CUMSD (
+    id_cliente           FOR COLUMN IDCLI VARCHAR(30)        NOT NULL,
+    tipo_persona         FOR COLUMN TPPERS    VARCHAR(20)    NOT NULL DEFAULT '',
+    tipo_identificacion  FOR COLUMN TPIDEN    VARCHAR(20)    NOT NULL DEFAULT '',
+    numero_identificacion FOR COLUMN NRIDEN    VARCHAR(30)   NOT NULL DEFAULT '',
+    nombres              FOR COLUMN NMBRES    VARCHAR(80)       NOT NULL DEFAULT '',
+    apellidos            FOR COLUMN APLLDO    VARCHAR(80)       NOT NULL DEFAULT '',
+    razon_social         FOR COLUMN RZSOCL VARCHAR(80)      NOT NULL DEFAULT '',
+    fecha_nacimiento     FOR COLUMN FCNACM DATE                       DEFAULT NULL,
+    direccion            FOR COLUMN DIRECN    VARCHAR(120)  NOT NULL DEFAULT '',
+    email                FOR COLUMN EMADDR    VARCHAR(80)   NOT NULL DEFAULT '',
+    telefono             FOR COLUMN TELFNO    VARCHAR(80)   NOT NULL DEFAULT '',
+    pais_residencia      FOR COLUMN PAISRS    VARCHAR(50)   NOT NULL DEFAULT '',
+    usuario_creacion     FOR COLUMN USRCRE    VARCHAR(30)   NOT NULL DEFAULT '',
+    usuario_actualizacion FOR COLUMN USRACT VARCHAR(30)      NOT NULL DEFAULT '',
+    version_registro     FOR COLUMN VRSNRG INT               NOT NULL DEFAULT 1,
+    observaciones        FOR COLUMN OBSERVA   VARCHAR(120)     NOT NULL DEFAULT '',
+    estado_registro      FOR COLUMN ESTADRG   CHAR(1)       NOT NULL DEFAULT 'A',
+    created_at           FOR COLUMN CRTDAT    TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at           FOR COLUMN UPDDAT    TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT CUMSD_PK PRIMARY KEY (id_cliente)
+    --CONSTRAINT CUMSD_FK_CUMST FOREIGN KEY (id_cliente)
+    --    REFERENCES CUMST (id_cliente)
+    --    ON DELETE RESTRICT
+    --    ON UPDATE RESTRICT
 )
 RCDFMT CUMSDR;
  
-RENAME TABLE HNEACOSTA1/CUMSD TO CUMSD FOR SYSTEM NAME CUMSD;
+RENAME TABLE CUMSD TO CUMSD_TABLE FOR SYSTEM NAME CUMSD;
  
-COMMENT ON TABLE HNEACOSTA1/CUMSD IS
+COMMENT ON TABLE CUMSD IS
     'Indice de busqueda de clientes por cadena de caracteres - Modulo Clientes';
  
-LABEL ON TABLE HNEACOSTA1/CUMSD IS
+LABEL ON TABLE CUMSD IS
     'Indice Busqueda Clientes';
  
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.id_cliente            IS 'Identificador unico del cliente (FK a CUMST)';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.tipo_persona          IS 'Tipo de persona: Natural o Juridica';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.tipo_identificacion   IS 'Tipo de documento de identificacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.numero_identificacion IS 'Numero de documento de identificacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.nombres               IS 'Nombres indexados para busqueda';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.apellidos             IS 'Apellidos indexados para busqueda';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.razon_social          IS 'Razon social indexada para busqueda';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.fecha_nacimiento      IS 'Fecha de nacimiento del cliente';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.direccion             IS 'Direccion del cliente';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.email                 IS 'Correo electronico del cliente';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.telefono              IS 'Telefono del cliente';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.pais_residencia       IS 'Pais de residencia del cliente';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.usuario_creacion      IS 'Usuario que creo el registro';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.usuario_actualizacion IS 'Usuario que realizo la ultima actualizacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.version_registro      IS 'Version del registro para control de concurrencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.observaciones         IS 'Observaciones o notas adicionales';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.estado_registro       IS 'Estado del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.created_at            IS 'Fecha y hora de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CUMSD.updated_at            IS 'Fecha y hora de la ultima actualizacion';
+COMMENT ON COLUMN CUMSD.id_cliente            IS 'Identificador unico del cliente (FK a CUMST)';
+COMMENT ON COLUMN CUMSD.tipo_persona          IS 'Tipo de persona: Natural o Juridica';
+COMMENT ON COLUMN CUMSD.tipo_identificacion   IS 'Tipo de documento de identificacion';
+COMMENT ON COLUMN CUMSD.numero_identificacion IS 'Numero de documento de identificacion';
+COMMENT ON COLUMN CUMSD.nombres               IS 'Nombres indexados para busqueda';
+COMMENT ON COLUMN CUMSD.apellidos             IS 'Apellidos indexados para busqueda';
+COMMENT ON COLUMN CUMSD.razon_social          IS 'Razon social indexada para busqueda';
+COMMENT ON COLUMN CUMSD.fecha_nacimiento      IS 'Fecha de nacimiento del cliente';
+COMMENT ON COLUMN CUMSD.direccion             IS 'Direccion del cliente';
+COMMENT ON COLUMN CUMSD.email                 IS 'Correo electronico del cliente';
+COMMENT ON COLUMN CUMSD.telefono              IS 'Telefono del cliente';
+COMMENT ON COLUMN CUMSD.pais_residencia       IS 'Pais de residencia del cliente';
+COMMENT ON COLUMN CUMSD.usuario_creacion      IS 'Usuario que creo el registro';
+COMMENT ON COLUMN CUMSD.usuario_actualizacion IS 'Usuario que realizo la ultima actualizacion';
+COMMENT ON COLUMN CUMSD.version_registro      IS 'Version del registro para control de concurrencia';
+COMMENT ON COLUMN CUMSD.observaciones         IS 'Observaciones o notas adicionales';
+COMMENT ON COLUMN CUMSD.estado_registro       IS 'Estado del registro: A=Activo, I=Inactivo, B=Borrado';
+COMMENT ON COLUMN CUMSD.created_at            IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN CUMSD.updated_at            IS 'Fecha y hora de la ultima actualizacion';
  
-LABEL ON COLUMN HNEACOSTA1/CUMSD (
+LABEL ON COLUMN CUMSD (
     id_cliente            TEXT IS 'ID Cliente',
     tipo_persona          TEXT IS 'Tipo Persona',
     tipo_identificacion   TEXT IS 'Tipo Identificacion',
@@ -93,7 +93,7 @@ LABEL ON COLUMN HNEACOSTA1/CUMSD (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
  
-LABEL ON COLUMN HNEACOSTA1/CUMSD (
+LABEL ON COLUMN CUMSD (
     id_cliente            IS 'IDCLI',
     tipo_persona          IS 'TPPERS',
     tipo_identificacion   IS 'TPIDEN',
@@ -115,4 +115,4 @@ LABEL ON COLUMN HNEACOSTA1/CUMSD (
     updated_at            IS 'UPDDAT'
 );
  
-CREATE INDEX HNEACOSTA1/IDX_CUMSD_CRD ON HNEACOSTA1/CUMSD (created_at);
+CREATE INDEX IDX_CUMSD_CRD ON CUMSD (created_at);

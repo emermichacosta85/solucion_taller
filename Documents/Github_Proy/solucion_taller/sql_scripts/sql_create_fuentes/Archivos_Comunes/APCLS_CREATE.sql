@@ -19,7 +19,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/APCLS (
+CREATE OR REPLACE TABLE APCLS (
     codigo_banco          FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL,
     codigo_de_producto    FOR COLUMN CODPRD   VARCHAR(20)    NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
@@ -39,32 +39,32 @@ CREATE OR REPLACE TABLE HNEACOSTA1/APCLS (
 )
 RCDFMT APCLSR;
 
-RENAME TABLE HNEACOSTA1/APCLS
-    TO APCLS FOR SYSTEM NAME APCLS;
+RENAME TABLE APCLS
+    TO APCLS_TABLE FOR SYSTEM NAME APCLS;
 
-COMMENT ON TABLE HNEACOSTA1/APCLS IS
+COMMENT ON TABLE APCLS IS
     'Maestro de Productos Bancarios - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/APCLS IS
+LABEL ON TABLE APCLS IS
     'Maestro de Productos';
 
-COMMENT ON COLUMN HNEACOSTA1/APCLS.codigo_banco          IS 'Codigo del banco dueno del producto financiero; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.codigo_de_producto    IS 'Codigo unico del producto financiero dentro del banco; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.descripcion           IS 'Nombre y descripcion completa del producto financiero';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.valor_texto           IS 'Categoria o tipo del producto: AHORRO, CORRIENTE, CREDITO, etc.';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.valor_numerico        IS 'Valor numerico asociado al producto si aplica';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.vigencia_desde        IS 'Fecha desde la cual el producto esta vigente y disponible';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.vigencia_hasta        IS 'Fecha hasta la cual el producto esta vigente y disponible';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.orden_visualizacion   IS 'Numero de orden para presentacion en catalogos de productos';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.usuario_creacion      IS 'Usuario del sistema que creo el producto en el catalogo';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.observaciones         IS 'Notas adicionales sobre el producto bancario';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/APCLS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN APCLS.codigo_banco          IS 'Codigo del banco dueno del producto financiero; parte de la PK';
+COMMENT ON COLUMN APCLS.codigo_de_producto    IS 'Codigo unico del producto financiero dentro del banco; parte de la PK';
+COMMENT ON COLUMN APCLS.descripcion           IS 'Nombre y descripcion completa del producto financiero';
+COMMENT ON COLUMN APCLS.valor_texto           IS 'Categoria o tipo del producto: AHORRO, CORRIENTE, CREDITO, etc.';
+COMMENT ON COLUMN APCLS.valor_numerico        IS 'Valor numerico asociado al producto si aplica';
+COMMENT ON COLUMN APCLS.vigencia_desde        IS 'Fecha desde la cual el producto esta vigente y disponible';
+COMMENT ON COLUMN APCLS.vigencia_hasta        IS 'Fecha hasta la cual el producto esta vigente y disponible';
+COMMENT ON COLUMN APCLS.orden_visualizacion   IS 'Numero de orden para presentacion en catalogos de productos';
+COMMENT ON COLUMN APCLS.usuario_creacion      IS 'Usuario del sistema que creo el producto en el catalogo';
+COMMENT ON COLUMN APCLS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN APCLS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN APCLS.observaciones         IS 'Notas adicionales sobre el producto bancario';
+COMMENT ON COLUMN APCLS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN APCLS.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN APCLS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/APCLS (
+LABEL ON COLUMN APCLS (
     codigo_banco          TEXT IS 'Codigo Banco',
     codigo_de_producto    TEXT IS 'Codigo Producto',
     descripcion           TEXT IS 'Descripcion Producto',
@@ -82,4 +82,4 @@ LABEL ON COLUMN HNEACOSTA1/APCLS (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_APCLS_C ON HNEACOSTA1/APCLS (created_at);
+CREATE INDEX IDX_APCLS_C ON APCLS (created_at);

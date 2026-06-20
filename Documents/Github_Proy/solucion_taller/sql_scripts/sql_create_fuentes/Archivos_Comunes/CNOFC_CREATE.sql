@@ -22,7 +22,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CNOFC (
+CREATE OR REPLACE TABLE CNOFC (
     codigo_tabla          FOR COLUMN CODTBL   VARCHAR(20)    NOT NULL,
     codigo_registro       FOR COLUMN CODREG   VARCHAR(20)    NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
@@ -40,36 +40,36 @@ CREATE OR REPLACE TABLE HNEACOSTA1/CNOFC (
     updated_at            FOR COLUMN UPDDAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_CNOFC   PRIMARY KEY (codigo_tabla, codigo_registro),
     CONSTRAINT FK_CNOFC_CNOFT FOREIGN KEY (codigo_tabla)
-        REFERENCES HNEACOSTA1/CNOFT (codigo_tabla)
+        REFERENCES CNOFT (codigo_tabla)
 )
 RCDFMT CNOFCR;
 
-RENAME TABLE HNEACOSTA1/CNOFC
-    TO CNOFC FOR SYSTEM NAME CNOFC;
+RENAME TABLE CNOFC
+    TO CNOFC_TABLE FOR SYSTEM NAME CNOFC;
 
-COMMENT ON TABLE HNEACOSTA1/CNOFC IS
+COMMENT ON TABLE CNOFC IS
     'Referencias del Sistema - Detalle de Datos Comunes - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/CNOFC IS
+LABEL ON TABLE CNOFC IS
     'Referencias Sistema Comunes';
 
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.codigo_tabla          IS 'Codigo de la tabla de datos comunes a la que pertenece el registro; FK a CNOFT; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.codigo_registro       IS 'Codigo unico del registro dentro de la tabla de datos comunes; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.descripcion           IS 'Descripcion funcional del valor o referencia del sistema';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.valor_texto           IS 'Valor de texto asociado al registro de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.valor_numerico        IS 'Valor numerico asociado al registro de referencia si aplica';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.vigencia_desde        IS 'Fecha desde la cual el registro de referencia es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.vigencia_hasta        IS 'Fecha hasta la cual el registro de referencia es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.orden_visualizacion   IS 'Numero de orden para presentacion en pantallas y listas de valores';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.usuario_creacion      IS 'Usuario del sistema que creo el registro de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.observaciones         IS 'Notas adicionales sobre el registro de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CNOFC.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN CNOFC.codigo_tabla          IS 'Codigo de la tabla de datos comunes a la que pertenece el registro; FK a CNOFT; parte de la PK';
+COMMENT ON COLUMN CNOFC.codigo_registro       IS 'Codigo unico del registro dentro de la tabla de datos comunes; parte de la PK';
+COMMENT ON COLUMN CNOFC.descripcion           IS 'Descripcion funcional del valor o referencia del sistema';
+COMMENT ON COLUMN CNOFC.valor_texto           IS 'Valor de texto asociado al registro de referencia';
+COMMENT ON COLUMN CNOFC.valor_numerico        IS 'Valor numerico asociado al registro de referencia si aplica';
+COMMENT ON COLUMN CNOFC.vigencia_desde        IS 'Fecha desde la cual el registro de referencia es vigente';
+COMMENT ON COLUMN CNOFC.vigencia_hasta        IS 'Fecha hasta la cual el registro de referencia es vigente';
+COMMENT ON COLUMN CNOFC.orden_visualizacion   IS 'Numero de orden para presentacion en pantallas y listas de valores';
+COMMENT ON COLUMN CNOFC.usuario_creacion      IS 'Usuario del sistema que creo el registro de referencia';
+COMMENT ON COLUMN CNOFC.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN CNOFC.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN CNOFC.observaciones         IS 'Notas adicionales sobre el registro de referencia';
+COMMENT ON COLUMN CNOFC.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN CNOFC.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN CNOFC.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CNOFC (
+LABEL ON COLUMN CNOFC (
     codigo_tabla          TEXT IS 'Codigo de Tabla',
     codigo_registro       TEXT IS 'Codigo de Registro',
     descripcion           TEXT IS 'Descripcion',
@@ -87,4 +87,4 @@ LABEL ON COLUMN HNEACOSTA1/CNOFC (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_CNOFC_C ON HNEACOSTA1/CNOFC (created_at);
+CREATE INDEX IDX_CNOFC_C ON CNOFC (created_at);

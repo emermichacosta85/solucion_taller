@@ -12,7 +12,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/IBTBL (
+CREATE OR REPLACE TABLE IBTBL (
     id                        FOR COLUMN IDITBL  BIGINT          GENERATED ALWAYS AS IDENTITY,
     descripcion               FOR COLUMN DESCRIP VARCHAR(120)    NOT NULL DEFAULT '',
     valor_texto               FOR COLUMN VALTXT  VARCHAR(50)     NOT NULL DEFAULT '',
@@ -23,7 +23,7 @@ CREATE OR REPLACE TABLE HNEACOSTA1/IBTBL (
     usuario_creacion          FOR COLUMN USRCREA VARCHAR(30)     NOT NULL DEFAULT '',
     usuario_actualizacion     FOR COLUMN USRACT  VARCHAR(30)     NOT NULL DEFAULT '',
     version_registro          FOR COLUMN VERSREG INTEGER         NOT NULL DEFAULT 1,
-    observaciones             FOR COLUMN OBSERVACVARCHAR(120)    NOT NULL DEFAULT '',
+    observaciones             FOR COLUMN OBSERVAC VARCHAR(120)    NOT NULL DEFAULT '',
     estado_registro           FOR COLUMN ESTREG  CHAR(1)         NOT NULL DEFAULT 'A',
     created_at                FOR COLUMN CRTDAT  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at                FOR COLUMN UPDDAT  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -31,31 +31,31 @@ CREATE OR REPLACE TABLE HNEACOSTA1/IBTBL (
 )
 RCDFMT IBTBLR;
 
-RENAME TABLE HNEACOSTA1/IBTBL
-    TO IBTBL FOR SYSTEM NAME IBTBL;
+RENAME TABLE IBTBL
+    TO IBTBL_TABLE FOR SYSTEM NAME IBTBL;
 
-COMMENT ON TABLE HNEACOSTA1/IBTBL IS
+COMMENT ON TABLE IBTBL IS
     'Referencias Cruzadas para Intersucursales - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/IBTBL IS
+LABEL ON TABLE IBTBL IS
     'Referencias Intersucursales';
 
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.id                        IS 'Identificador unico autogenerado del registro de referencia intersucursal';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.descripcion               IS 'Descripcion del elemento o relacion registrada';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.valor_texto               IS 'Valor de texto adicional asociado al registro';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.valor_numerico            IS 'Valor numerico adicional asociado al registro si aplica';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.vigencia_desde            IS 'Fecha desde la cual el registro es vigente';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.vigencia_hasta            IS 'Fecha hasta la cual el registro es vigente';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.orden_visualizacion       IS 'Numero de orden para presentacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.usuario_creacion          IS 'Usuario del sistema que creo el registro';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.usuario_actualizacion     IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.version_registro          IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.observaciones             IS 'Notas adicionales sobre el registro';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.estado_registro           IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.created_at                IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/IBTBL.updated_at                IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN IBTBL.id                        IS 'Identificador unico autogenerado del registro de referencia intersucursal';
+COMMENT ON COLUMN IBTBL.descripcion               IS 'Descripcion del elemento o relacion registrada';
+COMMENT ON COLUMN IBTBL.valor_texto               IS 'Valor de texto adicional asociado al registro';
+COMMENT ON COLUMN IBTBL.valor_numerico            IS 'Valor numerico adicional asociado al registro si aplica';
+COMMENT ON COLUMN IBTBL.vigencia_desde            IS 'Fecha desde la cual el registro es vigente';
+COMMENT ON COLUMN IBTBL.vigencia_hasta            IS 'Fecha hasta la cual el registro es vigente';
+COMMENT ON COLUMN IBTBL.orden_visualizacion       IS 'Numero de orden para presentacion del registro';
+COMMENT ON COLUMN IBTBL.usuario_creacion          IS 'Usuario del sistema que creo el registro';
+COMMENT ON COLUMN IBTBL.usuario_actualizacion     IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN IBTBL.version_registro          IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN IBTBL.observaciones             IS 'Notas adicionales sobre el registro';
+COMMENT ON COLUMN IBTBL.estado_registro           IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN IBTBL.created_at                IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN IBTBL.updated_at                IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/IBTBL (
+LABEL ON COLUMN IBTBL (
     id                        TEXT IS 'ID Referencia',
     descripcion               TEXT IS 'Descripcion',
     valor_texto               TEXT IS 'Valor Texto',
@@ -72,4 +72,4 @@ LABEL ON COLUMN HNEACOSTA1/IBTBL (
     updated_at                TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_IBTBL_C ON HNEACOSTA1/IBTBL (created_at);
+CREATE INDEX IDX_IBTBL_C ON IBTBL (created_at);

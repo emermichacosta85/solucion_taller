@@ -22,7 +22,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/DITBL (
+CREATE OR REPLACE TABLE DITBL (
     numero_tabla          FOR COLUMN NUMTBL   VARCHAR(30)    NOT NULL,
     secuencia             FOR COLUMN SECUENC  INTEGER        NOT NULL,
     tipo_documento        FOR COLUMN TIPDOC   VARCHAR(20)    NOT NULL DEFAULT '',
@@ -41,31 +41,31 @@ CREATE OR REPLACE TABLE HNEACOSTA1/DITBL (
 )
 RCDFMT DITBLR;
 
-RENAME TABLE HNEACOSTA1/DITBL
-    TO DITBL FOR SYSTEM NAME DITBL;
+RENAME TABLE DITBL
+    TO DITBL_TABLE FOR SYSTEM NAME DITBL;
 
-COMMENT ON TABLE HNEACOSTA1/DITBL IS
+COMMENT ON TABLE DITBL IS
     'Catalogo de Tipos de Documentos - Modulo 14 Manejo de Documentos Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/DITBL IS
+LABEL ON TABLE DITBL IS
     'Tipos de Documentos';
 
-COMMENT ON COLUMN HNEACOSTA1/DITBL.numero_tabla          IS 'Numero o codigo de la tabla de tipos de documentos; forma parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.secuencia             IS 'Numero de secuencia del tipo de documento dentro de la tabla; forma parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.tipo_documento        IS 'Codigo que clasifica el tipo de documento (IDENTIDAD, CONTRATO, GARANTIA, etc.)';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.descripcion_documento IS 'Descripcion completa del tipo de documento para despliegue en pantallas y reportes';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.obligatorio           IS 'Indica si el documento es obligatorio para el tipo de operacion: S=Si, N=No';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.fecha_recepcion       IS 'Fecha referencial de recepcion del tipo de documento si aplica al catalogo';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.fecha_vencimiento     IS 'Fecha de vencimiento o expiracion de la vigencia del tipo de documento';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.observaciones         IS 'Notas adicionales o instrucciones sobre el manejo del tipo de documento';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.usuario_creacion      IS 'Usuario del sistema que creo el registro en el catalogo';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion al registro';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.estado_registro       IS 'Estado logico del registro en el catalogo: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.created_at            IS 'Fecha y hora exacta de creacion del registro en la base de datos';
-COMMENT ON COLUMN HNEACOSTA1/DITBL.updated_at            IS 'Fecha y hora de la ultima actualizacion registrada en la base de datos';
+COMMENT ON COLUMN DITBL.numero_tabla          IS 'Numero o codigo de la tabla de tipos de documentos; forma parte de la PK';
+COMMENT ON COLUMN DITBL.secuencia             IS 'Numero de secuencia del tipo de documento dentro de la tabla; forma parte de la PK';
+COMMENT ON COLUMN DITBL.tipo_documento        IS 'Codigo que clasifica el tipo de documento (IDENTIDAD, CONTRATO, GARANTIA, etc.)';
+COMMENT ON COLUMN DITBL.descripcion_documento IS 'Descripcion completa del tipo de documento para despliegue en pantallas y reportes';
+COMMENT ON COLUMN DITBL.obligatorio           IS 'Indica si el documento es obligatorio para el tipo de operacion: S=Si, N=No';
+COMMENT ON COLUMN DITBL.fecha_recepcion       IS 'Fecha referencial de recepcion del tipo de documento si aplica al catalogo';
+COMMENT ON COLUMN DITBL.fecha_vencimiento     IS 'Fecha de vencimiento o expiracion de la vigencia del tipo de documento';
+COMMENT ON COLUMN DITBL.observaciones         IS 'Notas adicionales o instrucciones sobre el manejo del tipo de documento';
+COMMENT ON COLUMN DITBL.usuario_creacion      IS 'Usuario del sistema que creo el registro en el catalogo';
+COMMENT ON COLUMN DITBL.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion al registro';
+COMMENT ON COLUMN DITBL.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN DITBL.estado_registro       IS 'Estado logico del registro en el catalogo: A=Activo, I=Inactivo';
+COMMENT ON COLUMN DITBL.created_at            IS 'Fecha y hora exacta de creacion del registro en la base de datos';
+COMMENT ON COLUMN DITBL.updated_at            IS 'Fecha y hora de la ultima actualizacion registrada en la base de datos';
 
-LABEL ON COLUMN HNEACOSTA1/DITBL (
+LABEL ON COLUMN DITBL (
     numero_tabla          TEXT IS 'Numero de Tabla',
     secuencia             TEXT IS 'Secuencia',
     tipo_documento        TEXT IS 'Tipo de Documento',
@@ -82,4 +82,5 @@ LABEL ON COLUMN HNEACOSTA1/DITBL (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_DITBL_C ON HNEACOSTA1/DITBL (created_at);
+CREATE INDEX IDX_DITBL_C ON DITBL (created_at);
+CREATE INDEX IDX_DITBL_NSEC ON DITBL (numero_tabla, secuencia);

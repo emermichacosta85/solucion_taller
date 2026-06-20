@@ -20,112 +20,75 @@
 -- Proyecto            : Taller IBM i - Modulo 4 Contratos/Certificados/Giros
 -- =============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/DDCPN (
-    numero_prestamo         VARCHAR(30)     NOT NULL    FOR COLUMN DDCPNNPR,
-    secuencia               INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN DDCPNSEQ,
-    tipo_cobro              VARCHAR(20)                 FOR COLUMN DDCPNTCO,
-    monto_cobro             DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DDCPNMCO,
-    fecha_cobro             DATE                        FOR COLUMN DDCPNFCO,
-    estado_cobro            VARCHAR(20)                 FOR COLUMN DDCPNEST,
-    referencia_cobro        VARCHAR(50)                 FOR COLUMN DDCPNRCB,
-    fecha_desembolso        DATE                        FOR COLUMN DDCPNFDS,
-    fecha_vencimiento       DATE                        FOR COLUMN DDCPNFVE,
-    monto_original          DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DDCPNMOR,
-    saldo_actual            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DDCPNSAL,
-    tasa_interes            DECIMAL(18,4)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DDCPNTSA,
-    plazo_meses             INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN DDCPNPLA,
-    dias_mora               INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN DDCPNDMR,
-    estado_operacion        VARCHAR(20)     NOT NULL    FOR COLUMN DDCPNEOP,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN DDCPNUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN DDCPNUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN DDCPNVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN DDCPNOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN DDCPNERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN DDCPNCAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN DDCPNUAT,
-    CONSTRAINT PK_DDCPN PRIMARY KEY (numero_prestamo, secuencia),
-    CONSTRAINT FK_DDCPN_DEALS FOREIGN KEY (numero_prestamo)
-        REFERENCES HNEACOSTA1/DEALS (numero_prestamo)
-        ON DELETE RESTRICT
-        ON UPDATE RESTRICT
+CREATE OR REPLACE TABLE DDCPN (
+    numero_prestamo         FOR COLUMN DDCPNNPR VARCHAR(30)     NOT NULL,
+    fecha_desembolso        FOR COLUMN DDCPNFDS DATE,
+    fecha_vencimiento       FOR COLUMN DDCPNFVE DATE,
+    monto_original          FOR COLUMN DDCPNMOR DECIMAL(18,2)   NOT NULL DEFAULT 0,
+    saldo_actual            FOR COLUMN DDCPNSAL DECIMAL(18,2)   NOT NULL DEFAULT 0,
+    tasa_interes            FOR COLUMN DDCPNTSA DECIMAL(18,4)   NOT NULL DEFAULT 0,
+    plazo_meses             FOR COLUMN DDCPNPLA INT             NOT NULL DEFAULT 0,
+    dias_mora               FOR COLUMN DDCPNDMR INT             NOT NULL DEFAULT 0,
+    estado_operacion        FOR COLUMN DDCPNEOP VARCHAR(20)     NOT NULL,
+    usuario_creacion        FOR COLUMN DDCPNUSC VARCHAR(30),
+    usuario_actualizacion   FOR COLUMN DDCPNUSA VARCHAR(30),
+    version_registro        FOR COLUMN DDCPNVRS INT             NOT NULL DEFAULT 1,
+    observaciones           FOR COLUMN DDCPNOBS VARCHAR(120),
+    estado_registro         FOR COLUMN DDCPNERG CHAR(1)         NOT NULL DEFAULT 'A',
+    created_at              FOR COLUMN DDCPNCAT TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at              FOR COLUMN DDCPNUAT TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT PK_DDCPN PRIMARY KEY (numero_prestamo)
+    --CONSTRAINT FK_DDCPN_DEALS FOREIGN KEY (numero_prestamo)
+    --    REFERENCES DEALS (numero_prestamo)
+    --   ON DELETE RESTRICT
+    --    ON UPDATE RESTRICT
 )
 RCDFMT DDCPNR;
 
-RENAME TABLE HNEACOSTA1/DDCPN
-    TO DDCPN FOR SYSTEM NAME DDCPN;
+RENAME TABLE DDCPN
+    TO DDCPN_TABLE FOR SYSTEM NAME DDCPN;
 
-COMMENT ON TABLE HNEACOSTA1/DDCPN IS
+COMMENT ON TABLE DDCPN IS
     'Transacciones Pendientes de Cobro - Modulo 4 Contratos/Certificados/Giros';
 
-LABEL ON TABLE HNEACOSTA1/DDCPN
+LABEL ON TABLE DDCPN
     IS 'Pendientes de Cobro';
 
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.numero_prestamo IS
+COMMENT ON COLUMN DDCPN.numero_prestamo IS
     'Numero de la operacion sobre la que aplica el cobro pendiente (FK DEALS)';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.secuencia IS
-    'Numero de orden para multiples cobros pendientes sobre la misma operacion';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.tipo_cobro IS
-    'Clasificacion del cobro: CAPITAL, INTERES, MORA, SEGURO, COMISION';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.monto_cobro IS
-    'Monto del cobro pendiente de aplicar en la moneda de la operacion';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.fecha_cobro IS
-    'Fecha programada para la aplicacion del cobro';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.estado_cobro IS
-    'Estado del cobro: PENDIENTE, APLICADO, RECHAZADO, REVERSO';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.referencia_cobro IS
-    'Referencia del documento o transaccion que origino el cobro pendiente';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.fecha_desembolso IS
+COMMENT ON COLUMN DDCPN.fecha_desembolso IS
     'Fecha de desembolso de la operacion padre';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.fecha_vencimiento IS
+COMMENT ON COLUMN DDCPN.fecha_vencimiento IS
     'Fecha de vencimiento de la operacion padre';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.monto_original IS
+COMMENT ON COLUMN DDCPN.monto_original IS
     'Monto original de la operacion padre';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.saldo_actual IS
+COMMENT ON COLUMN DDCPN.saldo_actual IS
     'Saldo vigente de la operacion al momento de registrar el cobro pendiente';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.tasa_interes IS
+COMMENT ON COLUMN DDCPN.tasa_interes IS
     'Tasa de interes aplicable a la operacion padre';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.plazo_meses IS
+COMMENT ON COLUMN DDCPN.plazo_meses IS
     'Plazo de la operacion en meses';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.dias_mora IS
+COMMENT ON COLUMN DDCPN.dias_mora IS
     'Dias de mora de la operacion al momento del cobro';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.estado_operacion IS
+COMMENT ON COLUMN DDCPN.estado_operacion IS
     'Estado de la operacion padre: VIGENTE, CANCELADA, VENCIDA, MORA';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.usuario_creacion IS
+COMMENT ON COLUMN DDCPN.usuario_creacion IS
     'Usuario o proceso que genero el cobro pendiente';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.usuario_actualizacion IS
+COMMENT ON COLUMN DDCPN.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.version_registro IS
+COMMENT ON COLUMN DDCPN.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.observaciones IS
+COMMENT ON COLUMN DDCPN.observaciones IS
     'Notas sobre el cobro pendiente, rechazos o acuerdos de pago';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.estado_registro IS
+COMMENT ON COLUMN DDCPN.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.created_at IS
+COMMENT ON COLUMN DDCPN.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/DDCPN.updated_at IS
+COMMENT ON COLUMN DDCPN.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/DDCPN (
+LABEL ON COLUMN DDCPN (
     numero_prestamo          TEXT IS 'No. Prestamo',
-    secuencia                TEXT IS 'Secuencia',
-    tipo_cobro               TEXT IS 'Tipo Cobro',
-    monto_cobro              TEXT IS 'Monto Cobro',
-    fecha_cobro              TEXT IS 'Fec Cobro',
-    estado_cobro             TEXT IS 'Estado Cobro',
-    referencia_cobro         TEXT IS 'Ref Cobro',
     fecha_desembolso         TEXT IS 'Fec Desemb',
     fecha_vencimiento        TEXT IS 'Fec Vencim',
     monto_original           TEXT IS 'Monto Orig',
@@ -143,8 +106,8 @@ LABEL ON COLUMN HNEACOSTA1/DDCPN (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/IDDCPNNPR ON HNEACOSTA1/DDCPN (numero_prestamo);
-CREATE INDEX HNEACOSTA1/IDDCPNCAT ON HNEACOSTA1/DDCPN (created_at);
+CREATE INDEX IDDCPNNPR ON DDCPN (numero_prestamo);
+CREATE INDEX IDDCPNCAT ON DDCPN (created_at);
 
 -- =============================================================================
 -- Fin de script: DDCPN_CREATE.sql

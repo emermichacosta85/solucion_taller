@@ -19,122 +19,91 @@
 -- Proyecto            : Taller IBM i - Modulo 4 Contratos/Certificados/Giros
 -- =============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/DLSDE (
-    numero_prestamo         VARCHAR(30)     NOT NULL    FOR COLUMN DLSDENPR,
-    fecha                   DATE            NOT NULL    FOR COLUMN DLSDEFEC,
-    tipo_registro           VARCHAR(20)     NOT NULL    FOR COLUMN DLSDETRG,
-    secuencia               INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN DLSDESEQ,
-    codigo_deduccion        VARCHAR(20)     NOT NULL    FOR COLUMN DLSDECDD,
-    descripcion_deduccion   VARCHAR(80)                 FOR COLUMN DLSDEDSC,
-    monto_deduccion         DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DLSDEMDD,
-    porcentaje_deduccion    DECIMAL(10,6)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DLSDEPDD,
-    estado_deduccion        VARCHAR(20)                 FOR COLUMN DLSDEEST,
-    fecha_desembolso        DATE                        FOR COLUMN DLSDEFDS,
-    fecha_vencimiento       DATE                        FOR COLUMN DLSDEFVE,
-    monto_original          DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DLSDEMOR,
-    saldo_actual            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DLSDESAL,
-    tasa_interes            DECIMAL(18,4)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN DLSDETSA,
-    plazo_meses             INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN DLSDEPLA,
-    dias_mora               INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN DLSDEDMR,
-    estado_operacion        VARCHAR(20)     NOT NULL    FOR COLUMN DLSDEEOP,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN DLSDEUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN DLSDEUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN DLSDEVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN DLSDEOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN DLSDEERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN DLSDECAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN DLSDEUAT,
-    CONSTRAINT PK_DLSDE PRIMARY KEY (numero_prestamo, fecha,
-                                     tipo_registro, secuencia, codigo_deduccion),
-    CONSTRAINT FK_DLSDE_DEALS FOREIGN KEY (numero_prestamo)
-        REFERENCES HNEACOSTA1/DEALS (numero_prestamo)
-        ON DELETE RESTRICT
-        ON UPDATE RESTRICT
+CREATE OR REPLACE TABLE DLSDE (
+    numero_prestamo         FOR COLUMN DLSDENPR VARCHAR(30)     NOT NULL,
+    fecha                   FOR COLUMN DLSDEFEC DATE            NOT NULL,
+    tipo_registro           FOR COLUMN DLSDETRG VARCHAR(20)     NOT NULL,
+    secuencia               FOR COLUMN DLSDESEQ INT             NOT NULL DEFAULT 1,
+    codigo_deduccion        FOR COLUMN DLSDECDD VARCHAR(20)     NOT NULL,
+    fecha_desembolso        FOR COLUMN DLSDEFDS DATE,
+    fecha_vencimiento       FOR COLUMN DLSDEFVE DATE,
+    monto_original          FOR COLUMN DLSDEMOR DECIMAL(18,2)   NOT NULL DEFAULT 0,
+    saldo_actual            FOR COLUMN DLSDESAL DECIMAL(18,2)   NOT NULL DEFAULT 0,
+    tasa_interes            FOR COLUMN DLSDETSA DECIMAL(18,4)   NOT NULL DEFAULT 0,
+    plazo_meses             FOR COLUMN DLSDEPLA INT             NOT NULL DEFAULT 0,
+    dias_mora               FOR COLUMN DLSDEDMR INT             NOT NULL DEFAULT 0,
+    estado_operacion        FOR COLUMN DLSDEEOP VARCHAR(20)     NOT NULL,
+    usuario_creacion        FOR COLUMN DLSDEUSC VARCHAR(30),
+    usuario_actualizacion   FOR COLUMN DLSDEUSA VARCHAR(30),
+    version_registro        FOR COLUMN DLSDEVRS INT             NOT NULL DEFAULT 1,
+    observaciones           FOR COLUMN DLSDEOBS VARCHAR(120),
+    estado_registro         FOR COLUMN DLSDEERG CHAR(1)         NOT NULL DEFAULT 'A',
+    created_at              FOR COLUMN DLSDECAT TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at              FOR COLUMN DLSDEUAT TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT PK_DLSDE PRIMARY KEY (numero_prestamo, fecha)
+    --CONSTRAINT FK_DLSDE_DEALS FOREIGN KEY (numero_prestamo)
+    --    REFERENCES DEALS (numero_prestamo)
+    --    ON DELETE RESTRICT
+    --    ON UPDATE RESTRICT
 )
 RCDFMT DLSDER;
 
-RENAME TABLE HNEACOSTA1/DLSDE
-    TO DLSDE FOR SYSTEM NAME DLSDE;
+RENAME TABLE DLSDE
+    TO DLSDE_TABLE FOR SYSTEM NAME DLSDE;
 
-COMMENT ON TABLE HNEACOSTA1/DLSDE IS
+COMMENT ON TABLE DLSDE IS
     'Detalle de Deducciones del Plan de Pagos - Modulo 4 Contratos/Certificados/Giros';
 
-LABEL ON TABLE HNEACOSTA1/DLSDE
+LABEL ON TABLE DLSDE
     IS 'Deducciones Plan Pagos';
 
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.numero_prestamo IS
+COMMENT ON COLUMN DLSDE.numero_prestamo IS
     'Numero de la operacion a la que pertenece la deduccion (FK DEALS)';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.fecha IS
+COMMENT ON COLUMN DLSDE.fecha IS
     'Fecha de la cuota del plan de pagos a la que aplica la deduccion';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.tipo_registro IS
+COMMENT ON COLUMN DLSDE.tipo_registro IS
     'Tipo de registro del plan al que pertenece la deduccion';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.secuencia IS
+COMMENT ON COLUMN DLSDE.secuencia IS
     'Numero de secuencia de la deduccion dentro del mismo tipo y fecha';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.codigo_deduccion IS
+COMMENT ON COLUMN DLSDE.codigo_deduccion IS
     'Codigo del concepto de deduccion: SEGURO_VIDA, COMISION, MORA, IVA';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.descripcion_deduccion IS
-    'Descripcion legible del concepto de deduccion aplicado';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.monto_deduccion IS
-    'Monto fijo de la deduccion en la moneda de la operacion';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.porcentaje_deduccion IS
-    'Porcentaje base utilizado para calcular el monto de la deduccion';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.estado_deduccion IS
-    'Estado de la deduccion: PENDIENTE, COBRADA, CONDONADA, AJUSTADA';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.fecha_desembolso IS
+COMMENT ON COLUMN DLSDE.fecha_desembolso IS
     'Fecha de desembolso de la operacion padre';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.fecha_vencimiento IS
+COMMENT ON COLUMN DLSDE.fecha_vencimiento IS
     'Fecha de vencimiento de la cuota a la que pertenece la deduccion';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.monto_original IS
+COMMENT ON COLUMN DLSDE.monto_original IS
     'Monto original de la operacion padre';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.saldo_actual IS
+COMMENT ON COLUMN DLSDE.saldo_actual IS
     'Saldo vigente de la operacion al momento del registro de la deduccion';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.tasa_interes IS
+COMMENT ON COLUMN DLSDE.tasa_interes IS
     'Tasa de interes aplicable a la operacion padre';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.plazo_meses IS
+COMMENT ON COLUMN DLSDE.plazo_meses IS
     'Plazo de la operacion en meses';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.dias_mora IS
+COMMENT ON COLUMN DLSDE.dias_mora IS
     'Dias de mora acumulados sobre la cuota a la que pertenece la deduccion';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.estado_operacion IS
+COMMENT ON COLUMN DLSDE.estado_operacion IS
     'Estado de la operacion padre: VIGENTE, CANCELADA, VENCIDA, MORA';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.usuario_creacion IS
+COMMENT ON COLUMN DLSDE.usuario_creacion IS
     'Usuario que registro la deduccion en el plan de pagos';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.usuario_actualizacion IS
+COMMENT ON COLUMN DLSDE.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.version_registro IS
+COMMENT ON COLUMN DLSDE.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.observaciones IS
+COMMENT ON COLUMN DLSDE.observaciones IS
     'Notas sobre la deduccion, exenciones o condiciones especiales';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.estado_registro IS
+COMMENT ON COLUMN DLSDE.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.created_at IS
+COMMENT ON COLUMN DLSDE.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/DLSDE.updated_at IS
+COMMENT ON COLUMN DLSDE.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/DLSDE (
+LABEL ON COLUMN DLSDE (
     numero_prestamo          TEXT IS 'No. Prestamo',
     fecha                    TEXT IS 'Fecha',
     tipo_registro            TEXT IS 'Tipo Reg',
     secuencia                TEXT IS 'Secuencia',
     codigo_deduccion         TEXT IS 'Cod Deducc',
-    descripcion_deduccion    TEXT IS 'Desc Deducc',
-    monto_deduccion          TEXT IS 'Monto Ded',
-    porcentaje_deduccion     TEXT IS 'Porc Ded',
-    estado_deduccion         TEXT IS 'Estado Ded',
     fecha_desembolso         TEXT IS 'Fec Desemb',
     fecha_vencimiento        TEXT IS 'Fec Vencim',
     monto_original           TEXT IS 'Monto Orig',
@@ -152,9 +121,8 @@ LABEL ON COLUMN HNEACOSTA1/DLSDE (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/IDLSDENPR ON HNEACOSTA1/DLSDE (numero_prestamo);
-CREATE INDEX HNEACOSTA1/IDLSDEFEC ON HNEACOSTA1/DLSDE (fecha);
-CREATE INDEX HNEACOSTA1/IDLSDECAT ON HNEACOSTA1/DLSDE (created_at);
+CREATE INDEX IDLSDENPR ON DLSDE (numero_prestamo, fecha);
+CREATE INDEX IDLSDEFEC ON DLSDE (fecha);
 
 -- =============================================================================
 -- Fin de script: DLSDE_CREATE.sql

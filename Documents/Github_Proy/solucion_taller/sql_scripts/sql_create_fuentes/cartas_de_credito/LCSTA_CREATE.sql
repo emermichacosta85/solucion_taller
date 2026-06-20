@@ -18,111 +18,68 @@
 -- Proyecto            : Taller IBM i - Modulo 5 Cartas de Credito
 -- =============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/LCSTA (
-    id                      BIGINT          NOT NULL    FOR COLUMN LCSTAID,
-    periodo                 VARCHAR(10)     NOT NULL    FOR COLUMN LCSTAPER,
-    codigo_banco            VARCHAR(20)     NOT NULL    FOR COLUMN LCSTABNK,
-    tipo_estadistica        VARCHAR(20)     NOT NULL    FOR COLUMN LCSTATES,
-    tipo_carta              VARCHAR(20)                 FOR COLUMN LCSTATCO,
-    codigo_moneda           VARCHAR(20)                 FOR COLUMN LCSTAMON,
-    cantidad_operaciones    INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN LCSTAQOP,
-    monto_total             DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN LCSTAMTO,
-    pais_destino_principal  VARCHAR(80)                 FOR COLUMN LCSTAPDS,
-    fecha_emision           DATE                        FOR COLUMN LCSTAFEM,
-    fecha_vencimiento       DATE                        FOR COLUMN LCSTAFVE,
-    monto_original          DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN LCSTAMOR,
-    saldo_actual            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN LCSTASAL,
-    banco_corresponsal      VARCHAR(80)                 FOR COLUMN LCSTABCR,
-    pais_destino            VARCHAR(80)                 FOR COLUMN LCSTAPDS,
-    estado_carta            VARCHAR(20)     NOT NULL    FOR COLUMN LCSTAEST,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN LCSTAUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN LCSTAUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN LCSTAVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN LCSTAOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN LCSTAERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN LCSTACAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN LCSTAUAT,
-    CONSTRAINT PK_LCSTA PRIMARY KEY (id),
-    CONSTRAINT UQ_LCSTA_PRD UNIQUE (periodo, codigo_banco, tipo_estadistica, tipo_carta, codigo_moneda)
+CREATE OR REPLACE TABLE LCSTA (
+    id                       FOR COLUMN LCSTAID    BIGINT         NOT NULL,
+    fecha_emision            FOR COLUMN LCSTAFEM   DATE,
+    fecha_vencimiento        FOR COLUMN LCSTAFVE   DATE,
+    monto_original           FOR COLUMN LCSTAMOR   DECIMAL(18,2)  NOT NULL DEFAULT 0,
+    saldo_actual             FOR COLUMN LCSTASAL   DECIMAL(18,2)  NOT NULL DEFAULT 0,
+    banco_corresponsal       FOR COLUMN LCSTABCR   VARCHAR(80),
+    pais_destino             FOR COLUMN LCSTAPDS   VARCHAR(80),
+    estado_carta             FOR COLUMN LCSTAEST   VARCHAR(20)    NOT NULL,
+    usuario_creacion         FOR COLUMN LCSTAUSC   VARCHAR(30),
+    usuario_actualizacion    FOR COLUMN LCSTAUSA   VARCHAR(30),
+    version_registro         FOR COLUMN LCSTAVRS   INT            NOT NULL DEFAULT 1,
+    observaciones            FOR COLUMN LCSTAOBS   VARCHAR(120),
+    estado_registro          FOR COLUMN LCSTAERG   CHAR(1)        NOT NULL DEFAULT 'A',
+    created_at               FOR COLUMN LCSTACAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at               FOR COLUMN LCSTAUAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT PK_LCSTA PRIMARY KEY (id)
 )
 RCDFMT LCSTAR;
 
-RENAME TABLE HNEACOSTA1/LCSTA
-    TO LCSTA FOR SYSTEM NAME LCSTA;
+RENAME TABLE LCSTA
+    TO LCSTA_TABLE FOR SYSTEM NAME LCSTA;
 
-COMMENT ON TABLE HNEACOSTA1/LCSTA IS
+COMMENT ON TABLE LCSTA IS
     'Estadistica de Cartas de Credito - Modulo 5 Cartas de Credito';
 
-LABEL ON TABLE HNEACOSTA1/LCSTA
+LABEL ON TABLE LCSTA
     IS 'Estadistica LC';
 
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.id IS
+COMMENT ON COLUMN LCSTA.id IS
     'Identificador tecnico unico autoincremental del registro estadistico';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.periodo IS
-    'Periodo de la estadistica en formato AAAAMM';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.codigo_banco IS
-    'Codigo del banco al que corresponde la estadistica';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.tipo_estadistica IS
-    'Tipo de evento estadistico: APERTURA, ENMIENDA, PAGO, VENCIMIENTO, CANCELACION';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.tipo_carta IS
-    'Tipo de carta de credito: IMPORTACION, EXPORTACION, STAND_BY, GARANTIA';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.codigo_moneda IS
-    'Codigo ISO de la moneda de las operaciones contabilizadas';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.cantidad_operaciones IS
-    'Numero total de operaciones del tipo en el periodo';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.monto_total IS
-    'Monto agregado de todas las operaciones del tipo en el periodo';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.pais_destino_principal IS
-    'Pais de mayor volumen de operaciones en el periodo estadistico';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.fecha_emision IS
+COMMENT ON COLUMN LCSTA.fecha_emision IS
     'Fecha de emision de la carta de credito';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.fecha_vencimiento IS
+COMMENT ON COLUMN LCSTA.fecha_vencimiento IS
     'Fecha de vencimiento pactada de la carta de credito';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.monto_original IS
+COMMENT ON COLUMN LCSTA.monto_original IS
     'Monto original de la carta de credito en la moneda pactada';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.saldo_actual IS
+COMMENT ON COLUMN LCSTA.saldo_actual IS
     'Saldo vigente disponible de la carta de credito';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.banco_corresponsal IS
+COMMENT ON COLUMN LCSTA.banco_corresponsal IS
     'Nombre o codigo del banco corresponsal en el exterior';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.pais_destino IS
+COMMENT ON COLUMN LCSTA.pais_destino IS
     'Pais de destino o del beneficiario de la carta de credito';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.estado_carta IS
+COMMENT ON COLUMN LCSTA.estado_carta IS
     'Estado operativo de la carta: ABIERTA, UTILIZADA, VENCIDA, CANCELADA';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.usuario_creacion IS
+COMMENT ON COLUMN LCSTA.usuario_creacion IS
     'Usuario del sistema que registro el registro';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.usuario_actualizacion IS
+COMMENT ON COLUMN LCSTA.usuario_actualizacion IS
     'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.version_registro IS
+COMMENT ON COLUMN LCSTA.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.observaciones IS
+COMMENT ON COLUMN LCSTA.observaciones IS
     'Notas libres o anotaciones operativas del registro';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.estado_registro IS
+COMMENT ON COLUMN LCSTA.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.created_at IS
+COMMENT ON COLUMN LCSTA.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/LCSTA.updated_at IS
+COMMENT ON COLUMN LCSTA.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/LCSTA (
+LABEL ON COLUMN LCSTA (
     id                           TEXT IS 'ID Estadistica',
-    periodo                      TEXT IS 'Periodo',
-    codigo_banco                 TEXT IS 'Banco',
-    tipo_estadistica             TEXT IS 'Tipo Estadist',
-    tipo_carta                   TEXT IS 'Tipo Carta',
-    codigo_moneda                TEXT IS 'Moneda',
-    cantidad_operaciones         TEXT IS 'Cant Oper',
-    monto_total                  TEXT IS 'Monto Total',
-    pais_destino_principal       TEXT IS 'Pais Principal',
     fecha_emision                TEXT IS 'Fec Emision',
     fecha_vencimiento            TEXT IS 'Fec Vencim',
     monto_original               TEXT IS 'Monto Orig',
@@ -139,8 +96,7 @@ LABEL ON COLUMN HNEACOSTA1/LCSTA (
     updated_at                   TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ILCSTAPER ON HNEACOSTA1/LCSTA (periodo);
-CREATE INDEX HNEACOSTA1/ILCSTACAT ON HNEACOSTA1/LCSTA (created_at);
+CREATE INDEX ILCSTACAT ON LCSTA (created_at);
 
 -- =============================================================================
 -- Fin de script: LCSTA_CREATE.sql

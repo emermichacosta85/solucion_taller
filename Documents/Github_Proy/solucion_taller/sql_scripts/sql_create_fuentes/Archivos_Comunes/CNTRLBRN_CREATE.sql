@@ -21,7 +21,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLBRN (
+CREATE OR REPLACE TABLE CNTRLBRN (
     codigo_banco          FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL,
     codigo_sucursal       FOR COLUMN CODSUC   VARCHAR(20)    NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
@@ -39,36 +39,36 @@ CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLBRN (
     updated_at            FOR COLUMN UPDDAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_CNTRLBRN  PRIMARY KEY (codigo_banco, codigo_sucursal),
     CONSTRAINT FK_CNTRLBRN_CNTRLCNT FOREIGN KEY (codigo_banco)
-        REFERENCES HNEACOSTA1/CNTRLCNT (codigo_banco)
+        REFERENCES CNTRLCNT (codigo_banco)
 )
 RCDFMT CNTRLBRNR;
 
-RENAME TABLE HNEACOSTA1/CNTRLBRN
-    TO CNTRLBRN FOR SYSTEM NAME CNTRLBRN;
+RENAME TABLE CNTRLBRN
+    TO CNTRLBRN_TABLE FOR SYSTEM NAME CNTRLBRN;
 
-COMMENT ON TABLE HNEACOSTA1/CNTRLBRN IS
+COMMENT ON TABLE CNTRLBRN IS
     'Catalogo de Sucursales del Banco - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/CNTRLBRN IS
+LABEL ON TABLE CNTRLBRN IS
     'Sucursales del Banco';
 
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.codigo_banco          IS 'Codigo del banco al que pertenece la sucursal; parte de la PK y FK a CNTRLCNT';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.codigo_sucursal       IS 'Codigo unico de la sucursal dentro del banco; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.descripcion           IS 'Nombre completo y descripcion de la sucursal bancaria';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.valor_texto           IS 'Nombre corto o abreviatura oficial de la sucursal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.valor_numerico        IS 'Valor numerico asociado a la sucursal si aplica';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.vigencia_desde        IS 'Fecha desde la cual la sucursal esta operativa';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.vigencia_hasta        IS 'Fecha hasta la cual la sucursal esta operativa';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.orden_visualizacion   IS 'Numero de orden para presentacion en catalogos de sucursales';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.usuario_creacion      IS 'Usuario administrador que registro la sucursal en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.observaciones         IS 'Notas operativas adicionales sobre la sucursal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLBRN.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN CNTRLBRN.codigo_banco          IS 'Codigo del banco al que pertenece la sucursal; parte de la PK y FK a CNTRLCNT';
+COMMENT ON COLUMN CNTRLBRN.codigo_sucursal       IS 'Codigo unico de la sucursal dentro del banco; parte de la PK';
+COMMENT ON COLUMN CNTRLBRN.descripcion           IS 'Nombre completo y descripcion de la sucursal bancaria';
+COMMENT ON COLUMN CNTRLBRN.valor_texto           IS 'Nombre corto o abreviatura oficial de la sucursal';
+COMMENT ON COLUMN CNTRLBRN.valor_numerico        IS 'Valor numerico asociado a la sucursal si aplica';
+COMMENT ON COLUMN CNTRLBRN.vigencia_desde        IS 'Fecha desde la cual la sucursal esta operativa';
+COMMENT ON COLUMN CNTRLBRN.vigencia_hasta        IS 'Fecha hasta la cual la sucursal esta operativa';
+COMMENT ON COLUMN CNTRLBRN.orden_visualizacion   IS 'Numero de orden para presentacion en catalogos de sucursales';
+COMMENT ON COLUMN CNTRLBRN.usuario_creacion      IS 'Usuario administrador que registro la sucursal en el sistema';
+COMMENT ON COLUMN CNTRLBRN.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN CNTRLBRN.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN CNTRLBRN.observaciones         IS 'Notas operativas adicionales sobre la sucursal';
+COMMENT ON COLUMN CNTRLBRN.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN CNTRLBRN.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN CNTRLBRN.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CNTRLBRN (
+LABEL ON COLUMN CNTRLBRN (
     codigo_banco          TEXT IS 'Codigo Banco',
     codigo_sucursal       TEXT IS 'Codigo Sucursal',
     descripcion           TEXT IS 'Nombre Sucursal',
@@ -86,4 +86,4 @@ LABEL ON COLUMN HNEACOSTA1/CNTRLBRN (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_CNTRLBRN_C ON HNEACOSTA1/CNTRLBRN (created_at);
+CREATE INDEX IDX_CNTRLBRN_C ON CNTRLBRN (created_at);

@@ -20,121 +20,73 @@
 -- Proyecto            : Taller IBM i - Modulo 10 Activos Fijos
 -- ================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/LOCMS (
-    numero_localizacion      VARCHAR(30)    NOT NULL     FOR COLUMN LOCMSNLC,
-    descripcion              VARCHAR(120)   NOT NULL     FOR COLUMN LOCMSDSC,
-    codigo_banco             VARCHAR(20)    NOT NULL     FOR COLUMN LOCMSBNK,
-    codigo_sucursal          VARCHAR(20)                 FOR COLUMN LOCMSSUC,
-    tipo_ubicacion           VARCHAR(20)                 FOR COLUMN LOCMSTUB,
-    direccion                VARCHAR(120)                FOR COLUMN LOCMSDIR,
-    ciudad                   VARCHAR(50)                 FOR COLUMN LOCMSCIU,
-    departamento             VARCHAR(50)                 FOR COLUMN LOCMSDPT,
-    pais                     VARCHAR(50)                 FOR COLUMN LOCMSPAS,
-    responsable              VARCHAR(80)                 FOR COLUMN LOCMSRES,
-    telefono_contacto        VARCHAR(30)                 FOR COLUMN LOCMSTLF,
-    capacidad_activos        INT            NOT NULL
-                                            DEFAULT 0    FOR COLUMN LOCMSCAP,
-    activos_asignados        INT            NOT NULL
-                                            DEFAULT 0    FOR COLUMN LOCMSASIG,
-    fecha_adquisicion        DATE                        FOR COLUMN LOCMSFAD,
-    valor_adquisicion        DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN LOCMSVAD,
-    vida_util_meses          INT            NOT NULL
-                                            DEFAULT 0    FOR COLUMN LOCMSVU,
-    depreciacion_acumulada   DECIMAL(18,2)  NOT NULL
-                                            DEFAULT 0    FOR COLUMN LOCMSDAC,
-    estado_activo            VARCHAR(20)    NOT NULL     FOR COLUMN LOCMSEST,
-    usuario_creacion         VARCHAR(30)                 FOR COLUMN LOCMSUSC,
-    usuario_actualizacion    VARCHAR(30)                 FOR COLUMN LOCMSUSA,
-    version_registro         INT            NOT NULL
-                                            DEFAULT 1    FOR COLUMN LOCMSVR,
-    observaciones            VARCHAR(120)                FOR COLUMN LOCMSOBS,
-    estado_registro          CHAR(1)        NOT NULL
-                                            DEFAULT 'A'  FOR COLUMN LOCMSERG,
-    created_at               TIMESTAMP      NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                         FOR COLUMN LOCMSCAT,
-    updated_at               TIMESTAMP      NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                         FOR COLUMN LOCMSUAT,
+CREATE OR REPLACE TABLE LOCMS (
+    numero_localizacion      FOR COLUMN LOCMSNLC VARCHAR(30)    NOT NULL     ,
+    descripcion              FOR COLUMN LOCMSDSC VARCHAR(120)   NOT NULL     ,
+    fecha_adquisicion        FOR COLUMN LOCMSFAD DATE           NOT NULL     ,
+    valor_adquisicion        FOR COLUMN LOCMSVAD DECIMAL(18,2)  NOT NULL
+                                            DEFAULT 0    ,
+    vida_util_meses          FOR COLUMN LOCMSVU INT            NOT NULL
+                                            DEFAULT 0    ,
+    depreciacion_acumulada   FOR COLUMN LOCMSDAC DECIMAL(18,2)  NOT NULL
+                                            DEFAULT 0    ,
+    estado_activo            FOR COLUMN LOCMSEST VARCHAR(20)    NOT NULL     ,
+    usuario_creacion         FOR COLUMN LOCMSUSC VARCHAR(30)                 ,
+    usuario_actualizacion    FOR COLUMN LOCMSUSA VARCHAR(30)                 ,
+    version_registro         FOR COLUMN LOCMSVR INT            NOT NULL
+                                            DEFAULT 1    ,
+    observaciones            FOR COLUMN LOCOBSER VARCHAR(120) NOT NULL,
+    estado_registro          FOR COLUMN LOCESTRE VARCHAR(1) NOT NULL DEFAULT 'A',
+    created_at               FOR COLUMN LOCMSCAT TIMESTAMP      NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
+    updated_at               FOR COLUMN LOCMSUAT TIMESTAMP      NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
+                                                        
     CONSTRAINT PK_LOCMS PRIMARY KEY (numero_localizacion)
 )
 RCDFMT LOCMSR;
 
-RENAME TABLE HNEACOSTA1/LOCMS
-    TO LOCMS FOR SYSTEM NAME LOCMS;
+RENAME TABLE LOCMS
+    TO LOCMS_TABLE FOR SYSTEM NAME LOCMS;
 
-COMMENT ON TABLE HNEACOSTA1/LOCMS IS
+COMMENT ON TABLE LOCMS IS
     'Maestro de Localizaciones de Activos Fijos - Modulo 10 Activos Fijos';
 
-LABEL ON TABLE HNEACOSTA1/LOCMS
+LABEL ON TABLE LOCMS
     IS 'Localizaciones Activos';
 
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.numero_localizacion IS
+COMMENT ON COLUMN LOCMS.numero_localizacion IS
     'Codigo unico que identifica la localizacion o ubicacion fisica';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.descripcion IS
+COMMENT ON COLUMN LOCMS.descripcion IS
     'Nombre descriptivo de la localizacion (ej: Oficina Central Piso 3)';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.codigo_banco IS
-    'Codigo del banco propietario de la localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.codigo_sucursal IS
-    'Codigo de la sucursal a la que pertenece la localizacion cuando aplica';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.tipo_ubicacion IS
-    'Tipo de ubicacion: OFICINA, SUCURSAL, BODEGA, PLANTA, EXTERIOR, OTRO';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.direccion IS
-    'Direccion fisica completa de la localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.ciudad IS
-    'Ciudad donde se encuentra la localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.departamento IS
-    'Departamento o estado donde se encuentra la localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.pais IS
-    'Pais donde se encuentra la localizacion del activo';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.responsable IS
-    'Nombre del funcionario responsable del control de activos en esta ubicacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.telefono_contacto IS
-    'Numero de telefono de contacto de la localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.capacidad_activos IS
-    'Numero maximo de activos que pueden ser asignados a esta localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.activos_asignados IS
-    'Numero de activos actualmente registrados en esta localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.fecha_adquisicion IS
+COMMENT ON COLUMN LOCMS.fecha_adquisicion IS
     'Campo de referencia del patron de tabla del modulo';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.valor_adquisicion IS
+COMMENT ON COLUMN LOCMS.valor_adquisicion IS
     'Valor total de todos los activos asignados a esta localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.vida_util_meses IS
+COMMENT ON COLUMN LOCMS.vida_util_meses IS
     'Campo de referencia del patron de tabla del modulo';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.depreciacion_acumulada IS
+COMMENT ON COLUMN LOCMS.depreciacion_acumulada IS
     'Depreciacion acumulada total de los activos asignados a esta localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.estado_activo IS
+COMMENT ON COLUMN LOCMS.estado_activo IS
     'Estado de la localizacion: ACTIVA, INACTIVA, CERRADA, EN_REMODELACION';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.usuario_creacion IS
+COMMENT ON COLUMN LOCMS.usuario_creacion IS
     'Usuario del sistema que registro la localizacion';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.usuario_actualizacion IS
+COMMENT ON COLUMN LOCMS.usuario_actualizacion IS
     'Usuario del sistema que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.version_registro IS
+COMMENT ON COLUMN LOCMS.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.observaciones IS
+COMMENT ON COLUMN LOCMS.observaciones IS
     'Notas sobre la localizacion, accesos restringidos o condiciones especiales';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.estado_registro IS
+COMMENT ON COLUMN LOCMS.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.created_at IS
+COMMENT ON COLUMN LOCMS.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/LOCMS.updated_at IS
+COMMENT ON COLUMN LOCMS.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/LOCMS (
+LABEL ON COLUMN LOCMS (
     numero_localizacion      TEXT IS 'No. Localiz',
     descripcion              TEXT IS 'Descripcion',
-    codigo_banco             TEXT IS 'Banco',
-    codigo_sucursal          TEXT IS 'Sucursal',
-    tipo_ubicacion           TEXT IS 'Tipo Ubic',
-    direccion                TEXT IS 'Direccion',
-    ciudad                   TEXT IS 'Ciudad',
-    departamento             TEXT IS 'Departamento',
-    pais                     TEXT IS 'Pais',
-    responsable              TEXT IS 'Responsable',
-    telefono_contacto        TEXT IS 'Telefono',
-    capacidad_activos        TEXT IS 'Capacidad',
-    activos_asignados        TEXT IS 'Asignados',
     fecha_adquisicion        TEXT IS 'Fec Adquis',
     valor_adquisicion        TEXT IS 'Valor Total',
     vida_util_meses          TEXT IS 'Vida Util',
@@ -149,6 +101,5 @@ LABEL ON COLUMN HNEACOSTA1/LOCMS (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ILOCMSCAT ON HNEACOSTA1/LOCMS (created_at);
-CREATE INDEX HNEACOSTA1/ILOCMSBNK ON HNEACOSTA1/LOCMS (codigo_banco);
-CREATE INDEX HNEACOSTA1/ILOCMSEST ON HNEACOSTA1/LOCMS (estado_activo);
+CREATE INDEX ILOCMSNLO ON LOCMS (numero_localizacion);
+CREATE INDEX ILOCMSCAT ON LOCMS (created_at);

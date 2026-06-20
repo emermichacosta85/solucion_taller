@@ -1,0 +1,9 @@
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(CUMST) TYPE(SQL) TEXT('Archivo maestro de clientes')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(CUMAD) TYPE(SQL) TEXT('Direcciones de correo y beneficiarios')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(CUMPR) TYPE(SQL) TEXT('Palabras reservadas omitidas en busqueda')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(CUMSD) TYPE(SQL) TEXT('Maestro clientes para busqueda por string')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(SPINS) TYPE(SQL) TEXT('Archivo de instrucciones especiales')

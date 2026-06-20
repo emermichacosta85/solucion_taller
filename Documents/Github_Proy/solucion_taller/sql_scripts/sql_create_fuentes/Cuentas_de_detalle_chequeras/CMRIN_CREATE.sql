@@ -15,101 +15,96 @@
 -- Proyecto            : Taller IBM i - Modulo 3 Cuentas de Detalle
 -- ============================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CMRIN (
-    codigo_banco            VARCHAR(20)     NOT NULL    FOR COLUMN CMRINBNK,
-    sucursal_moneda         VARCHAR(50)     NOT NULL    FOR COLUMN CMRINSMO,
-    numero_cuenta           VARCHAR(24)     NOT NULL    FOR COLUMN CMRINCTA,
-    monto                   DECIMAL(18,2)   NOT NULL    FOR COLUMN CMRINMNT,
-    secuencia               INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CMRINSEQ,
-    numero_cheque           VARCHAR(30)                 FOR COLUMN CMRINCHE,
-    banco_origen            VARCHAR(50)                 FOR COLUMN CMRINBOR,
-    fecha_compensacion      DATE                        FOR COLUMN CMRINFCO,
-    estado_camara           VARCHAR(20)                 FOR COLUMN CMRINEST,
-    codigo_moneda           VARCHAR(20)                 FOR COLUMN CMRINMON,
-    fecha_apertura          DATE                        FOR COLUMN CMRINFAP,
-    fecha_ultima_transaccion DATE                       FOR COLUMN CMRINFUT,
-    saldo_actual            DECIMAL(18,2)               FOR COLUMN CMRINSAL,
-    saldo_disponible        DECIMAL(18,2)               FOR COLUMN CMRINSDP,
-    limite_sobregiro        DECIMAL(18,2)               FOR COLUMN CMRINLSO,
-    estado_cuenta           VARCHAR(20)                 FOR COLUMN CMRINESC,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN CMRINUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN CMRINUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CMRINVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN CMRINOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN CMRINERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CMRINCAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CMRINUAT,
+CREATE OR REPLACE TABLE CMRIN (
+    codigo_banco            FOR COLUMN CMRINBNK VARCHAR(20)     NOT NULL    ,
+    sucursal_moneda         FOR COLUMN CMRINSMO VARCHAR(50)     NOT NULL    ,
+    numero_cuenta           FOR COLUMN CMRINCTA VARCHAR(24)     NOT NULL    ,
+    monto                   FOR COLUMN CMRINMNT DECIMAL(18,2)   NOT NULL    ,
+    secuencia               FOR COLUMN CMRINSEQ INT             NOT NULL
+                                            DEFAULT 1   ,
+    numero_cheque           FOR COLUMN CMRINCHE VARCHAR(30) NOT NULL                 ,
+    banco_origen            FOR COLUMN CMRINBOR VARCHAR(50) NOT NULL                ,
+    fecha_compensacion      FOR COLUMN CMRINFCO DATE                        ,
+    estado_camara           FOR COLUMN CMRINEST VARCHAR(20) NOT NULL                ,
+    codigo_moneda           FOR COLUMN CMRINMON VARCHAR(20) NOT NULL                ,
+    fecha_apertura          FOR COLUMN CMRINFAP DATE                        ,
+    fecha_ultima_transaccion FOR COLUMN CMRINFUT DATE                       ,
+    saldo_actual            FOR COLUMN CMRINSAL DECIMAL(18,2) NOT NULL              ,
+    saldo_disponible        FOR COLUMN CMRINSDP DECIMAL(18,2) NOT NULL              ,
+    limite_sobregiro        FOR COLUMN CMRINLSO DECIMAL(18,2) NOT NULL              ,
+    estado_cuenta           FOR COLUMN CMRINESC VARCHAR(20) NOT NULL                ,
+    usuario_creacion        FOR COLUMN CMRINUSC VARCHAR(30) NOT NULL                ,
+    usuario_actualizacion   FOR COLUMN CMRINUSA VARCHAR(30) NOT NULL                ,
+    version_registro        FOR COLUMN CMRINVRS INT             NOT NULL
+                                            DEFAULT 1   ,
+    observaciones           FOR COLUMN CMRINOBS VARCHAR(120)                ,
+    estado_registro         FOR COLUMN CMRINERG CHAR(1)         NOT NULL,
+    created_at              FOR COLUMN CMRINCAT TIMESTAMP default CURRENT_TIMESTAMP,
+    updated_at              FOR COLUMN CMRINUAT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_CMRIN PRIMARY KEY (codigo_banco, sucursal_moneda,
-                                     numero_cuenta, monto, secuencia),
-    CONSTRAINT FK_CMRIN_ACMST FOREIGN KEY (numero_cuenta)
-        REFERENCES HNEACOSTA1/ACMST (numero_cuenta)
+                                     numero_cuenta, monto, secuencia)
+    --CONSTRAINT FK_CMRIN_ACMST FOREIGN KEY (numero_cuenta)
+    --    REFERENCES ACMST (numero_cuenta)
 )
 RCDFMT CMRINR;
 
-RENAME TABLE HNEACOSTA1/CMRIN
-    TO CMRIN FOR SYSTEM NAME CMRIN;
+RENAME TABLE CMRIN
+    TO CMRIN_TABLE FOR SYSTEM NAME CMRIN;
 
-COMMENT ON TABLE HNEACOSTA1/CMRIN IS
+COMMENT ON TABLE CMRIN IS
     'Detalle de Camara de Compensacion Entrante - Modulo 3 Cuentas de Detalle';
 
-LABEL ON TABLE HNEACOSTA1/CMRIN
+LABEL ON TABLE CMRIN
     IS 'Camara Entrante';
 
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.codigo_banco IS
+COMMENT ON COLUMN CMRIN.codigo_banco IS
     'Codigo del banco receptor de los cheques en camara entrante';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.sucursal_moneda IS
+COMMENT ON COLUMN CMRIN.sucursal_moneda IS
     'Combinacion de sucursal y moneda que identifica la sesion de camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.numero_cuenta IS
+COMMENT ON COLUMN CMRIN.numero_cuenta IS
     'Numero de cuenta a la que se acredita el cheque de camara (FK ACMST)';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.monto IS
+COMMENT ON COLUMN CMRIN.monto IS
     'Valor monetario del cheque recibido en camara de compensacion';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.secuencia IS
+COMMENT ON COLUMN CMRIN.secuencia IS
     'Numero de orden del cheque dentro de la sesion de camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.numero_cheque IS
+COMMENT ON COLUMN CMRIN.numero_cheque IS
     'Numero del cheque recibido en el proceso de camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.banco_origen IS
+COMMENT ON COLUMN CMRIN.banco_origen IS
     'Nombre o codigo del banco de origen que envio el cheque a camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.fecha_compensacion IS
+COMMENT ON COLUMN CMRIN.fecha_compensacion IS
     'Fecha en que se procesa la compensacion y se acredita el monto';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.estado_camara IS
+COMMENT ON COLUMN CMRIN.estado_camara IS
     'Estado del cheque en camara: PENDIENTE, ACREDITADO, DEVUELTO, RECHAZADO';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.codigo_moneda IS
+COMMENT ON COLUMN CMRIN.codigo_moneda IS
     'Codigo ISO de la moneda del cheque recibido en camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.fecha_apertura IS
+COMMENT ON COLUMN CMRIN.fecha_apertura IS
     'Fecha de apertura de la cuenta de acreditacion';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.fecha_ultima_transaccion IS
+COMMENT ON COLUMN CMRIN.fecha_ultima_transaccion IS
     'Fecha del ultimo movimiento relacionado con este cheque de camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.saldo_actual IS
+COMMENT ON COLUMN CMRIN.saldo_actual IS
     'Saldo de la cuenta de destino al momento de la acreditacion';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.saldo_disponible IS
+COMMENT ON COLUMN CMRIN.saldo_disponible IS
     'Saldo disponible de la cuenta despues de la acreditacion';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.limite_sobregiro IS
+COMMENT ON COLUMN CMRIN.limite_sobregiro IS
     'Limite de sobregiro de la cuenta de destino al momento del proceso';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.estado_cuenta IS
+COMMENT ON COLUMN CMRIN.estado_cuenta IS
     'Estado operativo de la cuenta de destino al momento de la acreditacion';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.usuario_creacion IS
+COMMENT ON COLUMN CMRIN.usuario_creacion IS
     'Usuario o proceso batch que registro el cheque de camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.usuario_actualizacion IS
+COMMENT ON COLUMN CMRIN.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.version_registro IS
+COMMENT ON COLUMN CMRIN.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.observaciones IS
+COMMENT ON COLUMN CMRIN.observaciones IS
     'Notas sobre el procesamiento del cheque en camara';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.estado_registro IS
+COMMENT ON COLUMN CMRIN.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.created_at IS
+COMMENT ON COLUMN CMRIN.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/CMRIN.updated_at IS
+COMMENT ON COLUMN CMRIN.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CMRIN (
+LABEL ON COLUMN CMRIN (
     codigo_banco             TEXT IS 'Banco',
     sucursal_moneda          TEXT IS 'Suc Moneda',
     numero_cuenta            TEXT IS 'No. Cuenta',
@@ -135,6 +130,6 @@ LABEL ON COLUMN HNEACOSTA1/CMRIN (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ICMRINCTA ON HNEACOSTA1/CMRIN (numero_cuenta);
-CREATE INDEX HNEACOSTA1/ICMRINFCO ON HNEACOSTA1/CMRIN (fecha_compensacion);
-CREATE INDEX HNEACOSTA1/ICMRINCAT ON HNEACOSTA1/CMRIN (created_at);
+CREATE INDEX ICMRINCTA ON CMRIN (numero_cuenta);
+CREATE INDEX ICMRINFCO ON CMRIN (fecha_compensacion);
+CREATE INDEX ICMRINCAT ON CMRIN (created_at);

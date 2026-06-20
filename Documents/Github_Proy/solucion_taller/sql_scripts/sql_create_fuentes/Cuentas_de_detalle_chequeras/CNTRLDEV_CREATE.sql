@@ -15,107 +15,69 @@
 -- Proyecto            : Taller IBM i - Modulo 3 Cuentas de Detalle
 -- ============================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLDEV (
-    codigo_causal           VARCHAR(20)     NOT NULL    FOR COLUMN CNTDVCAU,
-    descripcion_causal      VARCHAR(120)    NOT NULL    FOR COLUMN CNTDVDSC,
-    codigo_regulatorio      VARCHAR(20)                 FOR COLUMN CNTDVCRG,
-    aplica_penalidad        CHAR(1)         NOT NULL
-                                            DEFAULT 'N' FOR COLUMN CNTDVAPL,
-    monto_penalidad         DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CNTDVMPE,
-    porcentaje_penalidad    DECIMAL(10,6)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CNTDVPPE,
-    impacta_historial       CHAR(1)         NOT NULL
-                                            DEFAULT 'S' FOR COLUMN CNTDVIMP,
-    vigente_desde           DATE                        FOR COLUMN CNTDVVDE,
-    vigente_hasta           DATE                        FOR COLUMN CNTDVVHA,
-    fecha_apertura          DATE                        FOR COLUMN CNTDVFAP,
-    fecha_ultima_transaccion DATE                       FOR COLUMN CNTDVFUT,
-    saldo_actual            DECIMAL(18,2)               FOR COLUMN CNTDVSAL,
-    saldo_disponible        DECIMAL(18,2)               FOR COLUMN CNTDVSDP,
-    limite_sobregiro        DECIMAL(18,2)               FOR COLUMN CNTDVLSO,
-    estado_cuenta           VARCHAR(20)                 FOR COLUMN CNTDVESC,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN CNTDVUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN CNTDVUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CNTDVVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN CNTDVOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN CNTDVERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CNTDVCAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CNTDVUAT,
+CREATE OR REPLACE TABLE CNTRLDEV (
+    codigo_causal           FOR COLUMN CNTDVCAU VARCHAR(20)     NOT NULL    ,
+    fecha_apertura          FOR COLUMN CNTDVFAP DATE                        ,
+    fecha_ultima_transaccion FOR COLUMN CNTDVFUT DATE                       ,
+    saldo_actual            FOR COLUMN CNTDVSAL DECIMAL(18,2)               ,
+    saldo_disponible        FOR COLUMN CNTDVSDP DECIMAL(18,2)               ,
+    limite_sobregiro        FOR COLUMN CNTDVLSO DECIMAL(18,2)               ,
+    estado_cuenta           FOR COLUMN CNTDVESC VARCHAR(20)                 ,
+    usuario_creacion        FOR COLUMN CNTDVUSC VARCHAR(30)                 ,
+    usuario_actualizacion   FOR COLUMN CNTDVUSA VARCHAR(30)                 ,
+    version_registro        FOR COLUMN CNTDVVRS INT             NOT NULL
+                                            DEFAULT 1   ,
+    observaciones           FOR COLUMN CNTDVOBS VARCHAR(120)                ,
+    estado_registro         FOR COLUMN CNTDVERE CHAR(1)         NOT NULL
+                                            DEFAULT 'A' ,
+    created_at              FOR COLUMN CNTDVCAT TIMESTAMP       NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
+    updated_at              FOR COLUMN CNTDVUAT TIMESTAMP       NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_CNTRLDEV PRIMARY KEY (codigo_causal)
 )
 RCDFMT CNTRLDR;
 
-RENAME TABLE HNEACOSTA1/CNTRLDEV
-    TO CNTRLDEV FOR SYSTEM NAME CNTRLDEV;
+RENAME TABLE CNTRLDEV
+    TO CNTRLDEV_TABLE FOR SYSTEM NAME CNTRLDEV;
 
-COMMENT ON TABLE HNEACOSTA1/CNTRLDEV IS
+COMMENT ON TABLE CNTRLDEV IS
     'Causales de Devolucion de Cheques - Modulo 3 Cuentas de Detalle';
 
-LABEL ON TABLE HNEACOSTA1/CNTRLDEV
+LABEL ON TABLE CNTRLDEV
     IS 'Causales Devol Cheques';
 
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.codigo_causal IS
+COMMENT ON COLUMN CNTRLDEV.codigo_causal IS
     'Codigo unico que identifica la causal de devolucion del cheque';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.descripcion_causal IS
-    'Descripcion completa de la causal de devolucion segun normativa';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.codigo_regulatorio IS
-    'Codigo asignado por el banco central o entidad reguladora a la causal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.aplica_penalidad IS
-    'Indica si esta causal conlleva cobro de penalidad al librador: S=Si, N=No';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.monto_penalidad IS
-    'Monto fijo de penalidad cobrado al librador por esta causal de devolucion';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.porcentaje_penalidad IS
-    'Porcentaje sobre el monto del cheque que se cobra como penalidad';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.impacta_historial IS
-    'Indica si la devolucion por esta causal afecta el historial crediticio: S=Si, N=No';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.vigente_desde IS
-    'Fecha desde la que esta causal de devolucion esta vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.vigente_hasta IS
-    'Fecha de vigencia final de la causal, nula si es indefinida';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.fecha_apertura IS
+COMMENT ON COLUMN CNTRLDEV.fecha_apertura IS
     'Fecha de alta de la causal en el catalogo del sistema';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.fecha_ultima_transaccion IS
+COMMENT ON COLUMN CNTRLDEV.fecha_ultima_transaccion IS
     'Fecha de la ultima utilizacion o modificacion de la causal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.saldo_actual IS
+COMMENT ON COLUMN CNTRLDEV.saldo_actual IS
     'Campo de referencia operativa heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.saldo_disponible IS
+COMMENT ON COLUMN CNTRLDEV.saldo_disponible IS
     'Campo de referencia operativa heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.limite_sobregiro IS
+COMMENT ON COLUMN CNTRLDEV.limite_sobregiro IS
     'Campo de referencia operativa heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.estado_cuenta IS
+COMMENT ON COLUMN CNTRLDEV.estado_cuenta IS
     'Estado de la causal en el catalogo: ACTIVA, DEROGADA, EN_REVISION';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.usuario_creacion IS
+COMMENT ON COLUMN CNTRLDEV.usuario_creacion IS
     'Usuario administrador que registro la causal en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.usuario_actualizacion IS
+COMMENT ON COLUMN CNTRLDEV.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion de la causal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.version_registro IS
+COMMENT ON COLUMN CNTRLDEV.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.observaciones IS
+COMMENT ON COLUMN CNTRLDEV.observaciones IS
     'Notas sobre la aplicacion, restricciones o excepciones de la causal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.estado_registro IS
+COMMENT ON COLUMN CNTRLDEV.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.created_at IS
+COMMENT ON COLUMN CNTRLDEV.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLDEV.updated_at IS
+COMMENT ON COLUMN CNTRLDEV.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CNTRLDEV (
+LABEL ON COLUMN CNTRLDEV (
     codigo_causal            TEXT IS 'Cod Causal',
-    descripcion_causal       TEXT IS 'Desc Causal',
-    codigo_regulatorio       TEXT IS 'Cod Reg',
-    aplica_penalidad         TEXT IS 'Apl Penal',
-    monto_penalidad          TEXT IS 'Monto Penal',
-    porcentaje_penalidad     TEXT IS 'Porc Penal',
-    impacta_historial        TEXT IS 'Imp Histor',
-    vigente_desde            TEXT IS 'Vig Desde',
-    vigente_hasta            TEXT IS 'Vig Hasta',
     fecha_apertura           TEXT IS 'Fec Apertura',
     fecha_ultima_transaccion TEXT IS 'Ult Transacc',
     saldo_actual             TEXT IS 'Saldo Actual',
@@ -131,4 +93,4 @@ LABEL ON COLUMN HNEACOSTA1/CNTRLDEV (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ICNTDVCAT ON HNEACOSTA1/CNTRLDEV (created_at);
+CREATE INDEX ICNTDVCAT ON CNTRLDEV (created_at);

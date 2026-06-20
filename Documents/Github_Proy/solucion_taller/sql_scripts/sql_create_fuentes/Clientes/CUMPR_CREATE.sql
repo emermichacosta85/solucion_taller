@@ -15,59 +15,59 @@
 -- Proyecto:             Taller IBM i - Sistema Bancario IBS
 -- =============================================================================
  
-CREATE OR REPLACE TABLE HNEACOSTA1/CUMPR (
-    palabra              VARCHAR(50)   FOR COLUMN PALABR    NOT NULL,
-    tipo_persona         VARCHAR(20)   FOR COLUMN TPPERS    NOT NULL DEFAULT '',
-    tipo_identificacion  VARCHAR(20)   FOR COLUMN TPIDEN    NOT NULL DEFAULT '',
-    numero_identificacion VARCHAR(30)  FOR COLUMN NRIDEN    NOT NULL DEFAULT '',
-    nombres              VARCHAR(80)   FOR COLUMN NMBRES    NOT NULL DEFAULT '',
-    apellidos            VARCHAR(80)   FOR COLUMN APLLDO    NOT NULL DEFAULT '',
-    razon_social         VARCHAR(80)   FOR COLUMN RZSOCL    NOT NULL DEFAULT '',
-    fecha_nacimiento     DATE          FOR COLUMN FCNACM             DEFAULT NULL,
-    direccion            VARCHAR(120)  FOR COLUMN DIRECN    NOT NULL DEFAULT '',
-    email                VARCHAR(80)   FOR COLUMN EMADDR    NOT NULL DEFAULT '',
-    telefono             VARCHAR(80)   FOR COLUMN TELFNO    NOT NULL DEFAULT '',
-    pais_residencia      VARCHAR(50)   FOR COLUMN PAISRS    NOT NULL DEFAULT '',
-    usuario_creacion     VARCHAR(30)   FOR COLUMN USRCRE    NOT NULL DEFAULT '',
-    usuario_actualizacion VARCHAR(30)  FOR COLUMN USRACT    NOT NULL DEFAULT '',
-    version_registro     INT           FOR COLUMN VRSNRG    NOT NULL DEFAULT 1,
-    observaciones        VARCHAR(120)  FOR COLUMN OBSERVA   NOT NULL DEFAULT '',
-    estado_registro      CHAR(1)       FOR COLUMN ESTADRG   NOT NULL DEFAULT 'A',
-    created_at           TIMESTAMP     FOR COLUMN CRTDAT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at           TIMESTAMP     FOR COLUMN UPDDAT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE OR REPLACE TABLE CUMPR (
+    palabra              FOR COLUMN PALABR VARCHAR(50)       NOT NULL,
+    tipo_persona         FOR COLUMN TPPERS    VARCHAR(20)       NOT NULL DEFAULT '',
+    tipo_identificacion  FOR COLUMN TPIDEN    VARCHAR(20)       NOT NULL DEFAULT '',
+    numero_identificacion FOR COLUMN NRIDEN    VARCHAR(30)      NOT NULL DEFAULT '',
+    nombres              FOR COLUMN NMBRES    VARCHAR(80)       NOT NULL DEFAULT '',
+    apellidos            FOR COLUMN APLLDO    VARCHAR(80)       NOT NULL DEFAULT '',
+    razon_social         FOR COLUMN RZSOCL    VARCHAR(80)       NOT NULL DEFAULT '',
+    fecha_nacimiento     FOR COLUMN FCNACM    DATE              DEFAULT NULL,
+    direccion            FOR COLUMN DIRECN    VARCHAR(120)      NOT NULL DEFAULT '',
+    email                FOR COLUMN EMADDR    VARCHAR(80)       NOT NULL DEFAULT '',
+    telefono             FOR COLUMN TELFNO    VARCHAR(80)       NOT NULL DEFAULT '',
+    pais_residencia      FOR COLUMN PAISRS    VARCHAR(50)       NOT NULL DEFAULT '',
+    usuario_creacion     FOR COLUMN USRCRE    VARCHAR(30)       NOT NULL DEFAULT '',
+    usuario_actualizacion FOR COLUMN USRACT    VARCHAR(30)      NOT NULL DEFAULT '',
+    version_registro     FOR COLUMN VRSNRG    INT              NOT NULL DEFAULT 1,
+    observaciones        FOR COLUMN OBSERVA   VARCHAR(120)  NOT NULL DEFAULT '',
+    estado_registro      FOR COLUMN ESTADRG CHAR(1)          NOT NULL DEFAULT 'A',
+    created_at           FOR COLUMN CRTDAT TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at           FOR COLUMN UPDDAT    TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT CUMPR_PK PRIMARY KEY (palabra)
 )
 RCDFMT CUMPRR;
  
-RENAME TABLE HNEACOSTA1/CUMPR TO CUMPR FOR SYSTEM NAME CUMPR;
+RENAME TABLE CUMPR TO CUMPR_TABLE FOR SYSTEM NAME CUMPR;
  
-COMMENT ON TABLE HNEACOSTA1/CUMPR IS
+COMMENT ON TABLE CUMPR IS
     'Palabras Reservadas excluidas en busqueda de clientes - Modulo Clientes';
  
-LABEL ON TABLE HNEACOSTA1/CUMPR IS
+LABEL ON TABLE CUMPR IS
     'Palabras Reservadas Busqueda';
  
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.palabra               IS 'Palabra reservada a excluir de la busqueda';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.tipo_persona          IS 'Tipo de persona asociada a la palabra';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.tipo_identificacion   IS 'Tipo de identificacion relacionada';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.numero_identificacion IS 'Numero de identificacion relacionado';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.nombres               IS 'Nombres de referencia asociados';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.apellidos             IS 'Apellidos de referencia asociados';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.razon_social          IS 'Razon social de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.fecha_nacimiento      IS 'Fecha de nacimiento de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.direccion             IS 'Direccion de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.email                 IS 'Correo electronico de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.telefono              IS 'Telefono de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.pais_residencia       IS 'Pais de referencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.usuario_creacion      IS 'Usuario que creo el registro';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.usuario_actualizacion IS 'Usuario que realizo la ultima actualizacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.version_registro      IS 'Version del registro para control de concurrencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.observaciones         IS 'Observaciones o notas adicionales';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.estado_registro       IS 'Estado del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.created_at            IS 'Fecha y hora de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CUMPR.updated_at            IS 'Fecha y hora de la ultima actualizacion';
+COMMENT ON COLUMN CUMPR.palabra               IS 'Palabra reservada a excluir de la busqueda';
+COMMENT ON COLUMN CUMPR.tipo_persona          IS 'Tipo de persona asociada a la palabra';
+COMMENT ON COLUMN CUMPR.tipo_identificacion   IS 'Tipo de identificacion relacionada';
+COMMENT ON COLUMN CUMPR.numero_identificacion IS 'Numero de identificacion relacionado';
+COMMENT ON COLUMN CUMPR.nombres               IS 'Nombres de referencia asociados';
+COMMENT ON COLUMN CUMPR.apellidos             IS 'Apellidos de referencia asociados';
+COMMENT ON COLUMN CUMPR.razon_social          IS 'Razon social de referencia';
+COMMENT ON COLUMN CUMPR.fecha_nacimiento      IS 'Fecha de nacimiento de referencia';
+COMMENT ON COLUMN CUMPR.direccion             IS 'Direccion de referencia';
+COMMENT ON COLUMN CUMPR.email                 IS 'Correo electronico de referencia';
+COMMENT ON COLUMN CUMPR.telefono              IS 'Telefono de referencia';
+COMMENT ON COLUMN CUMPR.pais_residencia       IS 'Pais de referencia';
+COMMENT ON COLUMN CUMPR.usuario_creacion      IS 'Usuario que creo el registro';
+COMMENT ON COLUMN CUMPR.usuario_actualizacion IS 'Usuario que realizo la ultima actualizacion';
+COMMENT ON COLUMN CUMPR.version_registro      IS 'Version del registro para control de concurrencia';
+COMMENT ON COLUMN CUMPR.observaciones         IS 'Observaciones o notas adicionales';
+COMMENT ON COLUMN CUMPR.estado_registro       IS 'Estado del registro: A=Activo, I=Inactivo, B=Borrado';
+COMMENT ON COLUMN CUMPR.created_at            IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN CUMPR.updated_at            IS 'Fecha y hora de la ultima actualizacion';
  
-LABEL ON COLUMN HNEACOSTA1/CUMPR (
+LABEL ON COLUMN CUMPR (
     palabra               TEXT IS 'Palabra Reservada',
     tipo_persona          TEXT IS 'Tipo Persona',
     tipo_identificacion   TEXT IS 'Tipo Identificacion',
@@ -89,7 +89,7 @@ LABEL ON COLUMN HNEACOSTA1/CUMPR (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
  
-LABEL ON COLUMN HNEACOSTA1/CUMPR (
+LABEL ON COLUMN CUMPR (
     palabra               IS 'PALABR',
     tipo_persona          IS 'TPPERS',
     tipo_identificacion   IS 'TPIDEN',
@@ -111,4 +111,4 @@ LABEL ON COLUMN HNEACOSTA1/CUMPR (
     updated_at            IS 'UPDDAT'
 );
  
-CREATE INDEX HNEACOSTA1/IDX_CUMPR_CRD ON HNEACOSTA1/CUMPR (created_at);
+CREATE INDEX IDX_CUMPR_CRD ON CUMPR (created_at);
