@@ -15,113 +15,71 @@
 -- Proyecto            : Taller IBM i - Modulo 3 Cuentas de Detalle
 -- ============================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/OVDRF (
-    id                      BIGINT          NOT NULL    FOR COLUMN OVDRFID,
-    numero_cuenta           VARCHAR(24)                 FOR COLUMN OVDRFCTA,
-    codigo_banco            VARCHAR(20)                 FOR COLUMN OVDRFBNK,
-    codigo_sucursal         VARCHAR(20)                 FOR COLUMN OVDRFSUC,
-    codigo_moneda           VARCHAR(20)                 FOR COLUMN OVDRFMON,
-    monto_sobregiro         DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN OVDRFMSO,
-    tasa_interes_diaria     DECIMAL(10,6)               FOR COLUMN OVDRFTID,
-    interes_generado        DECIMAL(18,2)               FOR COLUMN OVDRFIG,
-    fecha_sobregiro         DATE                        FOR COLUMN OVDRFFSO,
-    dias_acumulados         INT             NOT NULL
-                                            DEFAULT 0   FOR COLUMN OVDRFDAC,
-    estado_sobregiro        VARCHAR(20)                 FOR COLUMN OVDRFEST,
-    fecha_apertura          DATE                        FOR COLUMN OVDRFFAP,
-    fecha_ultima_transaccion DATE                       FOR COLUMN OVDRFFUT,
-    saldo_actual            DECIMAL(18,2)               FOR COLUMN OVDRFSAL,
-    saldo_disponible        DECIMAL(18,2)               FOR COLUMN OVDRFSDP,
-    limite_sobregiro        DECIMAL(18,2)               FOR COLUMN OVDRFLSO,
-    estado_cuenta           VARCHAR(20)                 FOR COLUMN OVDRFESC,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN OVDRFUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN OVDRFUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN OVDRFVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN OVDRFOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN OVDRFERG,
-    created_at              TIMESTAMP       NOT NULL
+CREATE OR REPLACE TABLE OVDRF (
+    id                      FOR COLUMN OVDRFID BIGINT          NOT NULL    ,
+    fecha_apertura          FOR COLUMN OVDRFFAP DATE                        ,
+    fecha_ultima_transaccion FOR COLUMN OVDRFFUT DATE                       ,
+    saldo_actual            FOR COLUMN OVDRFSAL DECIMAL(18,2)               ,
+    saldo_disponible        FOR COLUMN OVDRFSDP DECIMAL(18,2)               ,
+    limite_sobregiro        FOR COLUMN OVDRFLSO DECIMAL(18,2)               ,
+    estado_cuenta           FOR COLUMN OVDRFESC VARCHAR(20)                 ,
+    usuario_creacion        FOR COLUMN OVDRFUSC VARCHAR(30)                 ,
+    usuario_actualizacion   FOR COLUMN OVDRFUSA VARCHAR(30)                 ,
+    version_registro        FOR COLUMN OVDRFVRS INT             NOT NULL
+                                            DEFAULT 1  ,
+    observaciones           FOR COLUMN OVDRFOBS VARCHAR(120)                ,
+    estado_registro         FOR COLUMN OVDRFERG CHAR(1)         NOT NULL
+                                            DEFAULT 'A' ,
+    created_at              FOR COLUMN OVDRFCAT TIMESTAMP       NOT NULL
                                             DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN OVDRFCAT,
-    updated_at              TIMESTAMP       NOT NULL
+                                                        ,
+    updated_at              FOR COLUMN OVDRFUAT TIMESTAMP       NOT NULL
                                             DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN OVDRFUAT,
+                                                        ,
     CONSTRAINT PK_OVDRF PRIMARY KEY (id)
 )
 RCDFMT OVDRFR;
 
-RENAME TABLE HNEACOSTA1/OVDRF
-    TO OVDRF FOR SYSTEM NAME OVDRF;
+RENAME TABLE OVDRF
+    TO OVDRF_TABLE FOR SYSTEM NAME OVDRF;
 
-COMMENT ON TABLE HNEACOSTA1/OVDRF IS
+COMMENT ON TABLE OVDRF IS
     'Archivo Diario de Sobregiros en Cuentas de Detalle - Modulo 3';
 
-LABEL ON TABLE HNEACOSTA1/OVDRF
+LABEL ON TABLE OVDRF
     IS 'Sobregiros Diarios';
 
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.id IS
+COMMENT ON COLUMN OVDRF.id IS
     'Identificador tecnico unico autogenerado del registro de sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.numero_cuenta IS
-    'Numero de cuenta corriente que incurrio en sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.codigo_banco IS
-    'Codigo del banco al que pertenece la cuenta en sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.codigo_sucursal IS
-    'Codigo de la sucursal donde esta radicada la cuenta en sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.codigo_moneda IS
-    'Codigo ISO de la moneda en la que se registra el sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.monto_sobregiro IS
-    'Monto del saldo negativo incurrido en la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.tasa_interes_diaria IS
-    'Tasa de interes diaria aplicable al monto en sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.interes_generado IS
-    'Monto de interes calculado por el sobregiro en el dia';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.fecha_sobregiro IS
-    'Fecha en que se origino o registro el sobregiro en la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.dias_acumulados IS
-    'Numero de dias consecutivos con saldo en sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.estado_sobregiro IS
-    'Estado del sobregiro: ACTIVO, REGULARIZADO, EN_COBRO';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.fecha_apertura IS
+COMMENT ON COLUMN OVDRF.fecha_apertura IS
     'Fecha de apertura de la cuenta que incurrio en sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.fecha_ultima_transaccion IS
+COMMENT ON COLUMN OVDRF.fecha_ultima_transaccion IS
     'Fecha del ultimo movimiento relacionado con el sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.saldo_actual IS
+COMMENT ON COLUMN OVDRF.saldo_actual IS
     'Saldo negativo actual de la cuenta en sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.saldo_disponible IS
+COMMENT ON COLUMN OVDRF.saldo_disponible IS
     'Saldo disponible de la cuenta (negativo cuando esta en sobregiro)';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.limite_sobregiro IS
+COMMENT ON COLUMN OVDRF.limite_sobregiro IS
     'Limite maximo de sobregiro autorizado para la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.estado_cuenta IS
+COMMENT ON COLUMN OVDRF.estado_cuenta IS
     'Estado operativo de la cuenta al momento del registro del sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.usuario_creacion IS
+COMMENT ON COLUMN OVDRF.usuario_creacion IS
     'Usuario o proceso que registro el sobregiro en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.usuario_actualizacion IS
+COMMENT ON COLUMN OVDRF.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion del registro de sobregiro';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.version_registro IS
+COMMENT ON COLUMN OVDRF.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.observaciones IS
+COMMENT ON COLUMN OVDRF.observaciones IS
     'Notas sobre la gestion del sobregiro o acuerdos de regularizacion';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.estado_registro IS
+COMMENT ON COLUMN OVDRF.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.created_at IS
+COMMENT ON COLUMN OVDRF.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/OVDRF.updated_at IS
+COMMENT ON COLUMN OVDRF.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/OVDRF (
+LABEL ON COLUMN OVDRF (
     id                       TEXT IS 'ID Sobregiro',
-    numero_cuenta            TEXT IS 'No. Cuenta',
-    codigo_banco             TEXT IS 'Banco',
-    codigo_sucursal          TEXT IS 'Sucursal',
-    codigo_moneda            TEXT IS 'Moneda',
-    monto_sobregiro          TEXT IS 'Monto Sobr',
-    tasa_interes_diaria      TEXT IS 'Tasa Diaria',
-    interes_generado         TEXT IS 'Interes Gen',
-    fecha_sobregiro          TEXT IS 'Fec Sobregir',
-    dias_acumulados          TEXT IS 'Dias Acum',
-    estado_sobregiro         TEXT IS 'Estado Sobr',
     fecha_apertura           TEXT IS 'Fec Apertura',
     fecha_ultima_transaccion TEXT IS 'Ult Transacc',
     saldo_actual             TEXT IS 'Saldo Actual',
@@ -137,6 +95,5 @@ LABEL ON COLUMN HNEACOSTA1/OVDRF (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/IOVDRFCTA ON HNEACOSTA1/OVDRF (numero_cuenta);
-CREATE INDEX HNEACOSTA1/IOVDRFFSO ON HNEACOSTA1/OVDRF (fecha_sobregiro);
-CREATE INDEX HNEACOSTA1/IOVDRFCAT ON HNEACOSTA1/OVDRF (created_at);
+CREATE INDEX IOVDRFFPK ON OVDRF (id);
+CREATE INDEX IOVDRFCAT ON OVDRF (created_at);

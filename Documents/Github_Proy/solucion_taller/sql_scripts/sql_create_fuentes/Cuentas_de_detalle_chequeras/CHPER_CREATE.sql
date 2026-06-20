@@ -14,101 +14,101 @@
 -- Proyecto            : Taller IBM i - Modulo 3 Cuentas de Detalle
 -- ============================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CHPER (
-    codigo_banco            VARCHAR(20)     NOT NULL    FOR COLUMN CHPERBNK,
-    codigo_sucursal         VARCHAR(20)     NOT NULL    FOR COLUMN CHPERSUC,
-    numero_cuenta           VARCHAR(24)     NOT NULL    FOR COLUMN CHPERCTA,
-    nombre_impresion        VARCHAR(80)                 FOR COLUMN CHPERNMP,
-    direccion_impresion     VARCHAR(120)                FOR COLUMN CHPERDIR,
-    telefono_impresion      VARCHAR(30)                 FOR COLUMN CHPERTLF,
-    diseno_chequera         VARCHAR(20)                 FOR COLUMN CHPERDIS,
-    tipo_papel              VARCHAR(20)                 FOR COLUMN CHPERTPA,
-    color_preferido         VARCHAR(20)                 FOR COLUMN CHPERCLR,
-    cantidad_copias         INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CHPERQCP,
-    fecha_apertura          DATE                        FOR COLUMN CHPERFAP,
-    fecha_ultima_transaccion DATE                       FOR COLUMN CHPERFUT,
-    saldo_actual            DECIMAL(18,2)               FOR COLUMN CHPERSAL,
-    saldo_disponible        DECIMAL(18,2)               FOR COLUMN CHPERSDP,
-    limite_sobregiro        DECIMAL(18,2)               FOR COLUMN CHPERLSO,
-    estado_cuenta           VARCHAR(20)                 FOR COLUMN CHPERESC,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN CHPERUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN CHPERUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CHPERVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN CHPEROBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN CHPERERG,
-    created_at              TIMESTAMP       NOT NULL
+CREATE OR REPLACE TABLE CHPER (
+    codigo_banco            FOR COLUMN CHPERBNK VARCHAR(20)     NOT NULL    ,
+    codigo_sucursal         FOR COLUMN CHPERSUC VARCHAR(20)     NOT NULL    ,
+    numero_cuenta           FOR COLUMN CHPERCTA VARCHAR(24)     NOT NULL    ,
+    nombre_impresion        FOR COLUMN CHPERNMP VARCHAR(80)     NOT NULL    ,       
+    direccion_impresion     FOR COLUMN CHPERDIR VARCHAR(120)    NOT NULL   ,
+    telefono_impresion      FOR COLUMN CHPERTLF VARCHAR(30)     NOT NULL   ,
+    diseno_chequera         FOR COLUMN CHPERDIS VARCHAR(20) NOT NULL,
+    tipo_papel              FOR COLUMN CHPERTPA VARCHAR(20) NOT NULL,
+    color_preferido         FOR COLUMN CHPERCLR VARCHAR(20) NOT NULL,
+    cantidad_copias         FOR COLUMN CHPERQCP INT  NOT NULL DEFAULT 1   ,
+                                            
+    fecha_apertura          FOR COLUMN CHPERFAP DATE                        ,
+    fecha_ultima_transaccion FOR COLUMN CHPERFUT DATE                       ,
+    saldo_actual            FOR COLUMN CHPERSAL DECIMAL(18,2)  NOT NULL DEFAULT 0.00,
+    saldo_disponible        FOR COLUMN CHPERSDP DECIMAL(18,2)  NOT NULL DEFAULT 0.00,
+    limite_sobregiro        FOR COLUMN CHPERLSO DECIMAL(18,2)  NOT NULL DEFAULT 0.00,
+    estado_cuenta           FOR COLUMN CHPERESC VARCHAR(20) NOT NULL DEFAULT ' ',
+    usuario_creacion        FOR COLUMN CHPERUSC VARCHAR(30) NOT NULL DEFAULT ' ',
+    usuario_actualizacion   FOR COLUMN CHPERUSA VARCHAR(30) NOT NULL DEFAULT ' ',
+    version_registro        FOR COLUMN CHPERVRS INT             NOT NULL
+                                            DEFAULT 1   ,
+    observaciones           FOR COLUMN CHPEROBS VARCHAR(120) NOT NULL DEFAULT ' ',
+    estado_registro         FOR COLUMN CHPERERG CHAR(1)         NOT NULL
+                                            DEFAULT 'A' ,
+    created_at              FOR COLUMN CHPERCAT TIMESTAMP       NOT NULL
                                             DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CHPERCAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CHPERUAT,
+                                                        ,
+    updated_at              FOR COLUMN CHPERUAT TIMESTAMP       NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
+                                                      
     CONSTRAINT PK_CHPER PRIMARY KEY (codigo_banco, codigo_sucursal,
-                                     numero_cuenta),
-    CONSTRAINT FK_CHPER_CHMST FOREIGN KEY (numero_cuenta)
-        REFERENCES HNEACOSTA1/CHMST (numero_cuenta)
+                                     numero_cuenta)
+    --CONSTRAINT FK_CHPER_CHMST FOREIGN KEY (numero_cuenta)
+    --    REFERENCES CHMST (numero_cuenta)
 )
 RCDFMT CHPERR;
 
-RENAME TABLE HNEACOSTA1/CHPER
-    TO CHPER FOR SYSTEM NAME CHPER;
+RENAME TABLE CHPER
+    TO CHPER_TABLE FOR SYSTEM NAME CHPER;
 
-COMMENT ON TABLE HNEACOSTA1/CHPER IS
+COMMENT ON TABLE CHPER IS
     'Personalizacion de Chequeras por Cuenta - Modulo 3 Cuentas de Detalle';
 
-LABEL ON TABLE HNEACOSTA1/CHPER
+LABEL ON TABLE CHPER
     IS 'Personalizac Chequeras';
 
-COMMENT ON COLUMN HNEACOSTA1/CHPER.codigo_banco IS
+COMMENT ON COLUMN CHPER.codigo_banco IS
     'Codigo del banco al que pertenece la cuenta con personalizacion';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.codigo_sucursal IS
+COMMENT ON COLUMN CHPER.codigo_sucursal IS
     'Codigo de la sucursal donde esta radicada la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.numero_cuenta IS
+COMMENT ON COLUMN CHPER.numero_cuenta IS
     'Numero de cuenta corriente cuya chequera se personaliza (FK CHMST)';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.nombre_impresion IS
+COMMENT ON COLUMN CHPER.nombre_impresion IS
     'Nombre o razon social del cuentahabiente tal como se imprime en cheques';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.direccion_impresion IS
+COMMENT ON COLUMN CHPER.direccion_impresion IS
     'Direccion del cuentahabiente que se imprime en los cheques';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.telefono_impresion IS
+COMMENT ON COLUMN CHPER.telefono_impresion IS
     'Numero telefonico del cuentahabiente impreso en los cheques';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.diseno_chequera IS
+COMMENT ON COLUMN CHPER.diseno_chequera IS
     'Codigo del diseno o plantilla seleccionada para la impresion';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.tipo_papel IS
+COMMENT ON COLUMN CHPER.tipo_papel IS
     'Tipo de papel o soporte fisico para la impresion de la chequera';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.color_preferido IS
+COMMENT ON COLUMN CHPER.color_preferido IS
     'Color de impresion o acabado seleccionado por el cuentahabiente';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.cantidad_copias IS
+COMMENT ON COLUMN CHPER.cantidad_copias IS
     'Numero de copias adicionales a imprimir por cada cheque';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.fecha_apertura IS
+COMMENT ON COLUMN CHPER.fecha_apertura IS
     'Fecha de apertura de la cuenta corriente asociada';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.fecha_ultima_transaccion IS
+COMMENT ON COLUMN CHPER.fecha_ultima_transaccion IS
     'Fecha de la ultima actualizacion de la personalizacion';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.saldo_actual IS
+COMMENT ON COLUMN CHPER.saldo_actual IS
     'Saldo actual de la cuenta corriente al momento del registro';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.saldo_disponible IS
+COMMENT ON COLUMN CHPER.saldo_disponible IS
     'Saldo disponible de la cuenta corriente al momento del registro';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.limite_sobregiro IS
+COMMENT ON COLUMN CHPER.limite_sobregiro IS
     'Limite de sobregiro de la cuenta corriente asociada';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.estado_cuenta IS
+COMMENT ON COLUMN CHPER.estado_cuenta IS
     'Estado operativo de la cuenta corriente asociada';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.usuario_creacion IS
+COMMENT ON COLUMN CHPER.usuario_creacion IS
     'Usuario que registro la configuracion de personalizacion';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.usuario_actualizacion IS
+COMMENT ON COLUMN CHPER.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion de la personalizacion';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.version_registro IS
+COMMENT ON COLUMN CHPER.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.observaciones IS
+COMMENT ON COLUMN CHPER.observaciones IS
     'Notas adicionales sobre las preferencias de personalizacion';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.estado_registro IS
+COMMENT ON COLUMN CHPER.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.created_at IS
+COMMENT ON COLUMN CHPER.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/CHPER.updated_at IS
+COMMENT ON COLUMN CHPER.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CHPER (
+LABEL ON COLUMN CHPER (
     codigo_banco             TEXT IS 'Banco',
     codigo_sucursal          TEXT IS 'Sucursal',
     numero_cuenta            TEXT IS 'No. Cuenta',
@@ -134,4 +134,4 @@ LABEL ON COLUMN HNEACOSTA1/CHPER (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ICHPERCAT ON HNEACOSTA1/CHPER (created_at);
+CREATE INDEX ICHPERCAT ON CHPER (created_at);

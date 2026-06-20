@@ -16,7 +16,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/HLHIS (
+CREATE OR REPLACE TABLE HLHIS (
     id                    FOR COLUMN IDHLH    BIGINT         NOT NULL GENERATED ALWAYS AS IDENTITY,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
     valor_texto           FOR COLUMN VALTXT   VARCHAR(50)    NOT NULL DEFAULT '',
@@ -35,31 +35,31 @@ CREATE OR REPLACE TABLE HNEACOSTA1/HLHIS (
 )
 RCDFMT HLHISR;
 
-RENAME TABLE HNEACOSTA1/HLHIS
-    TO HLHIS FOR SYSTEM NAME HLHIS;
+RENAME TABLE HLHIS
+    TO HLHIS_TABLE FOR SYSTEM NAME HLHIS;
 
-COMMENT ON TABLE HNEACOSTA1/HLHIS IS
+COMMENT ON TABLE HLHIS IS
     'Historico de Cambios en Retenciones - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/HLHIS IS
+LABEL ON TABLE HLHIS IS
     'Historico Cambios Retenciones';
 
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.id                    IS 'Identificador unico autogenerado del registro historico de retencion';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.descripcion           IS 'Descripcion del cambio de retencion registrado';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.valor_texto           IS 'Tipo o motivo del cambio de retencion';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.valor_numerico        IS 'Monto o porcentaje de la retencion modificada';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.vigencia_desde        IS 'Fecha desde la cual aplica el cambio de retencion';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.vigencia_hasta        IS 'Fecha hasta la cual aplica el cambio de retencion';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.orden_visualizacion   IS 'Numero de orden para listado historico de retenciones';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.usuario_creacion      IS 'Usuario o proceso que registro el cambio de retencion';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.observaciones         IS 'Notas adicionales sobre el cambio de retencion';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/HLHIS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN HLHIS.id                    IS 'Identificador unico autogenerado del registro historico de retencion';
+COMMENT ON COLUMN HLHIS.descripcion           IS 'Descripcion del cambio de retencion registrado';
+COMMENT ON COLUMN HLHIS.valor_texto           IS 'Tipo o motivo del cambio de retencion';
+COMMENT ON COLUMN HLHIS.valor_numerico        IS 'Monto o porcentaje de la retencion modificada';
+COMMENT ON COLUMN HLHIS.vigencia_desde        IS 'Fecha desde la cual aplica el cambio de retencion';
+COMMENT ON COLUMN HLHIS.vigencia_hasta        IS 'Fecha hasta la cual aplica el cambio de retencion';
+COMMENT ON COLUMN HLHIS.orden_visualizacion   IS 'Numero de orden para listado historico de retenciones';
+COMMENT ON COLUMN HLHIS.usuario_creacion      IS 'Usuario o proceso que registro el cambio de retencion';
+COMMENT ON COLUMN HLHIS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN HLHIS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN HLHIS.observaciones         IS 'Notas adicionales sobre el cambio de retencion';
+COMMENT ON COLUMN HLHIS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN HLHIS.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN HLHIS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/HLHIS (
+LABEL ON COLUMN HLHIS (
     id                    TEXT IS 'ID Retencion',
     descripcion           TEXT IS 'Descripcion Cambio',
     valor_texto           TEXT IS 'Tipo Cambio',
@@ -76,4 +76,4 @@ LABEL ON COLUMN HNEACOSTA1/HLHIS (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_HLHIS_C ON HNEACOSTA1/HLHIS (created_at);
+CREATE INDEX IDX_HLHIS_C ON HLHIS (created_at);

@@ -20,7 +20,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/RATES (
+CREATE OR REPLACE TABLE RATES (
     codigo_banco          FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL,
     codigo_moneda         FOR COLUMN CODMON   VARCHAR(20)    NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
@@ -40,32 +40,32 @@ CREATE OR REPLACE TABLE HNEACOSTA1/RATES (
 )
 RCDFMT RATESR;
 
-RENAME TABLE HNEACOSTA1/RATES
-    TO RATES FOR SYSTEM NAME RATES;
+RENAME TABLE RATES
+    TO RATES_TABLE FOR SYSTEM NAME RATES;
 
-COMMENT ON TABLE HNEACOSTA1/RATES IS
+COMMENT ON TABLE RATES IS
     'Tasas de Cambio Vigentes por Banco y Moneda - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/RATES IS
+LABEL ON TABLE RATES IS
     'Tasas de Cambio';
 
-COMMENT ON COLUMN HNEACOSTA1/RATES.codigo_banco          IS 'Codigo del banco dueno de la tasa de cambio; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/RATES.codigo_moneda         IS 'Codigo ISO de la moneda a la que aplica la tasa; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/RATES.descripcion           IS 'Descripcion de la moneda y la tasa de cambio vigente';
-COMMENT ON COLUMN HNEACOSTA1/RATES.valor_texto           IS 'Nombre completo de la moneda o par de divisas';
-COMMENT ON COLUMN HNEACOSTA1/RATES.valor_numerico        IS 'Valor de la tasa de cambio vigente frente a la moneda base';
-COMMENT ON COLUMN HNEACOSTA1/RATES.vigencia_desde        IS 'Fecha desde la cual la tasa de cambio es vigente';
-COMMENT ON COLUMN HNEACOSTA1/RATES.vigencia_hasta        IS 'Fecha hasta la cual la tasa de cambio es vigente';
-COMMENT ON COLUMN HNEACOSTA1/RATES.orden_visualizacion   IS 'Numero de orden para presentacion en tablas de tasas';
-COMMENT ON COLUMN HNEACOSTA1/RATES.usuario_creacion      IS 'Usuario o proceso que registro la tasa de cambio';
-COMMENT ON COLUMN HNEACOSTA1/RATES.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima actualizacion de tasa';
-COMMENT ON COLUMN HNEACOSTA1/RATES.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/RATES.observaciones         IS 'Notas sobre la tasa de cambio o su fuente de informacion';
-COMMENT ON COLUMN HNEACOSTA1/RATES.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/RATES.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/RATES.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN RATES.codigo_banco          IS 'Codigo del banco dueno de la tasa de cambio; parte de la PK';
+COMMENT ON COLUMN RATES.codigo_moneda         IS 'Codigo ISO de la moneda a la que aplica la tasa; parte de la PK';
+COMMENT ON COLUMN RATES.descripcion           IS 'Descripcion de la moneda y la tasa de cambio vigente';
+COMMENT ON COLUMN RATES.valor_texto           IS 'Nombre completo de la moneda o par de divisas';
+COMMENT ON COLUMN RATES.valor_numerico        IS 'Valor de la tasa de cambio vigente frente a la moneda base';
+COMMENT ON COLUMN RATES.vigencia_desde        IS 'Fecha desde la cual la tasa de cambio es vigente';
+COMMENT ON COLUMN RATES.vigencia_hasta        IS 'Fecha hasta la cual la tasa de cambio es vigente';
+COMMENT ON COLUMN RATES.orden_visualizacion   IS 'Numero de orden para presentacion en tablas de tasas';
+COMMENT ON COLUMN RATES.usuario_creacion      IS 'Usuario o proceso que registro la tasa de cambio';
+COMMENT ON COLUMN RATES.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima actualizacion de tasa';
+COMMENT ON COLUMN RATES.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN RATES.observaciones         IS 'Notas sobre la tasa de cambio o su fuente de informacion';
+COMMENT ON COLUMN RATES.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN RATES.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN RATES.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/RATES (
+LABEL ON COLUMN RATES (
     codigo_banco          TEXT IS 'Codigo Banco',
     codigo_moneda         TEXT IS 'Codigo Moneda',
     descripcion           TEXT IS 'Descripcion Moneda',
@@ -83,4 +83,4 @@ LABEL ON COLUMN HNEACOSTA1/RATES (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_RATES_C ON HNEACOSTA1/RATES (created_at);
+CREATE INDEX IDX_RATES_C ON RATES (created_at);

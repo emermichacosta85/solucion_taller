@@ -19,11 +19,11 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/MLNCT (
+CREATE OR REPLACE TABLE MLNCT (
     codigo_banco            FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL,
     codigo_de_notificacion  FOR COLUMN CODNOT   VARCHAR(20)    NOT NULL,
-    nivel                   FOR COLUMN NIVEL    INTEGER        NOT NULL,
-    idioma                  FOR COLUMN IDIOMA   VARCHAR(20)    NOT NULL,
+    nivel_de_notificacion   FOR COLUMN NIVEL    INTEGER        NOT NULL,
+    idioma_de_notificacion  FOR COLUMN IDIOMA   VARCHAR(20)    NOT NULL,
     secuencia               FOR COLUMN SECUENC  INTEGER        NOT NULL,
     descripcion             FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
     valor_texto             FOR COLUMN VALTXT   VARCHAR(50)    NOT NULL DEFAULT '',
@@ -42,35 +42,35 @@ CREATE OR REPLACE TABLE HNEACOSTA1/MLNCT (
 )
 RCDFMT MLNCTR;
 
-RENAME TABLE HNEACOSTA1/MLNCT
-    TO MLNCT FOR SYSTEM NAME MLNCT;
+RENAME TABLE MLNCT
+    TO MLNCT_TABLE FOR SYSTEM NAME MLNCT;
 
-COMMENT ON TABLE HNEACOSTA1/MLNCT IS
+COMMENT ON TABLE MLNCT IS
     'Patrones de Notificaciones a Clientes - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/MLNCT IS
+LABEL ON TABLE MLNCT IS
     'Patrones Notificaciones';
 
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.codigo_banco            IS 'Codigo del banco dueno del patron de notificacion; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.codigo_de_notificacion  IS 'Codigo identificador del tipo de notificacion; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.nivel                   IS 'Nivel jerarquico de la notificacion dentro del tipo; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.idioma                  IS 'Idioma del patron de notificacion (ES, EN); parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.secuencia               IS 'Numero de secuencia del patron dentro del nivel e idioma; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.descripcion             IS 'Descripcion del patron o formato de notificacion';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.valor_texto             IS 'Texto del patron o plantilla de la notificacion';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.valor_numerico          IS 'Valor numerico asociado al patron si aplica';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.vigencia_desde          IS 'Fecha desde la cual el patron de notificacion es vigente';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.vigencia_hasta          IS 'Fecha hasta la cual el patron de notificacion es vigente';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.orden_visualizacion     IS 'Numero de orden para presentacion del patron';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.usuario_creacion        IS 'Usuario del sistema que creo el registro del patron';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.observaciones           IS 'Notas adicionales sobre el patron de notificacion';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.created_at              IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/MLNCT.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN MLNCT.codigo_banco            IS 'Codigo del banco dueno del patron de notificacion; parte de la PK';
+COMMENT ON COLUMN MLNCT.codigo_de_notificacion  IS 'Codigo identificador del tipo de notificacion; parte de la PK';
+COMMENT ON COLUMN MLNCT.nivel                   IS 'Nivel jerarquico de la notificacion dentro del tipo; parte de la PK';
+COMMENT ON COLUMN MLNCT.idioma                  IS 'Idioma del patron de notificacion (ES, EN); parte de la PK';
+COMMENT ON COLUMN MLNCT.secuencia               IS 'Numero de secuencia del patron dentro del nivel e idioma; parte de la PK';
+COMMENT ON COLUMN MLNCT.descripcion             IS 'Descripcion del patron o formato de notificacion';
+COMMENT ON COLUMN MLNCT.valor_texto             IS 'Texto del patron o plantilla de la notificacion';
+COMMENT ON COLUMN MLNCT.valor_numerico          IS 'Valor numerico asociado al patron si aplica';
+COMMENT ON COLUMN MLNCT.vigencia_desde          IS 'Fecha desde la cual el patron de notificacion es vigente';
+COMMENT ON COLUMN MLNCT.vigencia_hasta          IS 'Fecha hasta la cual el patron de notificacion es vigente';
+COMMENT ON COLUMN MLNCT.orden_visualizacion     IS 'Numero de orden para presentacion del patron';
+COMMENT ON COLUMN MLNCT.usuario_creacion        IS 'Usuario del sistema que creo el registro del patron';
+COMMENT ON COLUMN MLNCT.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN MLNCT.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN MLNCT.observaciones           IS 'Notas adicionales sobre el patron de notificacion';
+COMMENT ON COLUMN MLNCT.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN MLNCT.created_at              IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN MLNCT.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/MLNCT (
+LABEL ON COLUMN MLNCT (
     codigo_banco            TEXT IS 'Codigo Banco',
     codigo_de_notificacion  TEXT IS 'Codigo Notificacion',
     nivel                   TEXT IS 'Nivel',
@@ -91,4 +91,4 @@ LABEL ON COLUMN HNEACOSTA1/MLNCT (
     updated_at              TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_MLNCT_C ON HNEACOSTA1/MLNCT (created_at);
+CREATE INDEX IDX_MLNCT_C ON MLNCT (created_at);

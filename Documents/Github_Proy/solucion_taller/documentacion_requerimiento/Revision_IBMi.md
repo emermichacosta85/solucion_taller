@@ -192,11 +192,13 @@ Toda tabla creada en el taller debe cumplir la estructura de metadata y comentar
 El agente debe validar que cada script de creacion de tabla incluya, en este orden logico:
 - Bloque de encabezado con metadata funcional (nombre, descripcion, objetivo, tipo, origen, permanencia, uso, restricciones).
 - Bloque de autoria y contexto (equipo, fecha, proyecto).
-- Sentencia `CREATE OR REPLACE TABLE`.
-- Definicion de columnas con alias de sistema mediante `FOR COLUMN`.
+- Sentencia `CREATE OR REPLACE TABLE` con el nombre de la tabla.
+- el nombre_abreviado de cada columna debe ser de maximo 10 caracteres e iniciar con los 3 primeros caracteres del nombre archivo/tabla, y debe ser unico dentro de 
+  la tabla. Ejemplo (tabla 'LCMST'): codigo_banco FOR COLUMN LCMCODBAN VARCHAR(10) NOT NULL WITH DEFAULT '0000000000'.  
+- Definicion de columnas con alias de sistema mediante `FOR COLUMN`. Cada definicion de columna debe seguir el orden obligatorio: `nombre_largo` + espacio + `FOR COLUMN` + `nombre_abreviado` + `tipo` + `[NOT NULL]` + (y `[WITH DEFAULT ...]` si aplica). 
 - Definicion de `PRIMARY KEY` por `CONSTRAINT`.
 - `RCDFMT` definido para formato de registro.
-- `RENAME TABLE ... TO ... FOR SYSTEM NAME ...` cuando aplique estandar de nombres largos/cortos.
+- `RENAME TABLE ... TO ... FOR SYSTEM NAME ...` cuando aplique estandar de nombres largos/cortos. El nombre largo destino (clausula `TO`) debe llevar el nombre de archivo mas el sufijo `nombre_archivo` + '-' + 'TABLE'; (ejemplo 'LCMST_TABLE'); el nombre corto de 'FOR SYSTEM NAME' se mantiene sin cambios. ejemplo: 'RENAME TABLE LCMST TO LCMST_TABLE FOR SYSTEM NAME LCMST'.
 - `COMMENT ON TABLE` y `LABEL ON TABLE`.
 - `COMMENT ON COLUMN` para todas las columnas.
 - `LABEL ON COLUMN` para headers de todas las columnas.

@@ -16,94 +16,93 @@
 -- Proyecto            : Taller IBM i - Modulo 3 Cuentas de Detalle
 -- ============================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/ACMST (
-    id                      BIGINT          NOT NULL    FOR COLUMN ACMSTID,
-    id_cliente              VARCHAR(30)     NOT NULL    FOR COLUMN ACMSTCLI,
-    numero_cuenta           VARCHAR(24)     NOT NULL    FOR COLUMN ACMSTCTA,
-    codigo_banco            VARCHAR(20)     NOT NULL    FOR COLUMN ACMSTBNK,
-    codigo_sucursal         VARCHAR(20)     NOT NULL    FOR COLUMN ACMSTSUC,
-    codigo_moneda           VARCHAR(20)     NOT NULL    FOR COLUMN ACMSTMON,
-    cuenta_contable         VARCHAR(24)     NOT NULL    FOR COLUMN ACMSTCTC,
-    tipo_producto           VARCHAR(20)     NOT NULL    FOR COLUMN ACMSTPRD,
-    fecha_apertura          DATE                        FOR COLUMN ACMSTFAP,
-    fecha_ultima_transaccion DATE                       FOR COLUMN ACMSTFUT,
-    saldo_actual            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN ACMSTSAL,
-    saldo_disponible        DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN ACMSTSDP,
-    limite_sobregiro        DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN ACMSTLSO,
-    estado_cuenta           VARCHAR(20)     NOT NULL    FOR COLUMN ACMSTESC,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN ACMSTUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN ACMSTUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN ACMSTVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN ACMSTOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN ACMSTERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN ACMSTCAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN ACMSTUAT,
+CREATE OR REPLACE TABLE ACMST (
+    id                      FOR COLUMN ACMSTID BIGINT          NOT NULL    ,
+    id_cliente              FOR COLUMN ACMSTCLI VARCHAR(30)     NOT NULL    ,
+    numero_cuenta           FOR COLUMN ACMSTCTA VARCHAR(24)     NOT NULL    ,
+    codigo_banco            FOR COLUMN ACMSTBNK VARCHAR(20)     NOT NULL    ,
+    codigo_sucursal         FOR COLUMN ACMSTSUC VARCHAR(20)     NOT NULL    ,
+    codigo_moneda           FOR COLUMN ACMSTMON VARCHAR(20)     NOT NULL    ,
+    cuenta_contable         FOR COLUMN ACMSTCTC VARCHAR(24)     NOT NULL    ,
+    tipo_producto           FOR COLUMN ACMSTPRD VARCHAR(20)     NOT NULL    ,
+    fecha_apertura          FOR COLUMN ACMSTFAP DATE                        ,
+    fecha_ultima_transaccion FOR COLUMN ACMSTFUT DATE                       ,
+    saldo_actual            FOR COLUMN ACMSTSAL DECIMAL(18,2)   NOT NULL
+                                            DEFAULT 0   ,
+    saldo_disponible        FOR COLUMN ACMSTSDP DECIMAL(18,2)   NOT NULL
+                                            DEFAULT 0   ,
+    limite_sobregiro        FOR COLUMN ACMSTLSO DECIMAL(18,2)   NOT NULL
+                                            DEFAULT 0   ,
+    estado_cuenta           FOR COLUMN ACMSTESC VARCHAR(20)     NOT NULL    ,
+    usuario_creacion        FOR COLUMN ACMSTUSC VARCHAR(30)     NOT NULL    , 
+    usuario_actualizacion   FOR COLUMN ACMSTUSA VARCHAR(30)     NOT NULL   ,
+    version_registro        FOR COLUMN ACMSTVRS INT             NOT NULL
+                                            DEFAULT 1   ,
+    observaciones           FOR COLUMN ACMSTOBS VARCHAR(120)                ,
+    estado_registro         FOR COLUMN ACMSTERG CHAR(1)         NOT NULL
+                                            DEFAULT 'A' ,
+    created_at              FOR COLUMN ACMSTCAT TIMESTAMP       NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
+    updated_at              FOR COLUMN ACMSTUAT TIMESTAMP       NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
+                                                        
     CONSTRAINT PK_ACMST PRIMARY KEY (id)
 )
 RCDFMT ACMSTR;
 
-RENAME TABLE HNEACOSTA1/ACMST
-    TO ACMST FOR SYSTEM NAME ACMST;
+RENAME TABLE ACMST
+    TO ACMST_TABLE FOR SYSTEM NAME ACMST;
 
-COMMENT ON TABLE HNEACOSTA1/ACMST IS
+COMMENT ON TABLE ACMST IS
     'Archivo Maestro de Cuentas de Detalle - Modulo 3 Cuentas/Chequeras';
 
-LABEL ON TABLE HNEACOSTA1/ACMST
+LABEL ON TABLE ACMST
     IS 'Maestro Cuentas Detalle';
 
-COMMENT ON COLUMN HNEACOSTA1/ACMST.id IS
+COMMENT ON COLUMN ACMST.id IS
     'Identificador tecnico unico autoincremental de la cuenta de detalle';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.id_cliente IS
+COMMENT ON COLUMN ACMST.id_cliente IS
     'Identificador del cliente titular de la cuenta (FK CUMST)';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.numero_cuenta IS
+COMMENT ON COLUMN ACMST.numero_cuenta IS
     'Numero de cuenta bancaria unico asignado al momento de apertura';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.codigo_banco IS
+COMMENT ON COLUMN ACMST.codigo_banco IS
     'Codigo del banco al que pertenece la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.codigo_sucursal IS
+COMMENT ON COLUMN ACMST.codigo_sucursal IS
     'Codigo de la sucursal donde fue abierta la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.codigo_moneda IS
+COMMENT ON COLUMN ACMST.codigo_moneda IS
     'Codigo ISO de la moneda de la cuenta (ej: HNL, USD)';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.cuenta_contable IS
+COMMENT ON COLUMN ACMST.cuenta_contable IS
     'Codigo de cuenta contable asociada para registros GL';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.tipo_producto IS
+COMMENT ON COLUMN ACMST.tipo_producto IS
     'Tipo de producto bancario (ahorro, corriente, etc.)';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.fecha_apertura IS
+COMMENT ON COLUMN ACMST.fecha_apertura IS
     'Fecha en que fue abierta la cuenta en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.fecha_ultima_transaccion IS
+COMMENT ON COLUMN ACMST.fecha_ultima_transaccion IS
     'Fecha de la ultima transaccion registrada en la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.saldo_actual IS
+COMMENT ON COLUMN ACMST.saldo_actual IS
     'Saldo contable actual de la cuenta en la moneda de la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.saldo_disponible IS
+COMMENT ON COLUMN ACMST.saldo_disponible IS
     'Saldo disponible para retiro descontando retenciones y reservas';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.limite_sobregiro IS
+COMMENT ON COLUMN ACMST.limite_sobregiro IS
     'Limite maximo autorizado de sobregiro en la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.estado_cuenta IS
+COMMENT ON COLUMN ACMST.estado_cuenta IS
     'Estado operativo de la cuenta (ACTIVA, INACTIVA, BLOQUEADA, CERRADA)';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.usuario_creacion IS
+COMMENT ON COLUMN ACMST.usuario_creacion IS
     'Usuario del sistema que creo el registro';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.usuario_actualizacion IS
+COMMENT ON COLUMN ACMST.usuario_actualizacion IS
     'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.version_registro IS
+COMMENT ON COLUMN ACMST.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.observaciones IS
+COMMENT ON COLUMN ACMST.observaciones IS
     'Notas libres o anotaciones operativas sobre la cuenta';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.estado_registro IS
+COMMENT ON COLUMN ACMST.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.created_at IS
+COMMENT ON COLUMN ACMST.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/ACMST.updated_at IS
+COMMENT ON COLUMN ACMST.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/ACMST (
+LABEL ON COLUMN ACMST (
     id                       TEXT IS 'ID Cuenta',
     id_cliente               TEXT IS 'ID Cliente',
     numero_cuenta            TEXT IS 'No. Cuenta',
@@ -127,6 +126,6 @@ LABEL ON COLUMN HNEACOSTA1/ACMST (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/IACMSTCLI ON HNEACOSTA1/ACMST (id_cliente);
-CREATE INDEX HNEACOSTA1/IACMSTCTA ON HNEACOSTA1/ACMST (numero_cuenta);
-CREATE INDEX HNEACOSTA1/IACMSTCAT ON HNEACOSTA1/ACMST (created_at);
+CREATE INDEX IACMSTCLI ON ACMST (id_cliente);
+CREATE INDEX IACMSTCTA ON ACMST (numero_cuenta);
+CREATE INDEX IACMSTCAT ON ACMST (created_at);

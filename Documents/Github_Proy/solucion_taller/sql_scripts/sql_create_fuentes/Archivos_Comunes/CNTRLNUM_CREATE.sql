@@ -20,7 +20,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLNUM (
+CREATE OR REPLACE TABLE CNTRLNUM (
     codigo_aplicacion     FOR COLUMN CODAPL   VARCHAR(20)    NOT NULL,
     tipo_cuenta           FOR COLUMN TIPCTA   VARCHAR(20)    NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
@@ -40,32 +40,32 @@ CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLNUM (
 )
 RCDFMT CNTRLNUMR;
 
-RENAME TABLE HNEACOSTA1/CNTRLNUM
-    TO CNTRLNUM FOR SYSTEM NAME CNTRLNUM;
+RENAME TABLE CNTRLNUM
+    TO CNTRLNUM_TABLE FOR SYSTEM NAME CNTRLNUM;
 
-COMMENT ON TABLE HNEACOSTA1/CNTRLNUM IS
+COMMENT ON TABLE CNTRLNUM IS
     'Control de Numeracion Automatica de Operaciones - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/CNTRLNUM IS
+LABEL ON TABLE CNTRLNUM IS
     'Numeracion Automatica';
 
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.codigo_aplicacion     IS 'Codigo del modulo o aplicacion que usa la numeracion automatica; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.tipo_cuenta           IS 'Tipo de cuenta u operacion para la que aplica la numeracion; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.descripcion           IS 'Descripcion de la secuencia de numeracion controlada';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.valor_texto           IS 'Prefijo o patron del numero generado automaticamente';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.valor_numerico        IS 'Ultimo numero asignado en la secuencia de numeracion';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.vigencia_desde        IS 'Fecha desde la cual la secuencia de numeracion es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.vigencia_hasta        IS 'Fecha hasta la cual la secuencia de numeracion es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.orden_visualizacion   IS 'Numero de orden para listado de secuencias del sistema';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.usuario_creacion      IS 'Usuario administrador que configuro la secuencia de numeracion';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.usuario_actualizacion IS 'Usuario o proceso que realizo la ultima actualizacion del contador';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.observaciones         IS 'Notas sobre la secuencia de numeracion y su uso';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLNUM.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN CNTRLNUM.codigo_aplicacion     IS 'Codigo del modulo o aplicacion que usa la numeracion automatica; parte de la PK';
+COMMENT ON COLUMN CNTRLNUM.tipo_cuenta           IS 'Tipo de cuenta u operacion para la que aplica la numeracion; parte de la PK';
+COMMENT ON COLUMN CNTRLNUM.descripcion           IS 'Descripcion de la secuencia de numeracion controlada';
+COMMENT ON COLUMN CNTRLNUM.valor_texto           IS 'Prefijo o patron del numero generado automaticamente';
+COMMENT ON COLUMN CNTRLNUM.valor_numerico        IS 'Ultimo numero asignado en la secuencia de numeracion';
+COMMENT ON COLUMN CNTRLNUM.vigencia_desde        IS 'Fecha desde la cual la secuencia de numeracion es vigente';
+COMMENT ON COLUMN CNTRLNUM.vigencia_hasta        IS 'Fecha hasta la cual la secuencia de numeracion es vigente';
+COMMENT ON COLUMN CNTRLNUM.orden_visualizacion   IS 'Numero de orden para listado de secuencias del sistema';
+COMMENT ON COLUMN CNTRLNUM.usuario_creacion      IS 'Usuario administrador que configuro la secuencia de numeracion';
+COMMENT ON COLUMN CNTRLNUM.usuario_actualizacion IS 'Usuario o proceso que realizo la ultima actualizacion del contador';
+COMMENT ON COLUMN CNTRLNUM.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN CNTRLNUM.observaciones         IS 'Notas sobre la secuencia de numeracion y su uso';
+COMMENT ON COLUMN CNTRLNUM.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN CNTRLNUM.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN CNTRLNUM.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CNTRLNUM (
+LABEL ON COLUMN CNTRLNUM (
     codigo_aplicacion     TEXT IS 'Codigo Aplicacion',
     tipo_cuenta           TEXT IS 'Tipo de Cuenta',
     descripcion           TEXT IS 'Descripcion Secuencia',
@@ -83,4 +83,4 @@ LABEL ON COLUMN HNEACOSTA1/CNTRLNUM (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_CNTRLNUM_C ON HNEACOSTA1/CNTRLNUM (created_at);
+CREATE INDEX IDX_CNTRLNUM_C ON CNTRLNUM (created_at);

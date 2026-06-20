@@ -20,9 +20,9 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/HOLYD (
+CREATE OR REPLACE TABLE HOLYD (
     codigo_moneda         FOR COLUMN CODMON   VARCHAR(20)    NOT NULL,
-    fecha                 FOR COLUMN FECHA    DATE           NOT NULL,
+    fecha_feriado         FOR COLUMN FECHA    DATE           NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
     valor_texto           FOR COLUMN VALTXT   VARCHAR(50)    NOT NULL DEFAULT '',
     valor_numerico        FOR COLUMN VALNUM   DECIMAL(18, 2),
@@ -40,32 +40,32 @@ CREATE OR REPLACE TABLE HNEACOSTA1/HOLYD (
 )
 RCDFMT HOLYDR;
 
-RENAME TABLE HNEACOSTA1/HOLYD
-    TO HOLYD FOR SYSTEM NAME HOLYD;
+RENAME TABLE HOLYD
+    TO HOLYD_TABLE FOR SYSTEM NAME HOLYD;
 
-COMMENT ON TABLE HNEACOSTA1/HOLYD IS
+COMMENT ON TABLE HOLYD IS
     'Calendario de Feriados por Moneda - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/HOLYD IS
+LABEL ON TABLE HOLYD IS
     'Feriados por Moneda';
 
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.codigo_moneda         IS 'Codigo de moneda o plaza financiera a la que aplica el feriado; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.fecha                 IS 'Fecha del dia feriado o no habil; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.descripcion           IS 'Nombre o descripcion oficial del dia feriado';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.valor_texto           IS 'Tipo de feriado: NACIONAL, LOCAL, BANCARIO, etc.';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.valor_numerico        IS 'Valor numerico asociado al feriado si aplica';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.vigencia_desde        IS 'Fecha desde la cual aplica la definicion del feriado';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.vigencia_hasta        IS 'Fecha hasta la cual aplica la definicion del feriado';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.orden_visualizacion   IS 'Numero de orden para listado del calendario de feriados';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.usuario_creacion      IS 'Usuario del sistema que registro el feriado';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.observaciones         IS 'Notas adicionales sobre el feriado registrado';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/HOLYD.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN HOLYD.codigo_moneda         IS 'Codigo de moneda o plaza financiera a la que aplica el feriado; parte de la PK';
+COMMENT ON COLUMN HOLYD.fecha                 IS 'Fecha del dia feriado o no habil; parte de la PK';
+COMMENT ON COLUMN HOLYD.descripcion           IS 'Nombre o descripcion oficial del dia feriado';
+COMMENT ON COLUMN HOLYD.valor_texto           IS 'Tipo de feriado: NACIONAL, LOCAL, BANCARIO, etc.';
+COMMENT ON COLUMN HOLYD.valor_numerico        IS 'Valor numerico asociado al feriado si aplica';
+COMMENT ON COLUMN HOLYD.vigencia_desde        IS 'Fecha desde la cual aplica la definicion del feriado';
+COMMENT ON COLUMN HOLYD.vigencia_hasta        IS 'Fecha hasta la cual aplica la definicion del feriado';
+COMMENT ON COLUMN HOLYD.orden_visualizacion   IS 'Numero de orden para listado del calendario de feriados';
+COMMENT ON COLUMN HOLYD.usuario_creacion      IS 'Usuario del sistema que registro el feriado';
+COMMENT ON COLUMN HOLYD.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN HOLYD.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN HOLYD.observaciones         IS 'Notas adicionales sobre el feriado registrado';
+COMMENT ON COLUMN HOLYD.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN HOLYD.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN HOLYD.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/HOLYD (
+LABEL ON COLUMN HOLYD (
     codigo_moneda         TEXT IS 'Codigo Moneda',
     fecha                 TEXT IS 'Fecha Feriado',
     descripcion           TEXT IS 'Descripcion Feriado',
@@ -83,5 +83,5 @@ LABEL ON COLUMN HNEACOSTA1/HOLYD (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_HOLYD_F ON HNEACOSTA1/HOLYD (fecha);
-CREATE INDEX HNEACOSTA1/IDX_HOLYD_C ON HNEACOSTA1/HOLYD (created_at);
+CREATE INDEX IDX_HOLYD_F ON HOLYD (fecha);
+CREATE INDEX IDX_HOLYD_C ON HOLYD (created_at);

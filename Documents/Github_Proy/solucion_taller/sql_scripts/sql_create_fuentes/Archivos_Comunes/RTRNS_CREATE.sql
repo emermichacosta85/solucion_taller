@@ -22,10 +22,10 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/RTRNS (
+CREATE OR REPLACE TABLE RTRNS (
     codigo_banco          FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL,
     codigo_moneda         FOR COLUMN CODMON   VARCHAR(20)    NOT NULL,
-    fecha                 FOR COLUMN FECHA    DATE           NOT NULL,
+    fecha_tasa_cambio     FOR COLUMN FECHATACA    DATE           NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
     valor_texto           FOR COLUMN VALTXT   VARCHAR(50)    NOT NULL DEFAULT '',
     valor_numerico        FOR COLUMN VALNUM   DECIMAL(18, 2),
@@ -39,42 +39,42 @@ CREATE OR REPLACE TABLE HNEACOSTA1/RTRNS (
     estado_registro       FOR COLUMN ESTREG   CHAR(1)        NOT NULL DEFAULT 'A',
     created_at            FOR COLUMN CRTDAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at            FOR COLUMN UPDDAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT PK_RTRNS   PRIMARY KEY (codigo_banco, codigo_moneda, fecha),
-    CONSTRAINT FK_RTRNS_RATES FOREIGN KEY (codigo_banco, codigo_moneda)
-        REFERENCES HNEACOSTA1/RATES (codigo_banco, codigo_moneda)
+    CONSTRAINT PK_RTRNS   PRIMARY KEY (codigo_banco, codigo_moneda, fecha)
+    --CONSTRAINT FK_RTRNS_RATES FOREIGN KEY (codigo_banco, codigo_moneda)
+    --    REFERENCES RATES (codigo_banco, codigo_moneda)
 )
 RCDFMT RTRNSR;
 
-RENAME TABLE HNEACOSTA1/RTRNS
-    TO RTRNS FOR SYSTEM NAME RTRNS;
+RENAME TABLE RTRNS
+    TO RTRNS_TABLE FOR SYSTEM NAME RTRNS;
 
-COMMENT ON TABLE HNEACOSTA1/RTRNS IS
+COMMENT ON TABLE RTRNS IS
     'Historia de Tasas de Cambio por Banco Moneda y Fecha - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/RTRNS IS
+LABEL ON TABLE RTRNS IS
     'Historia Tasas de Cambio';
 
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.codigo_banco          IS 'Codigo del banco dueno de la tasa historica; parte de la PK y FK a RATES';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.codigo_moneda         IS 'Codigo ISO de la moneda de la tasa historica; parte de la PK y FK a RATES';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.fecha                 IS 'Fecha en que riguo esta tasa de cambio; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.descripcion           IS 'Descripcion de la tasa de cambio historica registrada';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.valor_texto           IS 'Nombre del par de divisas o fuente de la tasa historica';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.valor_numerico        IS 'Valor de la tasa de cambio en la fecha indicada';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.vigencia_desde        IS 'Fecha de inicio de vigencia de esta tasa historica';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.vigencia_hasta        IS 'Fecha de fin de vigencia de esta tasa historica';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.orden_visualizacion   IS 'Numero de orden para listado historico de tasas';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.usuario_creacion      IS 'Usuario o proceso que registro la tasa en el historico';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.observaciones         IS 'Notas sobre la tasa historica o circunstancias del cambio';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.created_at            IS 'Fecha y hora exacta de creacion del registro historico';
-COMMENT ON COLUMN HNEACOSTA1/RTRNS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN RTRNS.codigo_banco          IS 'Codigo del banco dueno de la tasa historica; parte de la PK y FK a RATES';
+COMMENT ON COLUMN RTRNS.codigo_moneda         IS 'Codigo ISO de la moneda de la tasa historica; parte de la PK y FK a RATES';
+COMMENT ON COLUMN RTRNS.fecha_tasa_cambio     IS 'Fecha en que riguo esta tasa de cambio; parte de la PK';
+COMMENT ON COLUMN RTRNS.descripcion           IS 'Descripcion de la tasa de cambio historica registrada';
+COMMENT ON COLUMN RTRNS.valor_texto           IS 'Nombre del par de divisas o fuente de la tasa historica';
+COMMENT ON COLUMN RTRNS.valor_numerico        IS 'Valor de la tasa de cambio en la fecha indicada';
+COMMENT ON COLUMN RTRNS.vigencia_desde        IS 'Fecha de inicio de vigencia de esta tasa historica';
+COMMENT ON COLUMN RTRNS.vigencia_hasta        IS 'Fecha de fin de vigencia de esta tasa historica';
+COMMENT ON COLUMN RTRNS.orden_visualizacion   IS 'Numero de orden para listado historico de tasas';
+COMMENT ON COLUMN RTRNS.usuario_creacion      IS 'Usuario o proceso que registro la tasa en el historico';
+COMMENT ON COLUMN RTRNS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN RTRNS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN RTRNS.observaciones         IS 'Notas sobre la tasa historica o circunstancias del cambio';
+COMMENT ON COLUMN RTRNS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN RTRNS.created_at            IS 'Fecha y hora exacta de creacion del registro historico';
+COMMENT ON COLUMN RTRNS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/RTRNS (
+LABEL ON COLUMN RTRNS (
     codigo_banco          TEXT IS 'Codigo Banco',
     codigo_moneda         TEXT IS 'Codigo Moneda',
-    fecha                 TEXT IS 'Fecha Tasa',
+    fecha_tasa_cambio     TEXT IS 'Fecha Tasa',
     descripcion           TEXT IS 'Descripcion Tasa',
     valor_texto           TEXT IS 'Par de Divisas',
     valor_numerico        TEXT IS 'Tasa Historica',
@@ -90,5 +90,5 @@ LABEL ON COLUMN HNEACOSTA1/RTRNS (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_RTRNS_F ON HNEACOSTA1/RTRNS (fecha);
-CREATE INDEX HNEACOSTA1/IDX_RTRNS_C ON HNEACOSTA1/RTRNS (created_at);
+CREATE INDEX IDX_RTRNS_F ON RTRNS (fecha_tasa_cambio);
+CREATE INDEX IDX_RTRNS_C ON RTRNS (created_at);

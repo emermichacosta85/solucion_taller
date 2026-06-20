@@ -25,7 +25,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/TRANS (
+CREATE OR REPLACE TABLE TRANS (
     id_transaccion          FOR COLUMN IDTRAN   BIGINT         NOT NULL GENERATED ALWAYS AS IDENTITY,
     numero_registro_relativo FOR COLUMN NUMREG  VARCHAR(30),
     codigo_banco            FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL DEFAULT '',
@@ -39,7 +39,7 @@ CREATE OR REPLACE TABLE HNEACOSTA1/TRANS (
     hora_operacion          FOR COLUMN HORAOPE  TIME,
     tipo_movimiento         FOR COLUMN TIPMOV   VARCHAR(20)    NOT NULL DEFAULT '',
     debito_credito          FOR COLUMN DEPCRED  CHAR(1)        NOT NULL DEFAULT '',
-    monto                   FOR COLUMN MONTO    DECIMAL(18, 2) NOT NULL DEFAULT 0,
+    monto_transaccion       FOR COLUMN MONTO    DECIMAL(18, 2) NOT NULL DEFAULT 0,
     saldo_anterior          FOR COLUMN SLDANT   DECIMAL(18, 2) NOT NULL DEFAULT 0,
     saldo_posterior         FOR COLUMN SLDPOS   DECIMAL(18, 2) NOT NULL DEFAULT 0,
     canal_origen            FOR COLUMN CANORIG  VARCHAR(20)    NOT NULL DEFAULT '',
@@ -57,44 +57,44 @@ CREATE OR REPLACE TABLE HNEACOSTA1/TRANS (
 )
 RCDFMT TRANSR;
 
-RENAME TABLE HNEACOSTA1/TRANS
-    TO TRANS FOR SYSTEM NAME TRANS;
+RENAME TABLE TRANS
+    TO TRANS_TABLE FOR SYSTEM NAME TRANS;
 
-COMMENT ON TABLE HNEACOSTA1/TRANS IS
+COMMENT ON TABLE TRANS IS
     'Historico de Transacciones Financieras - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/TRANS IS
+LABEL ON TABLE TRANS IS
     'Historico Transacciones';
 
-COMMENT ON COLUMN HNEACOSTA1/TRANS.id_transaccion          IS 'Identificador unico autogenerado de la transaccion historica; PK surrogate';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.numero_registro_relativo IS 'Numero de registro relativo del historico; referenciado por TRDSC como FK';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.codigo_banco            IS 'Codigo del banco en que se origino la transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.codigo_sucursal         IS 'Codigo de la sucursal en que se origino la transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.codigo_moneda           IS 'Codigo ISO de la moneda de la transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.cuenta_contable         IS 'Cuenta contable afectada por la transaccion; FK a GLMST';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.numero_cuenta           IS 'Numero de cuenta de detalle del cliente afectada; FK a ACMST';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.id_cliente              IS 'Identificacion del cliente titular de la operacion; FK a CUMST';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.fecha_operacion         IS 'Fecha en que se proceso la transaccion en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.fecha_valor             IS 'Fecha valor efectiva de la transaccion para calculo de intereses';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.hora_operacion          IS 'Hora exacta en que se proceso la transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.tipo_movimiento         IS 'Tipo de movimiento: DEPOSITO, RETIRO, TRANSFERENCIA, etc.';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.debito_credito          IS 'Signo contable de la transaccion: D=Debito, C=Credito';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.monto                   IS 'Monto de la transaccion en la moneda indicada';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.saldo_anterior          IS 'Saldo de la cuenta antes de aplicar esta transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.saldo_posterior         IS 'Saldo de la cuenta despues de aplicar esta transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.canal_origen            IS 'Canal por el que se origino la transaccion: CAJA, SWIFT, BATCH, etc.';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.terminal_origen         IS 'Identificador del terminal o proceso que origino la transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.referencia_externa      IS 'Referencia externa o numero de documento asociado a la transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.estado_transaccion      IS 'Estado de la transaccion: APLICADA, PENDIENTE, TRANSITO, REVERSADA';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.usuario_creacion        IS 'Usuario o proceso que registro la transaccion en el historico';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.observaciones           IS 'Notas adicionales sobre la transaccion historica';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.created_at              IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/TRANS.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN TRANS.id_transaccion          IS 'Identificador unico autogenerado de la transaccion historica; PK surrogate';
+COMMENT ON COLUMN TRANS.numero_registro_relativo IS 'Numero de registro relativo del historico; referenciado por TRDSC como FK';
+COMMENT ON COLUMN TRANS.codigo_banco            IS 'Codigo del banco en que se origino la transaccion';
+COMMENT ON COLUMN TRANS.codigo_sucursal         IS 'Codigo de la sucursal en que se origino la transaccion';
+COMMENT ON COLUMN TRANS.codigo_moneda           IS 'Codigo ISO de la moneda de la transaccion';
+COMMENT ON COLUMN TRANS.cuenta_contable         IS 'Cuenta contable afectada por la transaccion; FK a GLMST';
+COMMENT ON COLUMN TRANS.numero_cuenta           IS 'Numero de cuenta de detalle del cliente afectada; FK a ACMST';
+COMMENT ON COLUMN TRANS.id_cliente              IS 'Identificacion del cliente titular de la operacion; FK a CUMST';
+COMMENT ON COLUMN TRANS.fecha_operacion         IS 'Fecha en que se proceso la transaccion en el sistema';
+COMMENT ON COLUMN TRANS.fecha_valor             IS 'Fecha valor efectiva de la transaccion para calculo de intereses';
+COMMENT ON COLUMN TRANS.hora_operacion          IS 'Hora exacta en que se proceso la transaccion';
+COMMENT ON COLUMN TRANS.tipo_movimiento         IS 'Tipo de movimiento: DEPOSITO, RETIRO, TRANSFERENCIA, etc.';
+COMMENT ON COLUMN TRANS.debito_credito          IS 'Signo contable de la transaccion: D=Debito, C=Credito';
+COMMENT ON COLUMN TRANS.monto_transaccion        IS 'Monto de la transaccion en la moneda indicada';
+COMMENT ON COLUMN TRANS.saldo_anterior          IS 'Saldo de la cuenta antes de aplicar esta transaccion';
+COMMENT ON COLUMN TRANS.saldo_posterior         IS 'Saldo de la cuenta despues de aplicar esta transaccion';
+COMMENT ON COLUMN TRANS.canal_origen            IS 'Canal por el que se origino la transaccion: CAJA, SWIFT, BATCH, etc.';
+COMMENT ON COLUMN TRANS.terminal_origen         IS 'Identificador del terminal o proceso que origino la transaccion';
+COMMENT ON COLUMN TRANS.referencia_externa      IS 'Referencia externa o numero de documento asociado a la transaccion';
+COMMENT ON COLUMN TRANS.estado_transaccion      IS 'Estado de la transaccion: APLICADA, PENDIENTE, TRANSITO, REVERSADA';
+COMMENT ON COLUMN TRANS.usuario_creacion        IS 'Usuario o proceso que registro la transaccion en el historico';
+COMMENT ON COLUMN TRANS.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN TRANS.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN TRANS.observaciones           IS 'Notas adicionales sobre la transaccion historica';
+COMMENT ON COLUMN TRANS.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN TRANS.created_at              IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN TRANS.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/TRANS (
+LABEL ON COLUMN TRANS (
     id_transaccion          TEXT IS 'ID Transaccion',
     numero_registro_relativo TEXT IS 'Num Registro Relativo',
     codigo_banco            TEXT IS 'Codigo Banco',
@@ -108,7 +108,7 @@ LABEL ON COLUMN HNEACOSTA1/TRANS (
     hora_operacion          TEXT IS 'Hora Operacion',
     tipo_movimiento         TEXT IS 'Tipo Movimiento',
     debito_credito          TEXT IS 'Debito Credito',
-    monto                   TEXT IS 'Monto',
+    monto_transaccion       TEXT IS 'Monto',
     saldo_anterior          TEXT IS 'Saldo Anterior',
     saldo_posterior         TEXT IS 'Saldo Posterior',
     canal_origen            TEXT IS 'Canal Origen',
@@ -124,8 +124,8 @@ LABEL ON COLUMN HNEACOSTA1/TRANS (
     updated_at              TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_TRANS_RR  ON HNEACOSTA1/TRANS (numero_registro_relativo);
-CREATE INDEX HNEACOSTA1/IDX_TRANS_CF  ON HNEACOSTA1/TRANS (numero_cuenta,    fecha_operacion);
-CREATE INDEX HNEACOSTA1/IDX_TRANS_CCF ON HNEACOSTA1/TRANS (cuenta_contable,  fecha_operacion);
-CREATE INDEX HNEACOSTA1/IDX_TRANS_CLF ON HNEACOSTA1/TRANS (id_cliente,       fecha_operacion);
-CREATE INDEX HNEACOSTA1/IDX_TRANS_C   ON HNEACOSTA1/TRANS (created_at);
+CREATE INDEX IDX_TRANS_RR  ON TRANS (numero_registro_relativo);
+CREATE INDEX IDX_TRANS_CF  ON TRANS (numero_cuenta,    fecha_operacion);
+CREATE INDEX IDX_TRANS_CCF ON TRANS (cuenta_contable,  fecha_operacion);
+CREATE INDEX IDX_TRANS_CLF ON TRANS (id_cliente,       fecha_operacion);
+CREATE INDEX IDX_TRANS_C   ON TRANS (created_at);

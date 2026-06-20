@@ -22,12 +22,12 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/HSNOT (
+CREATE OR REPLACE TABLE HSNOT (
     codigo_banco            FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL,
     fecha_proceso           FOR COLUMN FECPRO   DATE           NOT NULL,
     numero_cuenta           FOR COLUMN NUMCTA   VARCHAR(24)    NOT NULL,
     codigo_de_notificacion  FOR COLUMN CODNOT   VARCHAR(20)    NOT NULL,
-    nivel                   FOR COLUMN NIVEL    INTEGER        NOT NULL,
+    nivel_notificacion      FOR COLUMN NIVEL    INTEGER        NOT NULL,
     descripcion             FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
     valor_texto             FOR COLUMN VALTXT   VARCHAR(50)    NOT NULL DEFAULT '',
     valor_numerico          FOR COLUMN VALNUM   DECIMAL(18, 2),
@@ -45,35 +45,35 @@ CREATE OR REPLACE TABLE HNEACOSTA1/HSNOT (
 )
 RCDFMT HSNOTR;
 
-RENAME TABLE HNEACOSTA1/HSNOT
-    TO HSNOT FOR SYSTEM NAME HSNOT;
+RENAME TABLE HSNOT
+    TO HSNOT_TABLE FOR SYSTEM NAME HSNOT;
 
-COMMENT ON TABLE HNEACOSTA1/HSNOT IS
+COMMENT ON TABLE HSNOT IS
     'Historico Datos Impresos en Notificaciones - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/HSNOT IS
+LABEL ON TABLE HSNOT IS
     'Historico Notificaciones';
 
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.codigo_banco            IS 'Codigo del banco que genero la notificacion historica; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.fecha_proceso           IS 'Fecha del proceso que genero la notificacion; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.numero_cuenta           IS 'Numero de cuenta del cliente destinatario; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.codigo_de_notificacion  IS 'Codigo del tipo de notificacion enviada; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.nivel                   IS 'Nivel jerarquico de la notificacion enviada; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.descripcion             IS 'Descripcion del contenido de la notificacion historica';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.valor_texto             IS 'Dato de texto impreso en la notificacion historica';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.valor_numerico          IS 'Dato numerico impreso en la notificacion historica si aplica';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.vigencia_desde          IS 'Fecha de inicio de vigencia de la notificacion historica';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.vigencia_hasta          IS 'Fecha de fin de vigencia de la notificacion historica';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.orden_visualizacion     IS 'Numero de orden de impresion del dato en la notificacion';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.usuario_creacion        IS 'Usuario o proceso que migro el registro al historico';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion al historico';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.observaciones           IS 'Notas adicionales sobre la notificacion historica';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.created_at              IS 'Fecha y hora exacta de creacion del registro en el historico';
-COMMENT ON COLUMN HNEACOSTA1/HSNOT.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN HSNOT.codigo_banco            IS 'Codigo del banco que genero la notificacion historica; parte de la PK';
+COMMENT ON COLUMN HSNOT.fecha_proceso           IS 'Fecha del proceso que genero la notificacion; parte de la PK';
+COMMENT ON COLUMN HSNOT.numero_cuenta           IS 'Numero de cuenta del cliente destinatario; parte de la PK';
+COMMENT ON COLUMN HSNOT.codigo_de_notificacion  IS 'Codigo del tipo de notificacion enviada; parte de la PK';
+COMMENT ON COLUMN HSNOT.nivel                   IS 'Nivel jerarquico de la notificacion enviada; parte de la PK';
+COMMENT ON COLUMN HSNOT.descripcion             IS 'Descripcion del contenido de la notificacion historica';
+COMMENT ON COLUMN HSNOT.valor_texto             IS 'Dato de texto impreso en la notificacion historica';
+COMMENT ON COLUMN HSNOT.valor_numerico          IS 'Dato numerico impreso en la notificacion historica si aplica';
+COMMENT ON COLUMN HSNOT.vigencia_desde          IS 'Fecha de inicio de vigencia de la notificacion historica';
+COMMENT ON COLUMN HSNOT.vigencia_hasta          IS 'Fecha de fin de vigencia de la notificacion historica';
+COMMENT ON COLUMN HSNOT.orden_visualizacion     IS 'Numero de orden de impresion del dato en la notificacion';
+COMMENT ON COLUMN HSNOT.usuario_creacion        IS 'Usuario o proceso que migro el registro al historico';
+COMMENT ON COLUMN HSNOT.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion al historico';
+COMMENT ON COLUMN HSNOT.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN HSNOT.observaciones           IS 'Notas adicionales sobre la notificacion historica';
+COMMENT ON COLUMN HSNOT.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN HSNOT.created_at              IS 'Fecha y hora exacta de creacion del registro en el historico';
+COMMENT ON COLUMN HSNOT.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/HSNOT (
+LABEL ON COLUMN HSNOT (
     codigo_banco            TEXT IS 'Codigo Banco',
     fecha_proceso           TEXT IS 'Fecha Proceso',
     numero_cuenta           TEXT IS 'Numero Cuenta',
@@ -94,5 +94,5 @@ LABEL ON COLUMN HNEACOSTA1/HSNOT (
     updated_at              TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_HSNOT_F ON HNEACOSTA1/HSNOT (fecha_proceso);
-CREATE INDEX HNEACOSTA1/IDX_HSNOT_C ON HNEACOSTA1/HSNOT (created_at);
+CREATE INDEX IDX_HSNOT_F ON HSNOT (fecha_proceso);
+CREATE INDEX IDX_HSNOT_C ON HSNOT (created_at);

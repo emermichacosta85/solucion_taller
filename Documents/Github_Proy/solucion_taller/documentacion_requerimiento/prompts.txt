@@ -23,3 +23,19 @@ requerimientos funcionales,diseño logico propuesto, estructura de salida json, 
 entregables del taller, matriz de trazabilidad json vs bd. 
 siempre tomando en consideracion las demas secciones para crear toda la logica de programacion del 
 conjunto de programas que se crearan
+
+Creacion de sources para cada fuente
+analiza el documento y en la seccion archivos comunes, creame este comando para cada archivo que contiene esta seccion, 
+siguiendo este ejemplo: 
+" STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(MLNOT) TYPE(SQL) TEXT('Arrchivo contiene datos a imprimir en notificacion') "
+, toma en cuenta que la propiedad text del comando, solo admite 50 caracteres, 
+por lo cual resume la descripcion que se encuentra en la seccion archivos comunes para que la coloques en el comando.
+
+arreglar orden de sintaxis en los create
+analiza archivos y arregla en cada definicion de columnas el orden que debe llevar, siendo el siguiente : nombre variable espacio etiqueta 
+for column nombre abreviado tipo variable y not null. solo ordenar no modificar nombres, tamaños, logica
+
+quiero que hagas lo siguiente: 1. compara la estructura, numero de campos, definiciones de todos estos archivo .sql excepto bahis.sql vs la seccion proveedores y cuentas por pagar, modifica los script de los create a manera que queden iguales a los  que se encuentran en el archivo estructura_bd.md. 2. crea el script create de acuerdo a los lineamientos que se encuentran en la seccion
+### 13.1 Estructura obligatoria minima por tabla del archivo revision_ibmi.md
+
+

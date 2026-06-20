@@ -20,7 +20,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLTAX (
+CREATE OR REPLACE TABLE CNTRLTAX (
     codigo_banco          FOR COLUMN CODBCO   VARCHAR(20)    NOT NULL,
     codigo_impuesto       FOR COLUMN CODIMP   VARCHAR(20)    NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
@@ -40,32 +40,32 @@ CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLTAX (
 )
 RCDFMT CNTRLTAXR;
 
-RENAME TABLE HNEACOSTA1/CNTRLTAX
-    TO CNTRLTAX FOR SYSTEM NAME CNTRLTAX;
+RENAME TABLE CNTRLTAX
+    TO CNTRLTAX_TABLE FOR SYSTEM NAME CNTRLTAX;
 
-COMMENT ON TABLE HNEACOSTA1/CNTRLTAX IS
+COMMENT ON TABLE CNTRLTAX IS
     'Definiciones de Cobro de Impuestos por Banco - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/CNTRLTAX IS
+LABEL ON TABLE CNTRLTAX IS
     'Parametros de Impuestos';
 
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.codigo_banco          IS 'Codigo del banco al que aplica la definicion de impuesto; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.codigo_impuesto       IS 'Codigo identificador unico del tipo de impuesto; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.descripcion           IS 'Nombre y descripcion completa del impuesto parametrizado';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.valor_texto           IS 'Tipo de impuesto: IVA, ISR, TIMBRE, MUNICIPAL, etc.';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.valor_numerico        IS 'Tasa o porcentaje del impuesto parametrizado';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.vigencia_desde        IS 'Fecha desde la cual la definicion fiscal es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.vigencia_hasta        IS 'Fecha hasta la cual la definicion fiscal es vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.orden_visualizacion   IS 'Numero de orden para presentacion del catalogo fiscal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.usuario_creacion      IS 'Usuario administrador que configuro el impuesto';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.observaciones         IS 'Notas sobre la definicion fiscal y su marco legal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLTAX.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN CNTRLTAX.codigo_banco          IS 'Codigo del banco al que aplica la definicion de impuesto; parte de la PK';
+COMMENT ON COLUMN CNTRLTAX.codigo_impuesto       IS 'Codigo identificador unico del tipo de impuesto; parte de la PK';
+COMMENT ON COLUMN CNTRLTAX.descripcion           IS 'Nombre y descripcion completa del impuesto parametrizado';
+COMMENT ON COLUMN CNTRLTAX.valor_texto           IS 'Tipo de impuesto: IVA, ISR, TIMBRE, MUNICIPAL, etc.';
+COMMENT ON COLUMN CNTRLTAX.valor_numerico        IS 'Tasa o porcentaje del impuesto parametrizado';
+COMMENT ON COLUMN CNTRLTAX.vigencia_desde        IS 'Fecha desde la cual la definicion fiscal es vigente';
+COMMENT ON COLUMN CNTRLTAX.vigencia_hasta        IS 'Fecha hasta la cual la definicion fiscal es vigente';
+COMMENT ON COLUMN CNTRLTAX.orden_visualizacion   IS 'Numero de orden para presentacion del catalogo fiscal';
+COMMENT ON COLUMN CNTRLTAX.usuario_creacion      IS 'Usuario administrador que configuro el impuesto';
+COMMENT ON COLUMN CNTRLTAX.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN CNTRLTAX.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN CNTRLTAX.observaciones         IS 'Notas sobre la definicion fiscal y su marco legal';
+COMMENT ON COLUMN CNTRLTAX.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN CNTRLTAX.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN CNTRLTAX.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CNTRLTAX (
+LABEL ON COLUMN CNTRLTAX (
     codigo_banco          TEXT IS 'Codigo Banco',
     codigo_impuesto       TEXT IS 'Codigo Impuesto',
     descripcion           TEXT IS 'Nombre Impuesto',
@@ -83,4 +83,4 @@ LABEL ON COLUMN HNEACOSTA1/CNTRLTAX (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_CNTRLTAX_C ON HNEACOSTA1/CNTRLTAX (created_at);
+CREATE INDEX IDX_CNTRLTAX_C ON CNTRLTAX (created_at);

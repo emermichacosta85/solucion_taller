@@ -23,7 +23,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/TRDSC (
+CREATE OR REPLACE TABLE TRDSC (
     numero_registro_relativo FOR COLUMN NUMREG  VARCHAR(30)    NOT NULL,
     secuencia               FOR COLUMN SECUENC  INTEGER        NOT NULL,
     tipo_descripcion        FOR COLUMN TIPDSC   VARCHAR(20)    NOT NULL DEFAULT '',
@@ -38,37 +38,37 @@ CREATE OR REPLACE TABLE HNEACOSTA1/TRDSC (
     estado_registro         FOR COLUMN ESTREG   CHAR(1)        NOT NULL DEFAULT 'A',
     created_at              FOR COLUMN CRTDAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at              FOR COLUMN UPDDAT   TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT PK_TRDSC     PRIMARY KEY (numero_registro_relativo, secuencia),
-    CONSTRAINT FK_TRDSC_TRANS FOREIGN KEY (numero_registro_relativo)
-        REFERENCES HNEACOSTA1/TRANS (numero_registro_relativo)
+    CONSTRAINT PK_TRDSC     PRIMARY KEY (numero_registro_relativo, secuencia)
+    --CONSTRAINT FK_TRDSC_TRANS FOREIGN KEY (numero_registro_relativo)
+    --    REFERENCES TRANS (numero_registro_relativo)
 )
 RCDFMT TRDSCR;
 
-RENAME TABLE HNEACOSTA1/TRDSC
-    TO TRDSC FOR SYSTEM NAME TRDSC;
+RENAME TABLE TRDSC
+    TO TRDSC_TABLE FOR SYSTEM NAME TRDSC;
 
-COMMENT ON TABLE HNEACOSTA1/TRDSC IS
+COMMENT ON TABLE TRDSC IS
     'Descripciones Adicionales a Transacciones - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/TRDSC IS
+LABEL ON TABLE TRDSC IS
     'Descripciones de Transacciones';
 
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.numero_registro_relativo IS 'Numero de registro relativo de TRANS al que aplica la descripcion; FK a TRANS; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.secuencia               IS 'Numero de secuencia de la descripcion dentro de la transaccion; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.tipo_descripcion        IS 'Clasificacion de la descripcion: DETALLE_ORIGEN, AJUSTE_REQUERIDO, TRANSITO, etc.';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.texto_descripcion       IS 'Texto libre con la descripcion adicional de la transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.codigo_idioma           IS 'Idioma del texto de descripcion: ES=Espanol, EN=Ingles';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.formato_salida          IS 'Formato de uso de la descripcion: JSON, IMPRESO, PANTALLA, etc.';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.obligatorio             IS 'Indica si la descripcion es obligatoria en la salida: S=Si, N=No';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.usuario_creacion        IS 'Usuario o proceso que creo el registro de descripcion adicional';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.observaciones           IS 'Notas adicionales sobre la descripcion registrada';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.created_at              IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/TRDSC.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN TRDSC.numero_registro_relativo IS 'Numero de registro relativo de TRANS al que aplica la descripcion; FK a TRANS; parte de la PK';
+COMMENT ON COLUMN TRDSC.secuencia               IS 'Numero de secuencia de la descripcion dentro de la transaccion; parte de la PK';
+COMMENT ON COLUMN TRDSC.tipo_descripcion        IS 'Clasificacion de la descripcion: DETALLE_ORIGEN, AJUSTE_REQUERIDO, TRANSITO, etc.';
+COMMENT ON COLUMN TRDSC.texto_descripcion       IS 'Texto libre con la descripcion adicional de la transaccion';
+COMMENT ON COLUMN TRDSC.codigo_idioma           IS 'Idioma del texto de descripcion: ES=Espanol, EN=Ingles';
+COMMENT ON COLUMN TRDSC.formato_salida          IS 'Formato de uso de la descripcion: JSON, IMPRESO, PANTALLA, etc.';
+COMMENT ON COLUMN TRDSC.obligatorio             IS 'Indica si la descripcion es obligatoria en la salida: S=Si, N=No';
+COMMENT ON COLUMN TRDSC.usuario_creacion        IS 'Usuario o proceso que creo el registro de descripcion adicional';
+COMMENT ON COLUMN TRDSC.usuario_actualizacion   IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN TRDSC.version_registro        IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN TRDSC.observaciones           IS 'Notas adicionales sobre la descripcion registrada';
+COMMENT ON COLUMN TRDSC.estado_registro         IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN TRDSC.created_at              IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN TRDSC.updated_at              IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/TRDSC (
+LABEL ON COLUMN TRDSC (
     numero_registro_relativo TEXT IS 'Num Registro Relativo',
     secuencia               TEXT IS 'Secuencia',
     tipo_descripcion        TEXT IS 'Tipo Descripcion',
@@ -85,5 +85,5 @@ LABEL ON COLUMN HNEACOSTA1/TRDSC (
     updated_at              TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_TRDSC_TD ON HNEACOSTA1/TRDSC (tipo_descripcion);
-CREATE INDEX HNEACOSTA1/IDX_TRDSC_C  ON HNEACOSTA1/TRDSC (created_at);
+CREATE INDEX IDX_TRDSC_TD ON TRDSC (tipo_descripcion);
+CREATE INDEX IDX_TRDSC_C  ON TRDSC (created_at);

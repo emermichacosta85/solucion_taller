@@ -15,101 +15,69 @@
 -- Proyecto            : Taller IBM i - Modulo 3 Cuentas de Detalle
 -- ============================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLMSG (
-    codigo_banco            VARCHAR(20)     NOT NULL    FOR COLUMN CNTRMBNK,
-    secuencia               INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CNTRMSEQ,
-    idioma                  VARCHAR(20)     NOT NULL
-                                            DEFAULT 'ES' FOR COLUMN CNTRMIDM,
-    tipo_mensaje            VARCHAR(20)                 FOR COLUMN CNTRMTMS,
-    texto_mensaje           VARCHAR(500)                FOR COLUMN CNTRMTXT,
-    vigente_desde           DATE                        FOR COLUMN CNTRMVDE,
-    vigente_hasta           DATE                        FOR COLUMN CNTRMVHA,
-    aplica_tipo_producto    VARCHAR(20)                 FOR COLUMN CNTRMTPR,
-    fecha_apertura          DATE                        FOR COLUMN CNTRMFAP,
-    fecha_ultima_transaccion DATE                       FOR COLUMN CNTRMFUT,
-    saldo_actual            DECIMAL(18,2)               FOR COLUMN CNTRMSAL,
-    saldo_disponible        DECIMAL(18,2)               FOR COLUMN CNTRMSDP,
-    limite_sobregiro        DECIMAL(18,2)               FOR COLUMN CNTRMLSO,
-    estado_cuenta           VARCHAR(20)                 FOR COLUMN CNTRMESC,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN CNTRMUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN CNTRMUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CNTRMVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN CNTRMOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN CNTRMERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CNTRMCAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CNTRMUAT,
+CREATE OR REPLACE TABLE CNTRLMSG (
+    codigo_banco            FOR COLUMN CNTRMBNK VARCHAR(20)     NOT NULL    ,
+    fecha_apertura          FOR COLUMN CNTRMFAP DATE                        ,
+    fecha_ultima_transaccion FOR COLUMN CNTRMFUT DATE                       ,
+    saldo_actual            FOR COLUMN CNTRMSAC DECIMAL(18,2)               ,
+    saldo_disponible        FOR COLUMN CNTRMSDP DECIMAL(18,2)               ,
+    limite_sobregiro        FOR COLUMN CNTRMLSO DECIMAL(18,2)               ,
+    estado_cuenta           FOR COLUMN CNTRMESC VARCHAR(20)                 ,
+    usuario_creacion        FOR COLUMN CNTRMUSC VARCHAR(30)                 ,
+    usuario_actualizacion   FOR COLUMN CNTRMUSA VARCHAR(30)                 ,
+    version_registro        FOR COLUMN CNTRMVRS INT             NOT NULL
+                                            DEFAULT 1   ,
+    observaciones           FOR COLUMN CNTRMOBS VARCHAR(120)                ,
+    estado_registro         FOR COLUMN CNTRMERG CHAR(1)         NOT NULL
+                                            DEFAULT 'A' ,
+    created_at              FOR COLUMN CNTRMCAT TIMESTAMP       NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
+    updated_at              FOR COLUMN CNTRMUAT TIMESTAMP       NOT NULL
+                                            DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_CNTRLMSG PRIMARY KEY (codigo_banco, secuencia, idioma)
 )
 RCDFMT CNTRLMSR;
 
-RENAME TABLE HNEACOSTA1/CNTRLMSG
-    TO CNTRLMSG FOR SYSTEM NAME CNTRMSG;
+RENAME TABLE CNTRLMSG
+    TO CNTRLMSG_TABLE FOR SYSTEM NAME CNTRLMSG;
 
-COMMENT ON TABLE HNEACOSTA1/CNTRLMSG IS
+COMMENT ON TABLE CNTRLMSG IS
     'Mensajes para Impresion en Estados de Cuenta - Modulo 3 Cuentas de Detalle';
 
-LABEL ON TABLE HNEACOSTA1/CNTRLMSG
+LABEL ON TABLE CNTRLMSG
     IS 'Mensajes Estado Cuenta';
 
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.codigo_banco IS
+COMMENT ON COLUMN CNTRLMSG.codigo_banco IS
     'Codigo del banco al que pertenece la configuracion de mensajes';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.secuencia IS
-    'Numero de orden del mensaje para impresion en el estado de cuenta';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.idioma IS
-    'Codigo del idioma del mensaje: ES=Espanol, EN=Ingles';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.tipo_mensaje IS
-    'Clasificacion del mensaje: INFORMATIVO, PROMOCIONAL, LEGAL, ALERTA';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.texto_mensaje IS
-    'Contenido completo del mensaje a imprimir en el estado de cuenta';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.vigente_desde IS
-    'Fecha desde la que el mensaje es valido para impresion';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.vigente_hasta IS
-    'Fecha hasta la que el mensaje debe imprimirse en estados de cuenta';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.aplica_tipo_producto IS
-    'Tipo de producto al que aplica el mensaje, nulo si es universal';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.fecha_apertura IS
+COMMENT ON COLUMN CNTRLMSG.fecha_apertura IS
     'Fecha de alta del mensaje en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.fecha_ultima_transaccion IS
+COMMENT ON COLUMN CNTRLMSG.fecha_ultima_transaccion IS
     'Fecha de la ultima modificacion del mensaje';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.saldo_actual IS
+COMMENT ON COLUMN CNTRLMSG.saldo_actual IS
     'Campo de referencia operativa heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.saldo_disponible IS
+COMMENT ON COLUMN CNTRLMSG.saldo_disponible IS
     'Campo de referencia operativa heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.limite_sobregiro IS
+COMMENT ON COLUMN CNTRLMSG.limite_sobregiro IS
     'Campo de referencia operativa heredado del patron de tabla';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.estado_cuenta IS
+COMMENT ON COLUMN CNTRLMSG.estado_cuenta IS
     'Estado del mensaje de estado de cuenta: ACTIVO, VENCIDO, SUSPENDIDO';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.usuario_creacion IS
+COMMENT ON COLUMN CNTRLMSG.usuario_creacion IS
     'Usuario administrador que ingreso el mensaje al sistema';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.usuario_actualizacion IS
+COMMENT ON COLUMN CNTRLMSG.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion del mensaje';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.version_registro IS
+COMMENT ON COLUMN CNTRLMSG.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.observaciones IS
+COMMENT ON COLUMN CNTRLMSG.observaciones IS
     'Notas sobre el contexto o uso del mensaje en estados de cuenta';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.estado_registro IS
+COMMENT ON COLUMN CNTRLMSG.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.created_at IS
+COMMENT ON COLUMN CNTRLMSG.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLMSG.updated_at IS
+COMMENT ON COLUMN CNTRLMSG.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/CNTRLMSG (
+LABEL ON COLUMN CNTRLMSG (
     codigo_banco             TEXT IS 'Banco',
-    secuencia                TEXT IS 'Secuencia',
-    idioma                   TEXT IS 'Idioma',
-    tipo_mensaje             TEXT IS 'Tipo Mensaje',
-    texto_mensaje            TEXT IS 'Texto Msg',
-    vigente_desde            TEXT IS 'Vig Desde',
-    vigente_hasta            TEXT IS 'Vig Hasta',
-    aplica_tipo_producto     TEXT IS 'Tipo Prod',
     fecha_apertura           TEXT IS 'Fec Apertura',
     fecha_ultima_transaccion TEXT IS 'Ult Transacc',
     saldo_actual             TEXT IS 'Saldo Actual',
@@ -125,4 +93,4 @@ LABEL ON COLUMN HNEACOSTA1/CNTRLMSG (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ICNTRMCAT ON HNEACOSTA1/CNTRLMSG (created_at);
+CREATE INDEX ICNTRMCAT ON CNTRLMSG (created_at);

@@ -14,97 +14,71 @@
 -- Proyecto            : Taller IBM i - Modulo 3 Cuentas de Detalle
 -- ============================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/TDRCR (
-    codigo_de_transaccion   VARCHAR(20)     NOT NULL    FOR COLUMN TDRCRCTX,
-    descripcion             VARCHAR(120)                FOR COLUMN TDRCRDSC,
-    tipo_movimiento         CHAR(1)                     FOR COLUMN TDRCRTMV,
-    afecta_saldo            CHAR(1)         NOT NULL
-                                            DEFAULT 'S' FOR COLUMN TDRCRASM,
-    requiere_autorizacion   CHAR(1)         NOT NULL
-                                            DEFAULT 'N' FOR COLUMN TDRCRRAT,
-    cuenta_contable_debito  VARCHAR(24)                 FOR COLUMN TDRCRCTD,
-    cuenta_contable_credito VARCHAR(24)                 FOR COLUMN TDRCRCTC,
-    fecha_apertura          DATE                        FOR COLUMN TDRCRFAP,
-    fecha_ultima_transaccion DATE                       FOR COLUMN TDRCRFUT,
-    saldo_actual            DECIMAL(18,2)               FOR COLUMN TDRCRSAL,
-    saldo_disponible        DECIMAL(18,2)               FOR COLUMN TDRCRSDP,
-    limite_sobregiro        DECIMAL(18,2)               FOR COLUMN TDRCRLSO,
-    estado_cuenta           VARCHAR(20)                 FOR COLUMN TDRCRESC,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN TDRCRUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN TDRCRUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN TDRCRVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN TDRCROBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN TDRCRERG,
-    created_at              TIMESTAMP       NOT NULL
+CREATE OR REPLACE TABLE TDRCR (
+    codigo_de_transaccion   FOR COLUMN TDRCRCTX VARCHAR(20)     NOT NULL    ,
+    fecha_apertura          FOR COLUMN TDRCRFAP DATE                        ,
+    fecha_ultima_transaccion FOR COLUMN TDRCRFUT DATE                       ,
+    saldo_actual            FOR COLUMN TDRCRSAL DECIMAL(18,2)               ,
+    saldo_disponible        FOR COLUMN TDRCRSDP DECIMAL(18,2)               ,
+    limite_sobregiro        FOR COLUMN TDRCRLSO DECIMAL(18,2)               ,
+    estado_cuenta           FOR COLUMN TDRCRESC VARCHAR(20)                 ,
+    usuario_creacion        FOR COLUMN TDRCRUSC VARCHAR(30)                 ,
+    usuario_actualizacion   FOR COLUMN TDRCRUSA VARCHAR(30)                 ,
+    version_registro        FOR COLUMN TDRCRVRS INT             NOT NULL
+                                            DEFAULT 1   ,
+    observaciones           FOR COLUMN TDRCROBS VARCHAR(120)                ,
+    estado_registro         FOR COLUMN TDRCRERG CHAR(1)         NOT NULL
+                                            DEFAULT 'A' ,
+    created_at              FOR COLUMN TDRCRCAT TIMESTAMP       NOT NULL
                                             DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN TDRCRCAT,
-    updated_at              TIMESTAMP       NOT NULL
+                                                        ,
+    updated_at              FOR COLUMN TDRCRUAT TIMESTAMP       NOT NULL
                                             DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN TDRCRUAT,
+                                                        ,
     CONSTRAINT PK_TDRCR PRIMARY KEY (codigo_de_transaccion)
 )
 RCDFMT TDRCR;
 
-RENAME TABLE HNEACOSTA1/TDRCR
-    TO TDRCR FOR SYSTEM NAME TDRCR;
+RENAME TABLE TDRCR
+    TO TDRCR_TABLE FOR SYSTEM NAME TDRCR;
 
-COMMENT ON TABLE HNEACOSTA1/TDRCR IS
+COMMENT ON TABLE TDRCR IS
     'Catalogo de Transacciones de Cajero - Modulo 3 Cuentas de Detalle';
 
-LABEL ON TABLE HNEACOSTA1/TDRCR
+LABEL ON TABLE TDRCR
     IS 'Catalogo Trans Cajero';
 
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.codigo_de_transaccion IS
+COMMENT ON COLUMN TDRCR.codigo_de_transaccion IS
     'Codigo unico que identifica el tipo de transaccion de cajero';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.descripcion IS
-    'Descripcion legible del tipo de transaccion para operadores';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.tipo_movimiento IS
-    'Tipo de movimiento que genera: D=Debito, C=Credito, A=Ambos';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.afecta_saldo IS
-    'Indica si la transaccion impacta el saldo de la cuenta: S=Si, N=No';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.requiere_autorizacion IS
-    'Indica si la transaccion requiere autorizacion de supervisor: S=Si, N=No';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.cuenta_contable_debito IS
-    'Cuenta contable que se debita al procesar este tipo de transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.cuenta_contable_credito IS
-    'Cuenta contable que se acredita al procesar este tipo de transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.fecha_apertura IS
+COMMENT ON COLUMN TDRCR.fecha_apertura IS
     'Fecha desde la que esta vigente este tipo de transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.fecha_ultima_transaccion IS
+COMMENT ON COLUMN TDRCR.fecha_ultima_transaccion IS
     'Fecha del ultimo uso de este tipo de transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.saldo_actual IS
+COMMENT ON COLUMN TDRCR.saldo_actual IS
     'Campo de referencia operativa para control de saldo en catalogo';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.saldo_disponible IS
+COMMENT ON COLUMN TDRCR.saldo_disponible IS
     'Campo de referencia operativa para control de disponible en catalogo';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.limite_sobregiro IS
+COMMENT ON COLUMN TDRCR.limite_sobregiro IS
     'Limite de sobregiro asociado a este tipo de transaccion si aplica';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.estado_cuenta IS
+COMMENT ON COLUMN TDRCR.estado_cuenta IS
     'Estado del tipo de transaccion: ACTIVO, SUSPENDIDO, DEPRECADO';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.usuario_creacion IS
+COMMENT ON COLUMN TDRCR.usuario_creacion IS
     'Usuario administrador que creo el tipo de transaccion en catalogo';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.usuario_actualizacion IS
+COMMENT ON COLUMN TDRCR.usuario_actualizacion IS
     'Usuario que realizo la ultima modificacion del catalogo';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.version_registro IS
+COMMENT ON COLUMN TDRCR.version_registro IS
     'Version del registro para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.observaciones IS
+COMMENT ON COLUMN TDRCR.observaciones IS
     'Notas de configuracion o restricciones del tipo de transaccion';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.estado_registro IS
+COMMENT ON COLUMN TDRCR.estado_registro IS
     'Estado logico del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.created_at IS
+COMMENT ON COLUMN TDRCR.created_at IS
     'Marca de tiempo de creacion del registro en base de datos';
-COMMENT ON COLUMN HNEACOSTA1/TDRCR.updated_at IS
+COMMENT ON COLUMN TDRCR.updated_at IS
     'Marca de tiempo de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/TDRCR (
+LABEL ON COLUMN TDRCR (
     codigo_de_transaccion    TEXT IS 'Cod Transacc',
-    descripcion              TEXT IS 'Descripcion',
-    tipo_movimiento          TEXT IS 'Tipo Movim',
-    afecta_saldo             TEXT IS 'Afecta Saldo',
-    requiere_autorizacion    TEXT IS 'Req Autoriz',
-    cuenta_contable_debito   TEXT IS 'Cta Deb',
-    cuenta_contable_credito  TEXT IS 'Cta Cre',
     fecha_apertura           TEXT IS 'Fec Apertura',
     fecha_ultima_transaccion TEXT IS 'Ult Transacc',
     saldo_actual             TEXT IS 'Saldo Actual',
@@ -120,4 +94,5 @@ LABEL ON COLUMN HNEACOSTA1/TDRCR (
     updated_at               TEXT IS 'Fec Actualiz'
 );
 
-CREATE INDEX HNEACOSTA1/ITDRCRCAT ON HNEACOSTA1/TDRCR (created_at);
+CREATE INDEX ITDRCRCAT ON TDRCR (created_at);
+CREATE INDEX ITDRCRPK ON TDRCR (codigo_de_transaccion);

@@ -19,7 +19,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/MSSGS (
+CREATE OR REPLACE TABLE MSSGS (
     id                    FOR COLUMN IDMSG    BIGINT         NOT NULL GENERATED ALWAYS AS IDENTITY,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
     valor_texto           FOR COLUMN VALTXT   VARCHAR(50)    NOT NULL DEFAULT '',
@@ -38,31 +38,31 @@ CREATE OR REPLACE TABLE HNEACOSTA1/MSSGS (
 )
 RCDFMT MSSGSR;
 
-RENAME TABLE HNEACOSTA1/MSSGS
-    TO MSSGS FOR SYSTEM NAME MSSGS;
+RENAME TABLE MSSGS
+    TO MSSGS_TABLE FOR SYSTEM NAME MSSGS;
 
-COMMENT ON TABLE HNEACOSTA1/MSSGS IS
+COMMENT ON TABLE MSSGS IS
     'Catalogo de Mensajes de Errores del Sistema - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/MSSGS IS
+LABEL ON TABLE MSSGS IS
     'Mensajes de Errores';
 
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.id                    IS 'Identificador unico autogenerado del mensaje de error; PK surrogate';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.descripcion           IS 'Texto del mensaje de error o informacion del sistema';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.valor_texto           IS 'Codigo o clave corta del mensaje para referencia en programas';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.valor_numerico        IS 'Codigo numerico del mensaje si aplica para clasificacion';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.vigencia_desde        IS 'Fecha desde la cual el mensaje es vigente en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.vigencia_hasta        IS 'Fecha hasta la cual el mensaje es vigente en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.orden_visualizacion   IS 'Numero de orden para listado de mensajes';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.usuario_creacion      IS 'Usuario del sistema que creo el registro del mensaje';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.observaciones         IS 'Notas adicionales sobre el mensaje o su uso en el sistema';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/MSSGS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN MSSGS.id                    IS 'Identificador unico autogenerado del mensaje de error; PK surrogate';
+COMMENT ON COLUMN MSSGS.descripcion           IS 'Texto del mensaje de error o informacion del sistema';
+COMMENT ON COLUMN MSSGS.valor_texto           IS 'Codigo o clave corta del mensaje para referencia en programas';
+COMMENT ON COLUMN MSSGS.valor_numerico        IS 'Codigo numerico del mensaje si aplica para clasificacion';
+COMMENT ON COLUMN MSSGS.vigencia_desde        IS 'Fecha desde la cual el mensaje es vigente en el sistema';
+COMMENT ON COLUMN MSSGS.vigencia_hasta        IS 'Fecha hasta la cual el mensaje es vigente en el sistema';
+COMMENT ON COLUMN MSSGS.orden_visualizacion   IS 'Numero de orden para listado de mensajes';
+COMMENT ON COLUMN MSSGS.usuario_creacion      IS 'Usuario del sistema que creo el registro del mensaje';
+COMMENT ON COLUMN MSSGS.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN MSSGS.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN MSSGS.observaciones         IS 'Notas adicionales sobre el mensaje o su uso en el sistema';
+COMMENT ON COLUMN MSSGS.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN MSSGS.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN MSSGS.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/MSSGS (
+LABEL ON COLUMN MSSGS (
     id                    TEXT IS 'ID Mensaje',
     descripcion           TEXT IS 'Descripcion Mensaje',
     valor_texto           TEXT IS 'Codigo Mensaje',
@@ -79,4 +79,4 @@ LABEL ON COLUMN HNEACOSTA1/MSSGS (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_MSSGS_C ON HNEACOSTA1/MSSGS (created_at);
+CREATE INDEX IDX_MSSGS_C ON MSSGS (created_at);

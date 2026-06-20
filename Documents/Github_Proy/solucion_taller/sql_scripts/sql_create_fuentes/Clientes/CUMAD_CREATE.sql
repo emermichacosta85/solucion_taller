@@ -15,63 +15,63 @@
 -- Proyecto:             Taller IBM i - Sistema Bancario IBS
 -- =============================================================================
  
-CREATE OR REPLACE TABLE HNEACOSTA1/CUMAD (
-    id_cliente_operacion VARCHAR(30)   FOR COLUMN IDCLIOP   NOT NULL,
-    tipo_registro        VARCHAR(20)   FOR COLUMN TPREG     NOT NULL,
-    secuencia            INT           FOR COLUMN SECUENC   NOT NULL DEFAULT 1,
-    tipo_persona         VARCHAR(20)   FOR COLUMN TPPERS    NOT NULL DEFAULT '',
-    tipo_identificacion  VARCHAR(20)   FOR COLUMN TPIDEN    NOT NULL DEFAULT '',
-    numero_identificacion VARCHAR(30)  FOR COLUMN NRIDEN    NOT NULL DEFAULT '',
-    nombres              VARCHAR(80)   FOR COLUMN NMBRES    NOT NULL DEFAULT '',
-    apellidos            VARCHAR(80)   FOR COLUMN APLLDO    NOT NULL DEFAULT '',
-    razon_social         VARCHAR(80)   FOR COLUMN RZSOCL    NOT NULL DEFAULT '',
-    fecha_nacimiento     DATE          FOR COLUMN FCNACM             DEFAULT NULL,
-    direccion            VARCHAR(120)  FOR COLUMN DIRECN    NOT NULL DEFAULT '',
-    email                VARCHAR(80)   FOR COLUMN EMADDR    NOT NULL DEFAULT '',
-    telefono             VARCHAR(80)   FOR COLUMN TELFNO    NOT NULL DEFAULT '',
-    pais_residencia      VARCHAR(50)   FOR COLUMN PAISRS    NOT NULL DEFAULT '',
-    usuario_creacion     VARCHAR(30)   FOR COLUMN USRCRE    NOT NULL DEFAULT '',
-    usuario_actualizacion VARCHAR(30)  FOR COLUMN USRACT    NOT NULL DEFAULT '',
-    version_registro     INT           FOR COLUMN VRSNRG    NOT NULL DEFAULT 1,
-    observaciones        VARCHAR(120)  FOR COLUMN OBSERVA   NOT NULL DEFAULT '',
-    estado_registro      CHAR(1)       FOR COLUMN ESTADRG   NOT NULL DEFAULT 'A',
-    created_at           TIMESTAMP     FOR COLUMN CRTDAT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at           TIMESTAMP     FOR COLUMN UPDDAT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE OR REPLACE TABLE CUMAD (
+    id_cliente_operacion FOR COLUMN IDCLIOP VARCHAR(30)      NOT NULL,
+    tipo_registro        FOR COLUMN TPREG   VARCHAR(20)      NOT NULL,
+    secuencia            FOR COLUMN SECUENC INT              NOT NULL DEFAULT 1,
+    tipo_persona         FOR COLUMN TPPERS VARCHAR(20)       NOT NULL DEFAULT '',
+    tipo_identificacion  FOR COLUMN TPIDEN VARCHAR(20)       NOT NULL DEFAULT '',
+    numero_identificacion FOR COLUMN NRIDEN VARCHAR(30)      NOT NULL DEFAULT '',
+    nombres              FOR COLUMN NMBRES VARCHAR(80)       NOT NULL DEFAULT '',
+    apellidos            FOR COLUMN APLLDO VARCHAR(80)       NOT NULL DEFAULT '',
+    razon_social         FOR COLUMN RZSOCL VARCHAR(80)       NOT NULL DEFAULT '',
+    fecha_nacimiento     FOR COLUMN FCNACM DATE              DEFAULT NULL,
+    direccion            FOR COLUMN DIRECN VARCHAR(120)      NOT NULL DEFAULT '',
+    email                FOR COLUMN EMADDR VARCHAR(80)       NOT NULL DEFAULT '',
+    telefono             FOR COLUMN TELFNO VARCHAR(80)       NOT NULL DEFAULT '',
+    pais_residencia      FOR COLUMN PAISRS VARCHAR(50)       NOT NULL DEFAULT '',
+    usuario_creacion     FOR COLUMN USRCRE VARCHAR(30)       NOT NULL DEFAULT '',
+    usuario_actualizacion FOR COLUMN USRACT VARCHAR(30)      NOT NULL DEFAULT '',
+    version_registro     FOR COLUMN VRSNRG INT              NOT NULL DEFAULT 1,
+    observaciones        FOR COLUMN OBSERVA VARCHAR(120)  NOT NULL DEFAULT '',
+    estado_registro      FOR COLUMN ESTADRG CHAR(1)       NOT NULL DEFAULT 'A',
+    created_at           FOR COLUMN CRTDAT  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at           FOR COLUMN UPDDAT  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT CUMAD_PK PRIMARY KEY (id_cliente_operacion, tipo_registro, secuencia)
 )
 RCDFMT CUMADR;
  
-RENAME TABLE HNEACOSTA1/CUMAD TO CUMAD FOR SYSTEM NAME CUMAD;
+RENAME TABLE CUMAD TO CUMAD_TABLE FOR SYSTEM NAME CUMAD;
  
-COMMENT ON TABLE HNEACOSTA1/CUMAD IS
+COMMENT ON TABLE CUMAD IS
     'Direcciones de Correo y Beneficiarios de Operaciones/Clientes - Modulo Clientes';
  
-LABEL ON TABLE HNEACOSTA1/CUMAD IS
+LABEL ON TABLE CUMAD IS
     'Direcciones y Beneficiarios';
  
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.id_cliente_operacion  IS 'Numero del cliente u operacion asociada';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.tipo_registro          IS 'Tipo de registro: DIR=Direccion, BEN=Beneficiario';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.secuencia              IS 'Numero de secuencia del registro';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.tipo_persona           IS 'Tipo de persona: Natural o Juridica';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.tipo_identificacion    IS 'Tipo de documento de identificacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.numero_identificacion  IS 'Numero de documento de identificacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.nombres                IS 'Nombres del beneficiario persona natural';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.apellidos              IS 'Apellidos del beneficiario persona natural';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.razon_social           IS 'Razon social del beneficiario persona juridica';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.fecha_nacimiento       IS 'Fecha de nacimiento del beneficiario';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.direccion              IS 'Direccion postal o de notificacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.email                  IS 'Correo electronico de contacto';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.telefono               IS 'Telefono de contacto';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.pais_residencia        IS 'Pais de residencia del beneficiario';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.usuario_creacion       IS 'Usuario que creo el registro';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.usuario_actualizacion  IS 'Usuario que realizo la ultima actualizacion';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.version_registro       IS 'Version del registro para control de concurrencia';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.observaciones          IS 'Observaciones o notas adicionales';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.estado_registro        IS 'Estado del registro: A=Activo, I=Inactivo, B=Borrado';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.created_at             IS 'Fecha y hora de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/CUMAD.updated_at             IS 'Fecha y hora de la ultima actualizacion';
+COMMENT ON COLUMN CUMAD.id_cliente_operacion  IS 'Numero del cliente u operacion asociada';
+COMMENT ON COLUMN CUMAD.tipo_registro          IS 'Tipo de registro: DIR=Direccion, BEN=Beneficiario';
+COMMENT ON COLUMN CUMAD.secuencia              IS 'Numero de secuencia del registro';
+COMMENT ON COLUMN CUMAD.tipo_persona           IS 'Tipo de persona: Natural o Juridica';
+COMMENT ON COLUMN CUMAD.tipo_identificacion    IS 'Tipo de documento de identificacion';
+COMMENT ON COLUMN CUMAD.numero_identificacion  IS 'Numero de documento de identificacion';
+COMMENT ON COLUMN CUMAD.nombres                IS 'Nombres del beneficiario persona natural';
+COMMENT ON COLUMN CUMAD.apellidos              IS 'Apellidos del beneficiario persona natural';
+COMMENT ON COLUMN CUMAD.razon_social           IS 'Razon social del beneficiario persona juridica';
+COMMENT ON COLUMN CUMAD.fecha_nacimiento       IS 'Fecha de nacimiento del beneficiario';
+COMMENT ON COLUMN CUMAD.direccion              IS 'Direccion postal o de notificacion';
+COMMENT ON COLUMN CUMAD.email                  IS 'Correo electronico de contacto';
+COMMENT ON COLUMN CUMAD.telefono               IS 'Telefono de contacto';
+COMMENT ON COLUMN CUMAD.pais_residencia        IS 'Pais de residencia del beneficiario';
+COMMENT ON COLUMN CUMAD.usuario_creacion       IS 'Usuario que creo el registro';
+COMMENT ON COLUMN CUMAD.usuario_actualizacion  IS 'Usuario que realizo la ultima actualizacion';
+COMMENT ON COLUMN CUMAD.version_registro       IS 'Version del registro para control de concurrencia';
+COMMENT ON COLUMN CUMAD.observaciones          IS 'Observaciones o notas adicionales';
+COMMENT ON COLUMN CUMAD.estado_registro        IS 'Estado del registro: A=Activo, I=Inactivo, B=Borrado';
+COMMENT ON COLUMN CUMAD.created_at             IS 'Fecha y hora de creacion del registro';
+COMMENT ON COLUMN CUMAD.updated_at             IS 'Fecha y hora de la ultima actualizacion';
  
-LABEL ON COLUMN HNEACOSTA1/CUMAD (
+LABEL ON COLUMN CUMAD (
     id_cliente_operacion  TEXT IS 'ID Cliente/Operacion',
     tipo_registro         TEXT IS 'Tipo Registro',
     secuencia             TEXT IS 'Secuencia',
@@ -95,7 +95,7 @@ LABEL ON COLUMN HNEACOSTA1/CUMAD (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
  
-LABEL ON COLUMN HNEACOSTA1/CUMAD (
+LABEL ON COLUMN CUMAD (
     id_cliente_operacion  IS 'IDCLIOP',
     tipo_registro         IS 'TPREG',
     secuencia             IS 'SECUENC',
@@ -119,4 +119,4 @@ LABEL ON COLUMN HNEACOSTA1/CUMAD (
     updated_at            IS 'UPDDAT'
 );
  
-CREATE INDEX HNEACOSTA1/IDX_CUMAD_CRD ON HNEACOSTA1/CUMAD (created_at);
+CREATE INDEX IDX_CUMAD_CRD ON CUMAD (created_at);

@@ -19,37 +19,22 @@
 -- =============================================================================
 
 CREATE OR REPLACE TABLE HNEACOSTA1/CNTRLLCP (
-    codigo_banco            VARCHAR(20)     NOT NULL    FOR COLUMN CNTLBNK,
-    lcrparm                 VARCHAR(20)     NOT NULL    FOR COLUMN CNTLPRM,
-    descripcion             VARCHAR(120)                FOR COLUMN CNTLDSC,
-    valor_texto             VARCHAR(80)                 FOR COLUMN CNTLVTX,
-    valor_numerico          DECIMAL(18,4)               FOR COLUMN CNTLVNU,
-    valor_fecha             DATE                        FOR COLUMN CNTLVFE,
-    tipo_parametro          VARCHAR(20)                 FOR COLUMN CNTLTPR,
-    vigente_desde           DATE                        FOR COLUMN CNTLVDE,
-    vigente_hasta           DATE                        FOR COLUMN CNTLVHA,
-    fecha_emision           DATE                        FOR COLUMN CNTLFEM,
-    fecha_vencimiento       DATE                        FOR COLUMN CNTLFVE,
-    monto_original          DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CNTLMOR,
-    saldo_actual            DECIMAL(18,2)   NOT NULL
-                                            DEFAULT 0   FOR COLUMN CNTLSAL,
-    banco_corresponsal      VARCHAR(80)                 FOR COLUMN CNTLBCR,
-    pais_destino            VARCHAR(80)                 FOR COLUMN CNTLPDS,
-    estado_carta            VARCHAR(20)     NOT NULL    FOR COLUMN CNTLEST,
-    usuario_creacion        VARCHAR(30)                 FOR COLUMN CNTLUSC,
-    usuario_actualizacion   VARCHAR(30)                 FOR COLUMN CNTLUSA,
-    version_registro        INT             NOT NULL
-                                            DEFAULT 1   FOR COLUMN CNTLVRS,
-    observaciones           VARCHAR(120)                FOR COLUMN CNTLOBS,
-    estado_registro         CHAR(1)         NOT NULL
-                                            DEFAULT 'A' FOR COLUMN CNTLERG,
-    created_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CNTLCAT,
-    updated_at              TIMESTAMP       NOT NULL
-                                            DEFAULT CURRENT_TIMESTAMP
-                                                        FOR COLUMN CNTLUAT,
+    codigo_banco             FOR COLUMN CNTLBNK    VARCHAR(20)    NOT NULL,
+    lcrparm                  FOR COLUMN CNTLPRM    VARCHAR(20)    NOT NULL,
+    fecha_emision            FOR COLUMN CNTLFEM    DATE,
+    fecha_vencimiento        FOR COLUMN CNTLFVE    DATE,
+    monto_original           FOR COLUMN CNTLMOR    DECIMAL(18,2)  NOT NULL DEFAULT 0,
+    saldo_actual             FOR COLUMN CNTLSAL    DECIMAL(18,2)  NOT NULL DEFAULT 0,
+    banco_corresponsal       FOR COLUMN CNTLBCR    VARCHAR(80),
+    pais_destino             FOR COLUMN CNTLPDS    VARCHAR(80),
+    estado_carta             FOR COLUMN CNTLEST    VARCHAR(20)    NOT NULL,
+    usuario_creacion         FOR COLUMN CNTLUSC    VARCHAR(30),
+    usuario_actualizacion    FOR COLUMN CNTLUSA    VARCHAR(30),
+    version_registro         FOR COLUMN CNTLVRS    INT            NOT NULL DEFAULT 1,
+    observaciones            FOR COLUMN CNTLOBS    VARCHAR(120),
+    estado_registro          FOR COLUMN CNTLERG    CHAR(1)        NOT NULL DEFAULT 'A',
+    created_at               FOR COLUMN CNTLCAT    TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at               FOR COLUMN CNTLUAT    TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT PK_CNTRLLCP PRIMARY KEY (codigo_banco, lcrparm)
 )
 RCDFMT CNTLLCPR;
@@ -67,20 +52,6 @@ COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.codigo_banco IS
     'Codigo del banco al que pertenece la configuracion de parametros LC';
 COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.lcrparm IS
     'Codigo del parametro de control de cartas de credito segun catalogo';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.descripcion IS
-    'Descripcion del parametro y su efecto en el proceso de cartas de credito';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.valor_texto IS
-    'Valor textual del parametro cuando aplica tipo caracter';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.valor_numerico IS
-    'Valor numerico del parametro cuando aplica tipo numerico';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.valor_fecha IS
-    'Valor fecha del parametro cuando aplica tipo fecha';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.tipo_parametro IS
-    'Tipo de dato del parametro: TEXTO, NUMERICO, FECHA, INDICADOR';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.vigente_desde IS
-    'Fecha desde la que este valor del parametro esta vigente';
-COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.vigente_hasta IS
-    'Fecha hasta la que este valor del parametro tiene vigencia';
 COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.fecha_emision IS
     'Fecha de emision de la carta de credito';
 COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.fecha_vencimiento IS
@@ -113,13 +84,6 @@ COMMENT ON COLUMN HNEACOSTA1/CNTRLLCP.updated_at IS
 LABEL ON COLUMN HNEACOSTA1/CNTRLLCP (
     codigo_banco                 TEXT IS 'Banco',
     lcrparm                      TEXT IS 'Cod Parametro',
-    descripcion                  TEXT IS 'Descripcion',
-    valor_texto                  TEXT IS 'Valor Texto',
-    valor_numerico               TEXT IS 'Valor Numerico',
-    valor_fecha                  TEXT IS 'Valor Fecha',
-    tipo_parametro               TEXT IS 'Tipo Param',
-    vigente_desde                TEXT IS 'Vig Desde',
-    vigente_hasta                TEXT IS 'Vig Hasta',
     fecha_emision                TEXT IS 'Fec Emision',
     fecha_vencimiento            TEXT IS 'Fec Vencim',
     monto_original               TEXT IS 'Monto Orig',

@@ -21,7 +21,7 @@
 -- Proyecto            : Taller IBM i - Sistema Bancario IBS
 -- ==============================================================================
 
-CREATE OR REPLACE TABLE HNEACOSTA1/HEAD (
+CREATE OR REPLACE TABLE HEAD (
     nombre_printer_file   FOR COLUMN NOMPRT   VARCHAR(50)    NOT NULL,
     secuencia             FOR COLUMN SECUENC  INTEGER        NOT NULL,
     descripcion           FOR COLUMN DESCRIP  VARCHAR(120)   NOT NULL DEFAULT '',
@@ -41,32 +41,32 @@ CREATE OR REPLACE TABLE HNEACOSTA1/HEAD (
 )
 RCDFMT HEADR;
 
-RENAME TABLE HNEACOSTA1/HEAD
-    TO HEAD FOR SYSTEM NAME HEAD;
+RENAME TABLE HEAD
+    TO HEAD_REPORT_TABLE FOR SYSTEM NAME HEAD;
 
-COMMENT ON TABLE HNEACOSTA1/HEAD IS
+COMMENT ON TABLE HEAD IS
     'Titulos de Reportes por Printer File - Modulo 01 Archivos Comunes Taller IBM i';
 
-LABEL ON TABLE HNEACOSTA1/HEAD IS
+LABEL ON TABLE HEAD IS
     'Titulos de Reportes';
 
-COMMENT ON COLUMN HNEACOSTA1/HEAD.nombre_printer_file   IS 'Nombre del Printer File de IBM i al que corresponde el titulo; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.secuencia             IS 'Numero de secuencia del titulo o linea de encabezado del reporte; parte de la PK';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.descripcion           IS 'Descripcion funcional del titulo o encabezado del reporte';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.valor_texto           IS 'Texto del titulo o encabezado a imprimir en el reporte';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.valor_numerico        IS 'Valor numerico asociado al encabezado si aplica';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.vigencia_desde        IS 'Fecha desde la cual el titulo del reporte es vigente';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.vigencia_hasta        IS 'Fecha hasta la cual el titulo del reporte es vigente';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.orden_visualizacion   IS 'Numero de orden de impresion del titulo en el reporte';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.usuario_creacion      IS 'Usuario del sistema que creo el registro de titulo';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.observaciones         IS 'Notas adicionales sobre el titulo del reporte';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.created_at            IS 'Fecha y hora exacta de creacion del registro';
-COMMENT ON COLUMN HNEACOSTA1/HEAD.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
+COMMENT ON COLUMN HEAD.nombre_printer_file   IS 'Nombre del Printer File de IBM i al que corresponde el titulo; parte de la PK';
+COMMENT ON COLUMN HEAD.secuencia             IS 'Numero de secuencia del titulo o linea de encabezado del reporte; parte de la PK';
+COMMENT ON COLUMN HEAD.descripcion           IS 'Descripcion funcional del titulo o encabezado del reporte';
+COMMENT ON COLUMN HEAD.valor_texto           IS 'Texto del titulo o encabezado a imprimir en el reporte';
+COMMENT ON COLUMN HEAD.valor_numerico        IS 'Valor numerico asociado al encabezado si aplica';
+COMMENT ON COLUMN HEAD.vigencia_desde        IS 'Fecha desde la cual el titulo del reporte es vigente';
+COMMENT ON COLUMN HEAD.vigencia_hasta        IS 'Fecha hasta la cual el titulo del reporte es vigente';
+COMMENT ON COLUMN HEAD.orden_visualizacion   IS 'Numero de orden de impresion del titulo en el reporte';
+COMMENT ON COLUMN HEAD.usuario_creacion      IS 'Usuario del sistema que creo el registro de titulo';
+COMMENT ON COLUMN HEAD.usuario_actualizacion IS 'Usuario del sistema que realizo la ultima modificacion';
+COMMENT ON COLUMN HEAD.version_registro      IS 'Contador de versiones para control de concurrencia optimista';
+COMMENT ON COLUMN HEAD.observaciones         IS 'Notas adicionales sobre el titulo del reporte';
+COMMENT ON COLUMN HEAD.estado_registro       IS 'Estado logico del registro: A=Activo, I=Inactivo';
+COMMENT ON COLUMN HEAD.created_at            IS 'Fecha y hora exacta de creacion del registro';
+COMMENT ON COLUMN HEAD.updated_at            IS 'Fecha y hora de la ultima actualizacion del registro';
 
-LABEL ON COLUMN HNEACOSTA1/HEAD (
+LABEL ON COLUMN HEAD (
     nombre_printer_file   TEXT IS 'Nombre Printer File',
     secuencia             TEXT IS 'Secuencia',
     descripcion           TEXT IS 'Descripcion',
@@ -84,4 +84,4 @@ LABEL ON COLUMN HNEACOSTA1/HEAD (
     updated_at            TEXT IS 'Fecha Actualizacion'
 );
 
-CREATE INDEX HNEACOSTA1/IDX_HEAD_C ON HNEACOSTA1/HEAD (created_at);
+CREATE INDEX IDX_HEAD_C ON HEAD (created_at);
