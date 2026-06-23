@@ -1,0 +1,67 @@
+/* ========================================================================== */
+/*  Programa CL     : GLCNBLD                                                  */
+/*  Proyecto        : Conciliacion de Cuentas Mayores GLBLN (Taller IBM i)     */
+/*  Descripcion     : Compila y enlaza todo el conjunto de la conciliacion en  */
+/*                    el orden correcto de dependencias:                       */
+/*                       1. Modulos (CRTSQLRPGI ... OBJTYPE(*MODULE))          */
+/*                       2. Binding directory (CRTBNDDIR + ADDBNDDIRE)         */
+/*                       3. Programa de servicio (CRTSRVPGM)                   */
+/*                       4. Programa principal (CRTSQLRPGI ... *PGM)           */
+/*  Pre-requisito   : el copybook GLCNCPY debe existir en QRPGLESRC y el       */
+/*                    binder source GLCNBND en QSRVSRC de la libreria destino. */
+/*  Parametro       : &LIB = libreria destino (DFT TALLERLIB).                 */
+/*  Nota IBM i      : se usa CRTSQLRPGI para fuentes SQLRPGLE (precompilador   */
+/*                    SQL). Los .sqlrpgle se cargan como miembros de QRPGLESRC. */
+/*  Hecho por       : Equipo Taller IBM i                                       */
+/*  Fecha           : 2026-05-19                                               */
+/* ========================================================================== */
+             PGM        PARM(&LIB)
+
+             DCL        VAR(&LIB) TYPE(*CHAR) LEN(10) VALUE('HNEACOSTA2')
+
+/* ---- 0. Asegurar biblioteca y directorio de enlace --------------------- */
+             CHGCURLIB  CURLIB(&LIB)
+             MONMSG     MSGID(CPF0000)
+
+             CRTBNDDIR  BNDDIR(&LIB/SERVICES) +
+                          TEXT('Conciliacion GLBLN - binding directory')
+             MONMSG     MSGID(CPF0000)
+
+/* ---- 1. Compilar modulos de servicio (orden: hojas primero) ------------ */
+             CRTSQLRPGI OBJ(&LIB/GLPNCPY)  SRCFILE(&LIB/QMODSRC) +
+                          OBJTYPE(*MODULE) COMMIT(*NONE) DBGVIEW(*SOURCE)
+             MONMSG     MSGID(SQL9999 CPF0000)
+
+             CRTSQLRPGI OBJ(&LIB/GLPNUTL)  SRCFILE(&LIB/QMODSRC) +
+                          OBJTYPE(*MODULE) COMMIT(*NONE) DBGVIEW(*SOURCE)
+
+             CRTSQLRPGI OBJ(&LIB/GLPNBUS)  SRCFILE(&LIB/QMODSRC) +
+                          OBJTYPE(*MODULE) COMMIT(*NONE) DBGVIEW(*SOURCE)
+
+             CRTSQLRPGI OBJ(&LIB/GLPNDAO)  SRCFILE(&LIB/QMODSRC) +
+                          OBJTYPE(*MODULE) COMMIT(*NONE) DBGVIEW(*SOURCE)
+
+             CRTSQLRPGI OBJ(&LIB/GLPNJSON) SRCFILE(&LIB/QMODSRC) +
+                          OBJTYPE(*MODULE) COMMIT(*NONE) DBGVIEW(*SOURCE)
+
+/* ---- 2. Crear programa de servicio con los modulos de servicio --------- */
+             CRTSRVPGM  SRVPGM(&LIB/GLPNUTL) +
+                          MODULE(&LIB/GLPNUTL &LIB/GLPNBUS +
+                                 &LIB/GLPNDAO &LIB/GLPNJSON) +
+                          EXPORT(*SRCFILE) +
+                          SRCFILE(&LIB/QSRVSRC) SRCMBR(GLPNBND) +
+                          TEXT('Conciliacion GLBLN - servicios')
+
+/* ---- 3. Registrar el *SRVPGM en el binding directory ------------------- */
+             ADDBNDDIRE BNDDIR(&LIB/GLPNBND) +
+                          OBJ((&LIB/GLPNUTL *SRVPGM))
+             MONMSG     MSGID(CPF0000)
+
+/* ---- 4. Compilar y enlazar el programa principal ----------------------- */
+             CRTSQLRPGI OBJ(&LIB/GLPN001) SRCFILE(&LIB/QSQLRPGSRC) +
+                          OBJTYPE(*PGM) COMMIT(*NONE) DBGVIEW(*SOURCE)
+
+             SNDPGMMSG  MSG('Conciliacion GLBLN compilada en ' *CAT +
+                          &LIB *TCAT '.') MSGTYPE(*COMP)
+
+             ENDPGM

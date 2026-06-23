@@ -1,0 +1,228 @@
+**FREE
+// ============================================================================
+//  Copybook        : GLCNCPY
+//  Proyecto        : Conciliacion de Cuentas Mayores GLBLN  (Taller IBM i)
+//  Descripcion     : Contratos de servicio del proceso de conciliacion.
+//                    Centraliza constantes, plantillas (templates) de
+//                    estructuras de datos y prototipos de procedimientos
+//                    exportados por cada modulo / programa de servicio.
+//  Patron de capas : orquestacion (GLCN001) -> negocio (GLCNBUS)
+//                    -> acceso a datos (GLCNDAO) -> salida JSON/IFS (GLCNJSON)
+//                    -> utilidades (GLCNUTL).
+//  SOLID           : ISP  -> prototipos agrupados por contexto funcional.
+//                    DIP  -> el negocio depende de estas firmas, no del SQL.
+//  Nomenclatura    : prefijo de modulo + '_' + verboSustantivo (camelCase).
+//                    Variables: p* parametro, w* trabajo, g* global, c* const.
+//  Hecho por       : Equipo Taller IBM i
+//  Fecha           : 2026-05-19
+// ============================================================================
+/IF DEFINED(GLPNCPY_INCLUIDO)
+/UNDEFINE GLPNCPY_INCLUIDO
+
+// ----------------------------------------------------------------------------
+//  Constantes del contrato JSON (seccion 8 de requerimientos_taller.md)
+// ----------------------------------------------------------------------------
+dcl-c CN_VERSION_ESTRUCTURA  '1.0.0';
+dcl-c CN_SISTEMA_ORIGEN      'IBS-IBM-i';
+dcl-c CN_PROCESO             'CONCILIACION_GLBLN';
+dcl-c CN_PROGRAMA_PRINCIPAL  'GLCN001';
+dcl-c CN_CHARSET             'UTF-8';
+
+// Estados de conciliacion por cuenta
+dcl-c CN_EST_CONCILIADA      'CONCILIADA';
+dcl-c CN_EST_PARCIAL         'PARCIAL';
+dcl-c CN_EST_NO_CONCILIADA   'NO_CONCILIADA';
+
+// Severidades
+dcl-c CN_SEV_BAJA            'BAJA';
+dcl-c CN_SEV_MEDIA           'MEDIA';
+dcl-c CN_SEV_ALTA            'ALTA';
+dcl-c CN_SEV_CRITICA         'CRITICA';
+
+// Estados de ejecucion (controlTotales / ejecucion.estadoEjecucion)
+dcl-c CN_EJE_FINALIZADO      'FINALIZADO';
+dcl-c CN_EJE_PARCIAL         'PARCIAL';
+dcl-c CN_EJE_ERROR           'ERROR';
+
+// Literales booleanos JSON (se emiten con FORMAT JSON en GLCNJSON)
+dcl-c CN_JSON_TRUE            'true';
+dcl-c CN_JSON_FALSE          'false';
+
+// ----------------------------------------------------------------------------
+//  Estructura: parametros de ejecucion (seccion 9 de requerimientos_taller.md)
+// ----------------------------------------------------------------------------
+dcl-ds tParam_t qualified template;
+  banco        char(20);
+  sucursal     char(20);
+  moneda       char(20);
+  ctaDesde     char(24);
+  ctaHasta     char(24);
+  fechaProc    char(10);   // ISO 'YYYY-MM-DD'
+  rutaIfs      varchar(255);
+  modo         char(10);   // 'PRUEBA' / 'PRODUCTIVO'
+  ambiente     char(10);   // 'QA' / 'UAT' / 'PRD'
+  tolerancia   packed(18:2);
+end-ds;
+
+// ----------------------------------------------------------------------------
+//  Estructura: contexto de ejecucion (metadata, ejecucion, contexto del JSON)
+// ----------------------------------------------------------------------------
+dcl-ds tContexto_t qualified template;
+  idEjecucion     varchar(30);
+  fechaProceso    char(10);
+  fechaHoraInicio varchar(19);  // ISO con 'T'
+  fechaHoraFin    varchar(19);
+  usuario         char(10);
+  libreria        char(10);
+  estadoEjecucion varchar(20);
+  anio            int(10);
+  mes             int(10);
+  fechaCorte      char(10);
+end-ds;
+
+// ----------------------------------------------------------------------------
+//  Estructura: fila de cuenta a clasificar (insumo de reglas de negocio)
+// ----------------------------------------------------------------------------
+dcl-ds tCtaRow_t qualified template;
+  cuentaContable  char(24);
+  difNeta         packed(18:2);
+  difAbs          packed(18:2);
+  tolerancia      packed(18:2);
+  cantPartidas    int(10);
+end-ds;
+
+// ----------------------------------------------------------------------------
+//  Estructura: resultado de clasificacion de una cuenta (salida de negocio)
+// ----------------------------------------------------------------------------
+dcl-ds tClasif_t qualified template;
+  estadoCod    varchar(20);
+  estadoDesc   varchar(120);
+  severidad    varchar(10);
+  requiereRev  varchar(5);   // 'true'/'false'
+  excedeTol    varchar(5);   // 'true'/'false'
+  motivo       varchar(120);
+end-ds;
+
+// ----------------------------------------------------------------------------
+//  Estructura: incidente derivado de una cuenta (auditoria)
+// ----------------------------------------------------------------------------
+dcl-ds tIncid_t qualified template;
+  hay          ind;          // *ON si se genero incidente
+  codigo       varchar(20);
+  tipo         varchar(20);
+  cuenta       char(24);
+  mensaje      varchar(200);
+  severidad    varchar(10);
+end-ds;
+
+// ----------------------------------------------------------------------------
+//  Estructura: control de totales globales (controlTotales del JSON)
+// ----------------------------------------------------------------------------
+dcl-ds tTotales_t qualified template;
+  totalCuentas        int(10);
+  totalConciliadas    int(10);
+  totalConDiferencia  int(10);
+  sumFuente           packed(18:2);
+  sumConciliado       packed(18:2);
+  sumDiferenciaNeta   packed(18:2);
+  incidentesAltos     int(10);
+end-ds;
+
+// ============================================================================
+//  Prototipos - Programa de servicio de utilidades (GLCNUTL)
+// ============================================================================
+dcl-pr utl_genIdEjecucion varchar(30) extproc('UTL_GENIDEJECUCION');
+end-pr;
+
+dcl-pr utl_isoAhora varchar(19) extproc('UTL_ISOAHORA');
+end-pr;
+
+dcl-pr utl_isoTimestamp varchar(19) extproc('UTL_ISOTIMESTAMP');
+  pTimestamp timestamp value;
+end-pr;
+
+dcl-pr utl_nombreArchivo varchar(120) extproc('UTL_NOMBREARCHIVO');
+  pIdEjecucion varchar(30) const;
+end-pr;
+
+dcl-pr utl_construirRuta varchar(255) extproc('UTL_CONSTRUIRRUTA');
+  pRutaBase varchar(255) const;
+  pNombre   varchar(120) const;
+end-pr;
+
+dcl-pr utl_escribirLog ind extproc('UTL_ESCRIBIRLOG');
+  pRutaLog varchar(255) const;
+  pTexto   varchar(500) const;
+end-pr;
+
+// ============================================================================
+//  Prototipos - Modulo de acceso a datos (GLCNDAO)
+// ============================================================================
+dcl-pr dao_prepararEntorno ind extproc('DAO_PREPARARENTORNO');
+end-pr;
+
+dcl-pr dao_cargarCuentas int(10) extproc('DAO_CARGARCUENTAS');
+  pParam likeds(tParam_t) const;
+end-pr;
+
+dcl-pr dao_cargarPartidas int(10) extproc('DAO_CARGARPARTIDAS');
+  pParam likeds(tParam_t) const;
+end-pr;
+
+dcl-pr dao_cuentaOpen ind extproc('DAO_CUENTAOPEN');
+end-pr;
+
+dcl-pr dao_cuentaFetch ind extproc('DAO_CUENTAFETCH');
+  pRow likeds(tCtaRow_t);
+end-pr;
+
+dcl-pr dao_cuentaClose ind extproc('DAO_CUENTACLOSE');
+end-pr;
+
+dcl-pr dao_cuentaUpdateClasif ind extproc('DAO_CUENTAUPDATECLASIF');
+  pCuenta char(24) const;
+  pClasif likeds(tClasif_t) const;
+end-pr;
+
+dcl-pr dao_insertarIncidente ind extproc('DAO_INSERTARINCIDENTE');
+  pInc likeds(tIncid_t) const;
+end-pr;
+
+dcl-pr dao_calcularTotales ind extproc('DAO_CALCULARTOTALES');
+  pTot likeds(tTotales_t);
+end-pr;
+
+// ============================================================================
+//  Prototipos - Modulo de negocio / reglas de conciliacion (GLCNBUS)
+// ============================================================================
+dcl-pr bus_clasificarCuenta likeds(tClasif_t) extproc('BUS_CLASIFICARCUENTA');
+  pDifAbs   packed(18:2) const;
+  pDifNeta  packed(18:2) const;
+  pTol      packed(18:2) const;
+  pTienePartidas ind value;
+end-pr;
+
+dcl-pr bus_incidenteCuenta likeds(tIncid_t) extproc('BUS_INCIDENTECUENTA');
+  pClasif likeds(tClasif_t) const;
+  pCuenta char(24) const;
+end-pr;
+
+dcl-pr bus_estadoEjecucion varchar(20) extproc('BUS_ESTADOEJECUCION');
+  pIncidentesAltos int(10) value;
+  pErrorTecnico    ind value;
+end-pr;
+
+// ============================================================================
+//  Prototipos - Modulo de salida JSON / IFS (GLCNJSON)
+// ============================================================================
+dcl-pr jsn_generarDocumento ind extproc('JSN_GENERARDOCUMENTO');
+  pParam likeds(tParam_t)    const;
+  pCtx   likeds(tContexto_t) const;
+  pTot   likeds(tTotales_t)  const;
+  pRutaSalida varchar(255);   // devuelve ruta IFS final
+end-pr;
+
+dcl-pr jsn_validarUltimo ind extproc('JSN_VALIDARULTIMO');
+end-pr;
+
+/ENDIF

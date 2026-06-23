@@ -1,0 +1,29 @@
+Orden de ejecución y trazabilidad
+01 → 02 → 03 → 04 → 05
+Script 01 — Catálogos base
+Tablas: CNTRLCNT, CNTRLBRN, CCDSC, GLMST
+Pobla los maestros que no tienen dependencias. CNTRLCNT parametriza banco, ambiente (QA), tolerancia (1.00), ruta IFS y 
+versión JSON — todos campos de metadata y ejecucion del JSON. GLMST define las 20 cuentas del rango 11000000–11999999 
+on descripcionCuenta, naturaleza y nivelCuenta que el proceso lee según la matriz de trazabilidad §14.
+Script 02 — GLBLN (fuente principal)
+Tabla: GLBLN
+15 filas del periodo 2026-05-19, banco 01, sucursal 001, moneda USD. Son el saldoFinalFuente de cada cuenta en 
+cuentas[].saldos. Incluye deliberadamente cuentas con diferencias (0.50, 5.00, 8.75, 25.00) para ejercitar 
+todos los estados de conciliación del JSON: PARCIAL, NO_CONCILIADA, CONCILIADA.
+Script 03 — TRANS + TRDSC (histórico)
+Tablas: TRANS, TRDSC
+Movimientos del periodo 2026-05-01 al 2026-05-19. Producen debitosPeriodo, creditosPeriodo, 
+cantidadMovimientos, primerMovimiento y ultimoMovimiento. La transacción RR-1004 / DEP-884771 
+en estado PENDIENTE es exactamente la partida conciliatoria PC-0001 del JSON de ejemplo. TRDSC provee el subtipo y observacion de cada partida.
+Script 04 — TTRAN (transacciones del día)
+Tabla: TTRAN
+13 filas del 2026-05-19 (10 para cuenta 11010101 + 3 de otras cuentas con partidas activas). 
+Cubre el campo trazabilidad.registrosFuente.ttran = 10 del JSON. 
+La partida PC-0001 aparece aquí como la transacción intradiaria pendiente de migrar al histórico.
+Script 05 — Catálogos de dominio + SELECTs de verificación
+Tabla: CNOFT
+Inserta todos los catálogos de dominio del proceso: estados de conciliación (CONCILIADA/PARCIAL/NO_CONCILIADA),
+severidades (BAJA/MEDIA/ALTA/CRITICA), tipos de partida, estados de partida, 
+tipos de incidente y estados de ejecución. Los 5 SELECTs comentados al final son las consultas exactas que el 
+programa SQLRPGLE ejecutará para construir cada sección del JSON — están comentadas 
+para que el equipo las active como punto de partida del código RPGLE.
