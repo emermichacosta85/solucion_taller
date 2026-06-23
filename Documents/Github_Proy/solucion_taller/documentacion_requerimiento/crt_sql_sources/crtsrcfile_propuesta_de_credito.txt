@@ -1,0 +1,17 @@
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(PLPCR) TYPE(SQL) TEXT('Maestro de Propuestas de Crédito.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(PLPRD) TYPE(SQL) TEXT('Detalle de Productos por Propuesta.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(PLGRT) TYPE(SQL) TEXT('Garantías asociadas a las propuestas.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(DPMST) TYPE(SQL) TEXT('Cabecera de Dec. Patrimonial Pers. Naturales.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(DPDTL) TYPE(SQL) TEXT('Detalle de Dec. Patrimonial Pers. Naturales.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(IFMST) TYPE(SQL) TEXT('Cabecera de Dec. Patrimonial Pers. Jurídicas.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(IFDTL) TYPE(SQL) TEXT('Detalle de Dec. Patrimonial Pers. Jurídicas.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(DPGLN) TYPE(SQL) TEXT('Plan de Cuentas de nuestros Clientes.')
+
+STRSEU SRCFILE(HNEACOSTA2/QSQLSRC) SRCMBR(LIMST) TYPE(SQL) TEXT('Cabecera de Declaración Legal Pers. Jurídicas.')

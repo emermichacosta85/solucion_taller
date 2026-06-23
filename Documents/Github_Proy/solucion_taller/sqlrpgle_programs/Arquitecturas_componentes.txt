@@ -1,0 +1,32 @@
+Arquitectura de componentes
+GLRPT001.sqlrpgle   (*PGM — Orquestador)
+    │
+    ├── GLUTIL.sqlrpgle   (*SRVPGM — Utilidades)
+    ├── GLDATA.sqlrpgle   (*MODULE — Acceso a datos)
+    ├── GLBIZN.sqlrpgle   (*MODULE — Negocio)
+    └── GLOUTS.sqlrpgle   (*MODULE — Salida IFS)
+
+    Cobertura de requerimientos
+RequerimientoMódulo responsable
+RF-01 Consulta GLBLN con filtrosGLDATA — cursor con JOIN GLBLN + GLMST + CCDSC
+RF-02 Cálculo de balanceGLBIZN.gl_calcularBalance — saldoInicial/Calculado/Conciliado
+RF-03 Estado financieroGLBIZN.gl_determinarEstado — CONCILIADA/PARCIAL/NO_CONCILIADA/severidad
+RF-04 ConsolidaciónGLBIZN.gl_acumularTotales — controlTotales acumulado por cuenta
+RF-05 JSON válido UTF-8GLOUTS.gl_jsonIniciar/AgregarCuenta/Finalizar — todos los campos §8.1
+RF-06 Publicación IFSGLOUTS.gl_escribirIfs — nombre trazable GLBLN_YYYYMMDD_HHMMSS_NNN.json
+RF-07 BitácoraGLOUTS.gl_escribirBitacora — LOG.txt con timestamps y resumen
+RF-08 Manejo de erroresGLBIZN.gl_generarIncidente + validaciones en GLRPT001 — continúa/aborta según severidad
+
+Principios SOLID aplicados
+
+SRP: cada módulo tiene una sola razón de cambio — GLDATA solo cambia si cambian las tablas; GLBIZN solo si cambian las reglas; GLOUTS solo si cambia el formato JSON.
+OCP: agregar una nueva regla de clasificación → solo modificar gl_determinarEstado en GLBIZN, sin tocar GLRPT001.
+DIP: GLRPT001 nunca escribe SQL ni toca IFS directamente; depende de contratos de módulos.
+ISP: prototipos separados por dominio (fechas/hash/JSON en GLUTIL; cursores/conteos en GLDATA).
+
+Orden de compilación
+1. CRTRPGMOD   GLUTIL  → CRTSRVPGM GLUTIL
+2. CRTSQLRPGI  GLDATA  (OBJTYPE *MODULE)
+3. CRTRPGMOD   GLBIZN
+4. CRTRPGMOD   GLOUTS
+5. CRTSQLRPGI  GLRPT001 (BNDMOD GLDATA+GLBIZN+GLOUTS, BNDSRVPGM GLUTIL)
