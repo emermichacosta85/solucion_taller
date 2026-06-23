@@ -1,0 +1,49 @@
+#=============================================================================
+#  Objeto TXT de parametrizacion : GLCNPARM
+#  Proyecto : Conciliacion de Cuentas Mayores GLBLN (Taller IBM i)
+#  Uso      : valores por defecto y de referencia para invocar GLCN001.
+#            Formato clave=valor; las lineas que inician con '#' son
+#            comentarios. Es un objeto de apoyo (entregable seccion 10);
+#            GLCN001 tambien acepta los mismos valores como parametros.
+#  Hecho por: Equipo Taller IBM i
+#  Fecha    : 2026-05-19
+#=============================================================================
+
+# --- Contexto de negocio (filtros primarios sobre GLBLN/TRANS/TTRAN) ---
+BANCO=01
+SUCURSAL=001
+MONEDA=USD
+
+# --- Rango de cuentas contables a conciliar (BETWEEN inclusivo) ---
+CUENTA_DESDE=11000000
+CUENTA_HASTA=11999999
+
+# --- Fecha de proceso / corte (ISO YYYY-MM-DD). Deriva anio y mes ---
+FECHA_PROCESO=2026-05-19
+
+# --- Ruta IFS de salida (se crean: JSON y .log por idEjecucion) ---
+RUTA_IFS=/tmp/conciliacion
+
+# --- Modo de ejecucion: PRUEBA | PRODUCTIVO ---
+MODO=PRODUCTIVO
+
+# --- Ambiente reportado en metadata.ambiente: QA | UAT | PRD ---
+AMBIENTE=QA
+
+# --- Tolerancia de diferencia permitida (DECIMAL 18,2). |dif| > tol => ALTA ---
+TOLERANCIA=1.00
+
+#=============================================================================
+#  Ejemplo de invocacion (CALL) usando estos valores:
+#
+#    CALL PGM(TALLERLIB/GLCN001) PARM(
+#         '01' '001' 'USD' '11000000' '11999999'
+#         '2026-05-19' '/tmp/conciliacion' 'PRODUCTIVO' 'QA' '1.00')
+#
+#  Ejemplo batch (SBMJOB):
+#
+#    SBMJOB CMD(CALL PGM(TALLERLIB/GLCN001) PARM(
+#               '01' '001' 'USD' '11000000' '11999999'
+#               '2026-05-19' '/tmp/conciliacion' 'PRODUCTIVO' 'QA' '1.00'))
+#           JOB(GLCN001)
+#=============================================================================

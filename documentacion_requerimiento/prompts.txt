@@ -18,11 +18,11 @@ quiero que analices el documento requerimientos_taller.md y me generes un archiv
  en el archivo estructura_bd.md
 
  CREACION DE PROGRAMAS 
- de acuerdo a los scripts de insert generados creame los programas en sqlrpgle que se necesitan para cumplir las secciones
-requerimientos funcionales,diseño logico propuesto, estructura de salida json, parametros de ejecucion, 
-entregables del taller, matriz de trazabilidad json vs bd. 
-siempre tomando en consideracion las demas secciones para crear toda la logica de programacion del 
-conjunto de programas que se crearan
+ de acuerdo a los scripts de insert generados contenidos en el archivo seed_conciliacion_glbln.sql,creame los programas en sqlrpgle *full free, 
+ cuidando la sintaxis, la relacion de variables en los programas  y coherencia, que se necesitan para cumplir las secciones alcance funcional,
+ plataformas y tecnologias requerimientos funcionales,diseño logico propuesto, estructura de salida json, parametros de ejecucion,  
+ entregables del taller, matriz de trazabilidad json vs bd, el archivo json debe ser creado mediante sql para enviarlo al ifs.  
+ siempre tomando en consideracion las demas secciones para crear toda la logica de programacion del  conjunto de programas que se crearan.
 
 Creacion de sources para cada fuente
 analiza el documento y en la seccion archivos comunes, creame este comando para cada archivo que contiene esta seccion, 

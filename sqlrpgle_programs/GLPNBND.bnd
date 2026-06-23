@@ -1,0 +1,47 @@
+/* ========================================================================== */
+/*  Binder Source   : GLPNBND                                                  */
+/*  Proyecto        : Conciliacion de Cuentas Mayores GLBLN (Taller IBM i)     */
+/*  Descripcion     : Lista de exports del programa de servicio de utilidades  */
+/*                    y de los modulos que se enlazan por nombre. Define el     */
+/*                    contrato binario (signature) del *SRVPGM GLCNUTL y, por   */
+/*                    extension documental, los procedimientos exportados por   */
+/*                    los modulos de servicio del conjunto.                     */
+/*  Uso             : CRTSRVPGM ... SRCFILE(QSRVSRC) SRCMBR(GLCNBND)            */
+/*                    EXPORT(*SRCFILE)                                          */
+/*  Nota SOLID      : el control de signature (STRPGMEXP) versiona el contrato  */
+/*                    publico (OCP): agregar nuevos procedimientos al final no  */
+/*                    rompe a los consumidores ya enlazados.                    */
+/*  Hecho por       : Equipo Taller IBM i                                       */
+/*  Fecha           : 2026-05-19                                               */
+/* ========================================================================== */
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('GLPN_CONCILIACION_V1')
+
+  /* --- Utilidades (GLPNUTL) --- */
+  EXPORT SYMBOL('UTL_GENIDEJECUCION')
+  EXPORT SYMBOL('UTL_ISOAHORA')
+  EXPORT SYMBOL('UTL_ISOTIMESTAMP')
+  EXPORT SYMBOL('UTL_NOMBREARCHIVO')
+  EXPORT SYMBOL('UTL_CONSTRUIRRUTA')
+  EXPORT SYMBOL('UTL_ESCRIBIRLOG')
+
+  /* --- Acceso a datos (GLPNDAO) --- */
+  EXPORT SYMBOL('DAO_PREPARARENTORNO')
+  EXPORT SYMBOL('DAO_CARGARCUENTAS')
+  EXPORT SYMBOL('DAO_CARGARPARTIDAS')
+  EXPORT SYMBOL('DAO_CUENTAOPEN')
+  EXPORT SYMBOL('DAO_CUENTAFETCH')
+  EXPORT SYMBOL('DAO_CUENTACLOSE')
+  EXPORT SYMBOL('DAO_CUENTAUPDATECLASIF')
+  EXPORT SYMBOL('DAO_INSERTARINCIDENTE')
+  EXPORT SYMBOL('DAO_CALCULARTOTALES')
+
+  /* --- Negocio (GLPNBUS) --- */
+  EXPORT SYMBOL('BUS_CLASIFICARCUENTA')
+  EXPORT SYMBOL('BUS_INCIDENTECUENTA')
+  EXPORT SYMBOL('BUS_ESTADOEJECUCION')
+
+  /* --- Salida JSON / IFS (GLPNJSON) --- */
+  EXPORT SYMBOL('JSN_GENERARDOCUMENTO')
+  EXPORT SYMBOL('JSN_VALIDARULTIMO')
+
+ENDPGMEXP
